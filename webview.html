@@ -551,6 +551,14 @@
 					});
 					loadingMessage.appendChild(copyBtn);
 				}
+			} else if (command === 'setInitialPrompt') {
+				// Set initial prompt for Python workflow
+				promptInput.value = text;
+				promptInput.focus();
+				// Auto-send the initial prompt after a short delay
+				setTimeout(() => {
+					sendMessage();
+				}, 500);
 			}
 		});
 

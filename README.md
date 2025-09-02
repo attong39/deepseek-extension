@@ -1,9 +1,7 @@
 
-<h1>DeepSeek AI Assistant</h1>
+<h1>DeepSeek AI Assistant - Enhanced Python Edition</h1>
 
-  
-
-<h3>Your Local AI Programming Assistant for VS Code</h3>
+<h3>Your Local AI Programming Assistant for VS Code with Advanced Python Workflow Integration</h3>
 
 
 [![Version](https://img.shields.io/visual-studio-marketplace/v/aryansrao.deekseek-extension?logo=visualstudiocode&logoColor=white&label=Version)](https://marketplace.visualstudio.com/items?itemName=aryansrao.deekseek-extension) [![Downloads](https://img.shields.io/visual-studio-marketplace/d/aryansrao.deekseek-extension)](https://marketplace.visualstudio.com/items?itemName=aryansrao.deekseek-extension) [![Rating](https://img.shields.io/visual-studio-marketplace/r/aryansrao.deekseek-extension)](https://marketplace.visualstudio.com/items?itemName=aryansrao.deekseek-extension) [![Issues](https://img.shields.io/github/issues/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension/issues) [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Last Commit](https://img.shields.io/github/last-commit/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension/commits) [![Code Size](https://img.shields.io/github/languages/code-size/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension) ![Release Date](https://img.shields.io/github/release-date/aryansrao/deepseek-extension) [![Discussions](https://img.shields.io/github/discussions/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension/discussions) [![Vercel](https://img.shields.io/website?url=https%3A%2F%2Fdeepseek-extension.vercel.app&logo=vercel&label=Vercel)](https://deepseek-extension.vercel.app)
@@ -101,25 +99,33 @@ visit https://marketplace.visualstudio.com/items?itemName=aryansrao.deekseek-ext
 
 DeepSeek brings powerful AI assistance directly into VS Code, running completely locally through Ollama:
 
-  
+### Core AI Features
+- **Code Generation** - Get intelligent code suggestions
+- **Real-time Help** - Ask questions about your code
+- **Documentation** - Generate comments and documentation
+- **Debugging** - Get help fixing bugs
+- **Best Practices** - Learn coding patterns and improvements
 
--  **Code Generation** - Get intelligent code suggestions
+### 🐍 Python Development Workflow Integration
 
-  
+#### Smart Auto-Detection
+- **Automatic Project Detection**: Detects Python projects by scanning for `requirements.txt`, `pyproject.toml`, `setup.py`, `Pipfile`, `poetry.lock`
+- **File Type Recognition**: Supports `.py`, `.pyi`, `.pyx`, `.pxd` files
+- **Auto-Start Chat**: Offers Python-specific assistance when opening Python files
 
--  **Real-time Help** - Ask questions about your code
+#### Specialized Python Commands
+- **Start Python Assistant** - Context-aware Python development chat
+- **Review Python Code** - Comprehensive code review with security & performance analysis
+- **Debug Python Code** - Intelligent bug detection and debugging strategies
+- **Optimize Python Code** - Performance optimization recommendations
+- **Generate Documentation** - Automatic docstring and documentation generation
+- **Generate Tests** - Unit test generation with best practices
 
-  
-
--  **Documentation** - Generate comments and documentation
-
-  
-
--  **Debugging** - Get help fixing bugs
-
-  
-
--  **Best Practices** - Learn coding patterns and improvements
+#### Custom Code Review Prompts
+- **Security Review**: SQL injection, command injection, path traversal detection
+- **Performance Review**: Algorithm complexity, memory usage, I/O optimization
+- **Best Practices Review**: PEP 8 compliance, type hints, error handling
+- **Testing Review**: Unit test coverage, integration tests, mock strategies
 
   
 
