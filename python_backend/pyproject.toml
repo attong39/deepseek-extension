@@ -1,0 +1,145 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "deepseek-extension-backend"
+version = "1.0.0"
+description = "Python backend services for DeepSeek AI Extension with advanced distillation capabilities"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "DeepSeek Extension Team"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "aiohttp>=3.8.0,<4.0.0",
+    "aiosqlite>=0.19.0,<1.0.0",
+    "pydantic>=2.0.0,<3.0.0",
+]
+
+[project.optional-dependencies]
+redis = [
+    "redis[hiredis]>=4.5.0,<6.0.0",
+]
+prometheus = [
+    "prometheus-client>=0.16.0,<1.0.0",
+]
+dev = [
+    "pytest>=7.0.0,<8.0.0",
+    "pytest-asyncio>=0.21.0,<1.0.0",
+    "mypy>=1.0.0,<2.0.0",
+    "ruff>=0.0.280,<1.0.0",
+    "black>=23.0.0,<24.0.0",
+    "isort>=5.12.0,<6.0.0",
+]
+all = [
+    "deepseek-extension-backend[redis,prometheus,dev]",
+]
+
+[project.urls]
+Homepage = "https://github.com/attong39/deepseek-extension"
+Repository = "https://github.com/attong39/deepseek-extension.git"
+Issues = "https://github.com/attong39/deepseek-extension/issues"
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.ruff]
+target-version = "py39"
+line-length = 120
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+    "ARG", # flake8-unused-arguments
+    "SIM", # flake8-simplify
+    "TCH", # flake8-type-checking
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+    "ARG002", # unused method argument
+]
+
+[tool.ruff.per-file-ignores]
+"tests/*" = ["ARG", "S101"]  # Allow unused args and assert in tests
+
+[tool.black]
+target-version = ['py39']
+line-length = 120
+skip-string-normalization = true
+
+[tool.isort]
+profile = "black"
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["core", "infrastructure", "app"]
+omit = ["tests/*", "*/test_*.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
