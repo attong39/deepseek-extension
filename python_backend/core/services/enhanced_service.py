@@ -18,7 +18,7 @@ import json
 import time
 import uuid
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from core.domain.entities import BatchProcessingResult, DistillationDatapoint, TeacherLabel
 from core.domain.interfaces import (
@@ -123,7 +123,7 @@ class EnhancedDistillationService(BaseService):
             self.metrics.set_gauge("distillation_service_health", 0.0)
             return False
 
-    def _generate_cache_key(self, input_text: str, model_config: Optional[Dict[str, Any]] = None) -> str:
+    def _generate_cache_key(self, input_text: str, model_config: Optional[dict[str, Any]] = None) -> str:
         """Generate consistent cache key cho input"""
         # Sanitize input trước khi tạo cache key
         sanitized_input = self.input_sanitizer.sanitize_text(input_text)
@@ -136,7 +136,7 @@ class EnhancedDistillationService(BaseService):
         content_str = json.dumps(content, sort_keys=True)
         return f"teacher_label:{hashlib.md5(content_str.encode()).hexdigest()}"
 
-    async def _get_cached_label(self, input_text: str, model_config: Optional[Dict[str, Any]] = None) -> Optional[TeacherLabel]:
+    async def _get_cached_label(self, input_text: str, model_config: Optional[dict[str, Any]] = None) -> Optional[TeacherLabel]:
         """Lấy cached label nếu có"""
         try:
             cache_key = self._generate_cache_key(input_text, model_config)
@@ -155,7 +155,7 @@ class EnhancedDistillationService(BaseService):
             # Log error nhưng không fail, fallback to teacher model
             return None
 
-    async def _cache_label(self, label: TeacherLabel, input_text: str, model_config: Optional[Dict[str, Any]] = None) -> None:
+    async def _cache_label(self, label: TeacherLabel, input_text: str, model_config: Optional[dict[str, Any]] = None) -> None:
         """Cache label nếu confidence đủ cao"""
         try:
             if label.is_cacheable:
@@ -187,7 +187,7 @@ class EnhancedDistillationService(BaseService):
     async def generate_label(
         self,
         input_text: str,
-        model_config: Optional[Dict[str, Any]] = None,
+        model_config: Optional[dict[str, Any]] = None,
         use_cache: bool = True
     ) -> TeacherLabel:
         """
@@ -245,7 +245,7 @@ class EnhancedDistillationService(BaseService):
     async def _generate_label_with_protection(
         self,
         input_text: str,
-        model_config: Optional[Dict[str, Any]] = None
+        model_config: Optional[dict[str, Any]] = None
     ) -> TeacherLabel:
         """Generate label với circuit breaker và retry protection"""
 
@@ -263,8 +263,8 @@ class EnhancedDistillationService(BaseService):
 
     async def batch_generate_labels(
         self,
-        input_texts: List[str],
-        model_config: Optional[Dict[str, Any]] = None,
+        input_texts: list[str],
+        model_config: Optional[dict[str, Any]] = None,
         use_cache: bool = True,
         batch_id: Optional[str] = None
     ) -> BatchProcessingResult:
@@ -353,11 +353,11 @@ class EnhancedDistillationService(BaseService):
 
     async def _process_chunk(
         self,
-        chunk: List[str],
-        model_config: Optional[Dict[str, Any]] = None,
+        chunk: list[str],
+        model_config: Optional[dict[str, Any]] = None,
         use_cache: bool = True,
         chunk_id: str = ""
-    ) -> List[Any]:  # Any = TeacherLabel or Exception
+    ) -> list[Any]:  # Any = TeacherLabel or Exception
         """Process một chunk của inputs concurrently"""
 
         async def _process_single_item(text: str) -> Any:
@@ -378,7 +378,7 @@ class EnhancedDistillationService(BaseService):
         input_data: str,
         dataset_name: str = "",
         batch_id: str = "",
-        model_config: Optional[Dict[str, Any]] = None,
+        model_config: Optional[dict[str, Any]] = None,
         use_cache: bool = True
     ) -> DistillationDatapoint:
         """
@@ -412,7 +412,7 @@ class EnhancedDistillationService(BaseService):
 
         return datapoint
 
-    async def get_service_stats(self) -> Dict[str, Any]:
+    async def get_service_stats(self) -> dict[str, Any]:
         """Lấy service statistics cho monitoring"""
         return {
             "service_name": "enhanced_distillation_service",

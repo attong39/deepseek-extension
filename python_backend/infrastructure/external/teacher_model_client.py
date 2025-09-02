@@ -5,7 +5,7 @@ Giao tiếp với external teacher models (OpenAI, DeepSeek, etc.)
 
 import asyncio
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import aiohttp
 
@@ -38,7 +38,7 @@ class MockTeacherModelClient(TeacherModelClientInterface):
             "question": ["question", "inquiry", "ask", "help"],
         }
 
-    async def generate_label(self, input_text: str, model_config: Optional[Dict[str, Any]] = None) -> TeacherLabel:
+    async def generate_label(self, input_text: str, model_config: Optional[dict[str, Any]] = None) -> TeacherLabel:
         """Generate label từ mock teacher model"""
         start_time = time.time()
         self._call_count += 1
@@ -98,7 +98,7 @@ class MockTeacherModelClient(TeacherModelClientInterface):
             # Neutral với lower confidence
             return "neutral", 0.50 + (hash(input_text) % 30) / 100  # 0.50-0.79
 
-    async def batch_generate_labels(self, input_texts: List[str], model_config: Optional[Dict[str, Any]] = None) -> List[TeacherLabel]:
+    async def batch_generate_labels(self, input_texts: list[str], model_config: Optional[dict[str, Any]] = None) -> list[TeacherLabel]:
         """Batch generate labels từ mock teacher model"""
         if not input_texts:
             return []
@@ -182,7 +182,7 @@ Response format: category:confidence
 Example: positive:0.85
 """
 
-    async def generate_label(self, input_text: str, model_config: Optional[Dict[str, Any]] = None) -> TeacherLabel:
+    async def generate_label(self, input_text: str, model_config: Optional[dict[str, Any]] = None) -> TeacherLabel:
         """Generate label từ OpenAI API"""
         start_time = time.time()
 
@@ -272,7 +272,7 @@ Example: positive:0.85
             # Ultimate fallback
             return "unknown", 0.5
 
-    async def batch_generate_labels(self, input_texts: List[str], model_config: Optional[Dict[str, Any]] = None) -> List[TeacherLabel]:
+    async def batch_generate_labels(self, input_texts: list[str], model_config: Optional[dict[str, Any]] = None) -> list[TeacherLabel]:
         """Batch generate labels (sequential for OpenAI rate limits)"""
         results = []
 
@@ -306,7 +306,7 @@ Example: positive:0.85
 # Factory function
 def create_teacher_model_client(
     client_type: str = "mock",
-    config: Optional[Dict[str, Any]] = None,
+    config: Optional[dict[str, Any]] = None,
     metrics: Optional[MetricsServiceInterface] = None
 ) -> TeacherModelClientInterface:
     """

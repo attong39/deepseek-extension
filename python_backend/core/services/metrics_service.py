@@ -6,7 +6,7 @@ Support cả in-memory metrics và Prometheus export.
 import threading
 from collections import defaultdict
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Optional
 
 from core.domain.interfaces import MetricsServiceInterface
 
@@ -18,33 +18,33 @@ class PrometheusStyleMetricsService(MetricsServiceInterface):
     """
 
     def __init__(self):
-        self._counters: Dict[str, Dict[Tuple[str, ...], float]] = defaultdict(lambda: defaultdict(float))
-        self._histograms: Dict[str, Dict[Tuple[str, ...], List[float]]] = defaultdict(lambda: defaultdict(list))
-        self._gauges: Dict[str, Dict[Tuple[str, ...], float]] = defaultdict(lambda: defaultdict(float))
+        self._counters: dict[str, dict[Tuple[str, ...], float]] = defaultdict(lambda: defaultdict(float))
+        self._histograms: dict[str, dict[Tuple[str, ...], list[float]]] = defaultdict(lambda: defaultdict(list))
+        self._gauges: dict[str, dict[Tuple[str, ...], float]] = defaultdict(lambda: defaultdict(float))
         self._lock = threading.RLock()
 
         # Histogram buckets (in milliseconds for timing metrics)
         self._histogram_buckets = [1, 5, 10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000]
 
-    def _labels_to_key(self, labels: Optional[Dict[str, str]] = None) -> Tuple[str, ...]:
+    def _labels_to_key(self, labels: Optional[dict[str, str]] = None) -> Tuple[str, ...]:
         """Convert labels dict to sorted tuple for consistent key"""
         if not labels:
             return ()
         return tuple(sorted(labels.items()))
 
-    def increment_counter(self, metric_name: str, labels: Optional[Dict[str, str]] = None) -> None:
+    def increment_counter(self, metric_name: str, labels: Optional[dict[str, str]] = None) -> None:
         """Tăng counter metric"""
         with self._lock:
             key = self._labels_to_key(labels)
             self._counters[metric_name][key] += 1
 
-    def increment_counter_by(self, metric_name: str, value: float, labels: Optional[Dict[str, str]] = None) -> None:
+    def increment_counter_by(self, metric_name: str, value: float, labels: Optional[dict[str, str]] = None) -> None:
         """Tăng counter metric theo value specified"""
         with self._lock:
             key = self._labels_to_key(labels)
             self._counters[metric_name][key] += value
 
-    def record_histogram(self, metric_name: str, value: float, labels: Optional[Dict[str, str]] = None) -> None:
+    def record_histogram(self, metric_name: str, value: float, labels: Optional[dict[str, str]] = None) -> None:
         """Record histogram metric"""
         with self._lock:
             key = self._labels_to_key(labels)
@@ -54,25 +54,25 @@ class PrometheusStyleMetricsService(MetricsServiceInterface):
             if len(self._histograms[metric_name][key]) > 1000:
                 self._histograms[metric_name][key] = self._histograms[metric_name][key][-1000:]
 
-    def set_gauge(self, metric_name: str, value: float, labels: Optional[Dict[str, str]] = None) -> None:
+    def set_gauge(self, metric_name: str, value: float, labels: Optional[dict[str, str]] = None) -> None:
         """Set gauge metric"""
         with self._lock:
             key = self._labels_to_key(labels)
             self._gauges[metric_name][key] = value
 
-    def get_counter_value(self, metric_name: str, labels: Optional[Dict[str, str]] = None) -> float:
+    def get_counter_value(self, metric_name: str, labels: Optional[dict[str, str]] = None) -> float:
         """Lấy current value của counter"""
         with self._lock:
             key = self._labels_to_key(labels)
             return self._counters[metric_name][key]
 
-    def get_gauge_value(self, metric_name: str, labels: Optional[Dict[str, str]] = None) -> float:
+    def get_gauge_value(self, metric_name: str, labels: Optional[dict[str, str]] = None) -> float:
         """Lấy current value của gauge"""
         with self._lock:
             key = self._labels_to_key(labels)
             return self._gauges[metric_name][key]
 
-    def get_histogram_stats(self, metric_name: str, labels: Optional[Dict[str, str]] = None) -> Dict[str, float]:
+    def get_histogram_stats(self, metric_name: str, labels: Optional[dict[str, str]] = None) -> dict[str, float]:
         """Lấy histogram statistics (count, sum, percentiles)"""
         with self._lock:
             key = self._labels_to_key(labels)
@@ -93,7 +93,7 @@ class PrometheusStyleMetricsService(MetricsServiceInterface):
             sorted_values = sorted(values)
             count = len(values)
 
-            def percentile(data: List[float], p: float) -> float:
+            def percentile(data: list[float], p: float) -> float:
                 """Calculate percentile"""
                 if not data:
                     return 0.0
@@ -111,7 +111,7 @@ class PrometheusStyleMetricsService(MetricsServiceInterface):
                 "p99": percentile(sorted_values, 0.99),
             }
 
-    def get_all_metrics(self) -> Dict[str, Any]:
+    def get_all_metrics(self) -> dict[str, Any]:
         """Lấy tất cả metrics trong format dễ đọc"""
         with self._lock:
             result = {
@@ -211,7 +211,7 @@ class PrometheusStyleMetricsService(MetricsServiceInterface):
             self._histograms.clear()
             self._gauges.clear()
 
-    def get_summary(self) -> Dict[str, Any]:
+    def get_summary(self) -> dict[str, Any]:
         """Lấy metrics summary"""
         with self._lock:
             return {
@@ -228,13 +228,13 @@ class PrometheusStyleMetricsService(MetricsServiceInterface):
 class NullMetricsService(MetricsServiceInterface):
     """No-op metrics service for testing hoặc khi muốn disable metrics"""
 
-    def increment_counter(self, metric_name: str, labels: Optional[Dict[str, str]] = None) -> None:
+    def increment_counter(self, metric_name: str, labels: Optional[dict[str, str]] = None) -> None:
         pass
 
-    def record_histogram(self, metric_name: str, value: float, labels: Optional[Dict[str, str]] = None) -> None:
+    def record_histogram(self, metric_name: str, value: float, labels: Optional[dict[str, str]] = None) -> None:
         pass
 
-    def set_gauge(self, metric_name: str, value: float, labels: Optional[Dict[str, str]] = None) -> None:
+    def set_gauge(self, metric_name: str, value: float, labels: Optional[dict[str, str]] = None) -> None:
         pass
 
 

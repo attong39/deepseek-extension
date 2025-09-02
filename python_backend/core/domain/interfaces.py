@@ -4,7 +4,7 @@ Abstract interfaces/ports cho dependency injection và testing.
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional, Protocol
+from typing import Any, Optional, Protocol
 
 from core.domain.entities import BatchProcessingResult, DistillationDatapoint, TeacherLabel
 
@@ -32,15 +32,15 @@ class CacheServiceInterface(Protocol):
 class MetricsServiceInterface(Protocol):
     """Interface cho metrics collection"""
 
-    def increment_counter(self, metric_name: str, labels: Optional[Dict[str, str]] = None) -> None:
+    def increment_counter(self, metric_name: str, labels: Optional[dict[str, str]] = None) -> None:
         """Tăng counter metric"""
         ...
 
-    def record_histogram(self, metric_name: str, value: float, labels: Optional[Dict[str, str]] = None) -> None:
+    def record_histogram(self, metric_name: str, value: float, labels: Optional[dict[str, str]] = None) -> None:
         """Record histogram metric"""
         ...
 
-    def set_gauge(self, metric_name: str, value: float, labels: Optional[Dict[str, str]] = None) -> None:
+    def set_gauge(self, metric_name: str, value: float, labels: Optional[dict[str, str]] = None) -> None:
         """Set gauge metric"""
         ...
 
@@ -48,11 +48,11 @@ class MetricsServiceInterface(Protocol):
 class TeacherModelClientInterface(Protocol):
     """Interface cho teacher model client"""
 
-    async def generate_label(self, input_text: str, model_config: Optional[Dict[str, Any]] = None) -> TeacherLabel:
+    async def generate_label(self, input_text: str, model_config: Optional[dict[str, Any]] = None) -> TeacherLabel:
         """Generate label từ teacher model"""
         ...
 
-    async def batch_generate_labels(self, input_texts: List[str], model_config: Optional[Dict[str, Any]] = None) -> List[TeacherLabel]:
+    async def batch_generate_labels(self, input_texts: list[str], model_config: Optional[dict[str, Any]] = None) -> list[TeacherLabel]:
         """Batch generate labels từ teacher model"""
         ...
 
@@ -68,7 +68,7 @@ class DistillationRepositoryInterface(Protocol):
         """Lưu distillation datapoint"""
         ...
 
-    async def save_datapoints(self, datapoints: List[DistillationDatapoint]) -> bool:
+    async def save_datapoints(self, datapoints: list[DistillationDatapoint]) -> bool:
         """Lưu batch distillation datapoints"""
         ...
 
@@ -76,7 +76,7 @@ class DistillationRepositoryInterface(Protocol):
         """Lấy distillation datapoint theo ID"""
         ...
 
-    async def get_datapoints_by_batch(self, batch_id: str) -> List[DistillationDatapoint]:
+    async def get_datapoints_by_batch(self, batch_id: str) -> list[DistillationDatapoint]:
         """Lấy tất cả datapoints trong một batch"""
         ...
 
@@ -143,7 +143,7 @@ class InputSanitizerInterface(Protocol):
         """Sanitize text input"""
         ...
 
-    def validate_input(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+    def validate_input(self, input_data: dict[str, Any]) -> dict[str, Any]:
         """Validate và sanitize input data"""
         ...
 

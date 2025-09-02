@@ -6,7 +6,7 @@ Data persistence layer cho distillation datapoints và batch results.
 import json
 import os
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import aiosqlite
 
@@ -159,7 +159,7 @@ class SQLiteDistillationRepository(DistillationRepositoryInterface, BaseReposito
             label.created_at.isoformat()
         ))
 
-    async def save_datapoints(self, datapoints: List[DistillationDatapoint]) -> bool:
+    async def save_datapoints(self, datapoints: list[DistillationDatapoint]) -> bool:
         """Lưu batch distillation datapoints"""
         await self._ensure_initialized()
 
@@ -233,7 +233,7 @@ class SQLiteDistillationRepository(DistillationRepositoryInterface, BaseReposito
                 self.metrics.increment_counter("datapoint_get_errors", {"repository": "sqlite"})
             return None
 
-    async def get_datapoints_by_batch(self, batch_id: str) -> List[DistillationDatapoint]:
+    async def get_datapoints_by_batch(self, batch_id: str) -> list[DistillationDatapoint]:
         """Lấy tất cả datapoints trong một batch"""
         await self._ensure_initialized()
 
@@ -379,7 +379,7 @@ class SQLiteDistillationRepository(DistillationRepositoryInterface, BaseReposito
         except Exception:
             return False
 
-    async def get_stats(self) -> Dict[str, Any]:
+    async def get_stats(self) -> dict[str, Any]:
         """Lấy repository statistics"""
         await self._ensure_initialized()
 
@@ -416,7 +416,7 @@ class SQLiteDistillationRepository(DistillationRepositoryInterface, BaseReposito
 # Factory function
 def create_distillation_repository(
     repository_type: str = "sqlite",
-    config: Optional[Dict[str, Any]] = None,
+    config: Optional[dict[str, Any]] = None,
     metrics: Optional[MetricsServiceInterface] = None
 ) -> DistillationRepositoryInterface:
     """

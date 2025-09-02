@@ -61,7 +61,7 @@ class TeacherLabel:
         """Kiểm tra xem label này có thể cache được không (confidence cao)"""
         return self.confidence_level in [LabelConfidence.HIGH, LabelConfidence.VERY_HIGH]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization"""
         return {
             "id": self.id,
@@ -121,7 +121,7 @@ class DistillationDatapoint:
             return None
         return self.teacher_label.predicted_label == self.student_prediction
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization"""
         return {
             "id": self.id,
@@ -149,7 +149,7 @@ class BatchProcessingResult:
     processing_time_ms: float
     average_confidence: float
     cached_items: int = 0
-    errors: List[str] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
     created_at: datetime = field(default_factory=datetime.utcnow)
 
     @property
@@ -166,7 +166,7 @@ class BatchProcessingResult:
             return 0.0
         return self.cached_items / self.total_items
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for serialization"""
         return {
             "batch_id": self.batch_id,
@@ -184,6 +184,6 @@ class BatchProcessingResult:
 
 
 # Type aliases for better code readability
-TeacherLabelList = List[TeacherLabel]
-DistillationDatapointList = List[DistillationDatapoint]
-BatchResults = List[BatchProcessingResult]
+TeacherLabelList = list[TeacherLabel]
+DistillationDatapointList = list[DistillationDatapoint]
+BatchResults = list[BatchProcessingResult]

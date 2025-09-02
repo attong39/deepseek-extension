@@ -191,7 +191,7 @@ class TokenBucketRateLimiter(RateLimiterInterface):
 
     def __init__(self, metrics: Optional[MetricsServiceInterface] = None):
         self.metrics = metrics
-        self._buckets: Dict[str, Dict[str, Any]] = {}
+        self._buckets: dict[str, dict[str, Any]] = {}
 
     async def is_allowed(self, key: str, limit: int, window_seconds: int) -> bool:
         """Kiểm tra xem request có được phép không"""
@@ -304,7 +304,7 @@ class InputSanitizer(InputSanitizerInterface):
 
         return sanitized
 
-    def validate_input(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+    def validate_input(self, input_data: dict[str, Any]) -> dict[str, Any]:
         """Validate và sanitize input data"""
         sanitized_data = {}
 

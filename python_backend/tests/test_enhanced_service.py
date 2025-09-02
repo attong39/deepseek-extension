@@ -7,7 +7,7 @@ import asyncio
 import pytest
 import time
 from unittest.mock import AsyncMock, MagicMock, patch
-from typing import Dict, Any, List
+from typing import Any, Optional
 
 from core.services.enhanced_service import EnhancedDistillationService, EnhancedDistillationConfig
 from core.domain.entities import TeacherLabel, DistillationDatapoint, LabelConfidence

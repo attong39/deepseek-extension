@@ -7,7 +7,7 @@ import asyncio
 import time
 import uuid
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from core.domain.entities import BatchProcessingResult, DistillationDatapoint
 from core.domain.interfaces import DistillationRepositoryInterface, MetricsServiceInterface
@@ -30,7 +30,7 @@ class DistillationOrchestrator:
         enhanced_service: EnhancedDistillationService,
         repository: DistillationRepositoryInterface,
         metrics: MetricsServiceInterface,
-        config: Optional[Dict[str, Any]] = None
+        config: Optional[dict[str, Any]] = None
     ):
         self.enhanced_service = enhanced_service
         self.repository = repository
@@ -46,7 +46,7 @@ class DistillationOrchestrator:
         self,
         input_text: str,
         dataset_name: str = "",
-        model_config: Optional[Dict[str, Any]] = None,
+        model_config: Optional[dict[str, Any]] = None,
         persist: bool = True
     ) -> DistillationDatapoint:
         """
@@ -94,9 +94,9 @@ class DistillationOrchestrator:
 
     async def process_batch(
         self,
-        input_texts: List[str],
+        input_texts: list[str],
         dataset_name: str = "",
-        model_config: Optional[Dict[str, Any]] = None,
+        model_config: Optional[dict[str, Any]] = None,
         batch_id: Optional[str] = None,
         persist: bool = True
     ) -> BatchProcessingResult:
@@ -174,11 +174,11 @@ class DistillationOrchestrator:
 
     async def create_training_dataset(
         self,
-        input_texts: List[str],
+        input_texts: list[str],
         dataset_name: str,
-        model_config: Optional[Dict[str, Any]] = None,
+        model_config: Optional[dict[str, Any]] = None,
         chunk_size: Optional[int] = None
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Tạo complete training dataset với chunked processing.
         
@@ -292,7 +292,7 @@ class DistillationOrchestrator:
             })
             raise
 
-    async def get_dataset_statistics(self, dataset_name: str) -> Dict[str, Any]:
+    async def get_dataset_statistics(self, dataset_name: str) -> dict[str, Any]:
         """Lấy statistics cho một dataset"""
         try:
             # Trong production, repository sẽ có methods để query statistics
@@ -318,7 +318,7 @@ class DistillationOrchestrator:
             })
             raise
 
-    async def health_check(self) -> Dict[str, Any]:
+    async def health_check(self) -> dict[str, Any]:
         """Comprehensive health check cho toàn bộ system"""
         health_status = {
             "orchestrator": "healthy",

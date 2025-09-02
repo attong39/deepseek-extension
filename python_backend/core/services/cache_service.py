@@ -18,8 +18,8 @@ class InMemoryCacheService(CacheServiceInterface):
 
     def __init__(self, metrics: Optional[MetricsServiceInterface] = None):
         self.metrics = metrics
-        self._cache: Dict[str, Dict[str, Any]] = {}
-        self._access_times: Dict[str, float] = {}
+        self._cache: dict[str, dict[str, Any]] = {}
+        self._access_times: dict[str, float] = {}
         self._max_size = 10000  # Max items in cache
 
     async def get(self, key: str) -> Optional[Any]:
@@ -117,7 +117,7 @@ class InMemoryCacheService(CacheServiceInterface):
         if self.metrics:
             self.metrics.increment_counter("cache_clears", {"type": "in_memory"})
 
-    def get_stats(self) -> Dict[str, Any]:
+    def get_stats(self) -> dict[str, Any]:
         """Lấy cache statistics"""
         now = time.time()
         total_items = len(self._cache)
@@ -253,7 +253,7 @@ class RedisCacheService(CacheServiceInterface):
                 self.metrics.increment_counter("cache_errors", {"type": "redis", "operation": "clear_pattern"})
             return 0
 
-    async def get_stats(self) -> Dict[str, Any]:
+    async def get_stats(self) -> dict[str, Any]:
         """Lấy Redis statistics"""
         try:
             redis_client = await self._get_redis_client()
