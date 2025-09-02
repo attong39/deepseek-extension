@@ -1,0 +1,2 @@
+# Python dependencies for the patch_dsl module
+# No external dependencies required - uses only Python standard library

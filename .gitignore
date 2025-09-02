@@ -6,3 +6,12 @@ dist/
 out
 .vscode-test/
 *.vsix
+
+# Python
+python_modules/__pycache__/
+python_modules/**/__pycache__/
+python_modules/**/*.pyc
+python_modules/**/*.pyo
+python_modules/**/*.pyd
+python_modules/.pytest_cache/
+python_modules/**/.pytest_cache/
