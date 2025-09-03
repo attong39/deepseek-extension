@@ -1,7 +1,7 @@
 import * as assert from 'assert';
-import { Config } from '../../config';
-import { OllamaClient } from '../../ollamaClient';
-import { AIAgent } from '../../aiAgent';
+import { Config } from '../config';
+import { OllamaClient } from '../ollamaClient';
+import { AIAgent } from '../aiAgent';
 
 suite('DeepSeek AI Agent Test Suite', () => {
     
