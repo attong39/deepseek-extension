@@ -1,0 +1,128 @@
+{
+  "contributes": {
+    "commands": [
+      {
+        "command": "deepseek.aiAgent.interactive",
+        "title": "Interactive AI Agent",
+        "category": "DeepSeek"
+      },
+      {
+        "command": "deepseek.aiAgent.reviewActiveFile",
+        "title": "Review Active File",
+        "category": "DeepSeek"
+      },
+      {
+        "command": "deepseek.aiAgent.debugActiveFile",
+        "title": "Debug Active File",
+        "category": "DeepSeek"
+      },
+      {
+        "command": "deepseek.aiAgent.optimizeActiveFile",
+        "title": "Optimize Active File",
+        "category": "DeepSeek"
+      },
+      {
+        "command": "deepseek.aiAgent.testActiveFile",
+        "title": "Generate Tests for Active File",
+        "category": "DeepSeek"
+      },
+      {
+        "command": "deepseek.aiAgent.documentActiveFile",
+        "title": "Document Active File",
+        "category": "DeepSeek"
+      },
+      {
+        "command": "deepseek.aiAgent.continuousReview",
+        "title": "Continuous Code Review",
+        "category": "DeepSeek"
+      },
+      {
+        "command": "deepseek.aiAgent.continuousOptimize",
+        "title": "Continuous Optimization",
+        "category": "DeepSeek"
+      },
+      {
+        "command": "deepseek.aiAgent.reviewWorkspace",
+        "title": "Review Workspace",
+        "category": "DeepSeek"
+      },
+      {
+        "command": "deepseek.aiAgent.optimizeWorkspace",
+        "title": "Optimize Workspace",
+        "category": "DeepSeek"
+      },
+      {
+        "command": "deepseek.aiAgent.showStatus",
+        "title": "Show AI Agent Status",
+        "category": "DeepSeek"
+      },
+      {
+        "command": "deepseek.aiAgent.configure",
+        "title": "Configure AI Agent",
+        "category": "DeepSeek"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "deepseek.aiAgent.interactive",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "deepseek.aiAgent.reviewActiveFile",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "deepseek.aiAgent.debugActiveFile",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "deepseek.aiAgent.optimizeActiveFile",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "deepseek.aiAgent.testActiveFile",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "deepseek.aiAgent.documentActiveFile",
+          "when": "editorTextFocus"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "deepseek.aiAgent.reviewActiveFile",
+          "group": "deepseek@1",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "deepseek.aiAgent.optimizeActiveFile",
+          "group": "deepseek@2",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "deepseek.aiAgent.debugActiveFile",
+          "group": "deepseek@3",
+          "when": "editorTextFocus"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "deepseek.aiAgent.interactive",
+        "key": "ctrl+shift+d ctrl+shift+i",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "deepseek.aiAgent.reviewActiveFile",
+        "key": "ctrl+shift+d ctrl+shift+r",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "deepseek.aiAgent.optimizeActiveFile",
+        "key": "ctrl+shift+d ctrl+shift+o",
+        "when": "editorTextFocus"
+      }
+    ]
+  }
+}

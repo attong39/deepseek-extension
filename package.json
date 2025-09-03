@@ -1,6 +1,6 @@
 {
-  "name": "deekseek-extension",
-  "displayName": "DeepSeek extension",
+  "name": "deepseek-extension",
+  "displayName": "DeepSeek Extension",
   "description": "DeepSeek AI assistant with Python development workflow integration, code review, and debugging support",
   "version": "1.0.1",
   "publisher": "aryansrao",
@@ -49,6 +49,34 @@
       {
         "command": "deep-seek.start",
         "title": "Start DeepSeek Chat"
+      },
+      {
+        "command": "deepseek.ai.interactive",
+        "title": "AI Agent: Interactive Mode"
+      },
+      {
+        "command": "deepseek.ai.review",
+        "title": "AI Agent: Review Code"
+      },
+      {
+        "command": "deepseek.ai.debug",
+        "title": "AI Agent: Debug Code"
+      },
+      {
+        "command": "deepseek.ai.optimize",
+        "title": "AI Agent: Optimize Code"
+      },
+      {
+        "command": "deepseek.ai.status",
+        "title": "AI Agent: Check Status"
+      },
+      {
+        "command": "deepseek.agent.chooseModel",
+        "title": "DeepSeek: Choose Model"
+      },
+      {
+        "command": "deepseek.agent.showCurrentModel",
+        "title": "DeepSeek: Show Current Model"
       },
       {
         "command": "deep-seek.python.start",

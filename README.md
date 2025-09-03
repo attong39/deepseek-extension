@@ -4,7 +4,7 @@
 <h3>Your Local AI Programming Assistant for VS Code with Advanced Python Workflow Integration</h3>
 
 
-[![Version](https://img.shields.io/visual-studio-marketplace/v/aryansrao.deekseek-extension?logo=visualstudiocode&logoColor=white&label=Version)](https://marketplace.visualstudio.com/items?itemName=aryansrao.deekseek-extension) [![Downloads](https://img.shields.io/visual-studio-marketplace/d/aryansrao.deekseek-extension)](https://marketplace.visualstudio.com/items?itemName=aryansrao.deekseek-extension) [![Rating](https://img.shields.io/visual-studio-marketplace/r/aryansrao.deekseek-extension)](https://marketplace.visualstudio.com/items?itemName=aryansrao.deekseek-extension) [![Issues](https://img.shields.io/github/issues/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension/issues) [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Last Commit](https://img.shields.io/github/last-commit/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension/commits) [![Code Size](https://img.shields.io/github/languages/code-size/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension) ![Release Date](https://img.shields.io/github/release-date/aryansrao/deepseek-extension) [![Discussions](https://img.shields.io/github/discussions/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension/discussions) [![Vercel](https://img.shields.io/website?url=https%3A%2F%2Fdeepseek-extension.vercel.app&logo=vercel&label=Vercel)](https://deepseek-extension.vercel.app)
+[![Version](https://img.shields.io/visual-studio-marketplace/v/aryansrao.deepseek-extension?logo=visualstudiocode&logoColor=white&label=Version)](https://marketplace.visualstudio.com/items?itemName=aryansrao.deepseek-extension) [![Downloads](https://img.shields.io/visual-studio-marketplace/d/aryansrao.deepseek-extension)](https://marketplace.visualstudio.com/items?itemName=aryansrao.deepseek-extension) [![Rating](https://img.shields.io/visual-studio-marketplace/r/aryansrao.deepseek-extension)](https://marketplace.visualstudio.com/items?itemName=aryansrao.deepseek-extension) [![Issues](https://img.shields.io/github/issues/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension/issues) [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE) [![Last Commit](https://img.shields.io/github/last-commit/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension/commits) [![Code Size](https://img.shields.io/github/languages/code-size/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension) ![Release Date](https://img.shields.io/github/release-date/aryansrao/deepseek-extension) [![Discussions](https://img.shields.io/github/discussions/aryansrao/deepseek-extension)](https://github.com/aryansrao/deepseek-extension/discussions) [![Vercel](https://img.shields.io/website?url=https%3A%2F%2Fdeepseek-extension.vercel.app&logo=vercel&label=Vercel)](https://deepseek-extension.vercel.app)
 
   
 
@@ -105,6 +105,7 @@ DeepSeek brings powerful AI assistance directly into VS Code, running completely
 - **Documentation** - Generate comments and documentation
 - **Debugging** - Get help fixing bugs
 - **Best Practices** - Learn coding patterns and improvements
+- **Model Selection** - Switch between different Ollama models directly from VS Code
 
 ### 🐍 Python Development Workflow Integration
 
@@ -127,7 +128,27 @@ DeepSeek brings powerful AI assistance directly into VS Code, running completely
 - **Best Practices Review**: PEP 8 compliance, type hints, error handling
 - **Testing Review**: Unit test coverage, integration tests, mock strategies
 
-  
+### 🔄 Model Selection Feature
+
+Switch between different Ollama models directly from VS Code Command Palette:
+
+#### How to Use Model Selection
+1. **Open Command Palette**: `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac)
+2. **Type**: "DeepSeek: Choose Model"
+3. **Select**: Choose from available models in your Ollama installation
+4. **Confirm**: Extension will reload to apply the new model
+
+#### Available Commands
+- **DeepSeek: Choose Model** - Interactive model selection from Command Palette
+- All AI Agent commands will use the selected model automatically
+
+#### Settings Configuration
+You can also set a default model in VS Code settings:
+```json
+{
+  "deepseek.agent.model": "gpt-oss:20b"
+}
+```
 
 ## Requirements
 
