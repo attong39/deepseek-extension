@@ -5,6 +5,18 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 import { AIAgent } from './aiAgent';
 
+// Interfaces for better type safety
+interface WebviewMessage {
+	command: string;
+	text?: string;
+}
+
+interface OllamaModel {
+	name: string;
+	modified_at?: string;
+	size?: number;
+}
+
 // ---------- Helper: fetch available models ----------
 const fetchOllamaModels = async (): Promise<string[]> => {
   try {
@@ -13,8 +25,8 @@ const fetchOllamaModels = async (): Promise<string[]> => {
     const obj = JSON.parse(stdout);
     if (obj?.models && Array.isArray(obj.models)) {
       return obj.models
-        .map((m: any) => m?.name)
-        .filter((name: any): name is string => name !== null && name !== undefined && typeof name === 'string');
+        .map((m: OllamaModel) => m?.name)
+        .filter((name: string | undefined): name is string => name !== null && name !== undefined && typeof name === 'string');
     }
   } catch (error) {
     console.warn('Failed to fetch models from Ollama:', error);
@@ -206,7 +218,9 @@ async function handlePythonCommand(commandId: string, context: vscode.ExtensionC
 
 async function startDeepSeekChatWithPrompt(initialPrompt: string, context: vscode.ExtensionContext): Promise<void> {
 	try {
-		await pullModel('deepseek-r1:latest');
+		// Get the currently selected model
+		const selectedModel = context.globalState.get('deepseek.model', 'deepseek-r1:latest');
+		await pullModel(selectedModel);
 		const panel = vscode.window.createWebviewPanel(
 			'deep-seek-python',
 			'DeepSeek Python Assistant',
@@ -223,14 +237,14 @@ async function startDeepSeekChatWithPrompt(initialPrompt: string, context: vscod
 		}, 1000);
 
 		// Handle chat messages
-		panel.webview.onDidReceiveMessage(async (message: any) => {
-			if (message.command === 'chat') {
+		panel.webview.onDidReceiveMessage(async (message: WebviewMessage) => {
+			if (message.command === 'chat' && message.text) {
 				const userPrompt = message.text;
 				let responseText = '';
 
 				try {
 					const streamResponse = await ollama.chat({
-						model: 'deepseek-r1:latest',
+						model: selectedModel,
 						messages: [{ role: 'user', content: userPrompt}],
 						stream: true
 					});
@@ -333,6 +347,12 @@ export function activate(context: vscode.ExtensionContext) {
 
 				if (chosen) {
 					context.globalState.update('deepseek.model', chosen.label);
+					
+					// Update AI Agent model if it exists
+					if (aiAgent) {
+						aiAgent.updateModel();
+					}
+					
 					vscode.window.showInformationMessage(`✅ Chọn model: ${chosen.label}`);
 
 					// Ask user if they want to reload immediately
@@ -396,7 +416,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const disposable = vscode.commands.registerCommand('deep-seek.start', async () => {
 		try {
-			await pullModel('deepseek-r1:latest');
+			// Get the currently selected model
+			const selectedModel = context.globalState.get('deepseek.model', 'deepseek-r1:latest');
+			await pullModel(selectedModel);
 			const panel = vscode.window.createWebviewPanel(
 				'deep-seek',
 				'Deep Seek Chat',
@@ -406,14 +428,14 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 			);
 			panel.webview.html = getWebviewContent(context);
-			panel.webview.onDidReceiveMessage(async (message: any) => {
-				if (message.command === 'chat') {
+			panel.webview.onDidReceiveMessage(async (message: WebviewMessage) => {
+				if (message.command === 'chat' && message.text) {
 					const userPrompt = message.text;
 					let responseText = '';
 
 					try {
 						const streamResponse = await ollama.chat({
-							model: 'deepseek-r1:latest',
+							model: selectedModel,
 							messages: [{ role: 'user', content: userPrompt}],
 							stream: true
 						});

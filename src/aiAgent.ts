@@ -69,8 +69,8 @@ export class OllamaService {
 /** ===== Main AI Agent Class ===== */
 export class AIAgent {
   private readonly outputChannel: vscode.OutputChannel;
-  private readonly ollamaSvc: OllamaService;
-  private readonly model: string;
+  private ollamaSvc: OllamaService;
+  private model: string;
 
   constructor(private readonly context: vscode.ExtensionContext, name = 'DeepSeek Agent') {
     this.outputChannel = vscode.window.createOutputChannel(name);
@@ -80,6 +80,16 @@ export class AIAgent {
     
     // Khởi tạo OllamaService với model này
     this.ollamaSvc = new OllamaService(undefined, this.model);
+  }
+
+  /** Update model when user changes selection */
+  updateModel(): void {
+    const newModel = this.context.globalState.get('deepseek.model', 'deepseek-r1:latest');
+    if (newModel !== this.model) {
+      this.model = newModel;
+      this.ollamaSvc = new OllamaService(undefined, newModel);
+      this.outputChannel.appendLine(`Model updated to: ${newModel}`);
+    }
   }
 
   private getRoot(): vscode.Uri {
@@ -156,10 +166,10 @@ export class AIAgent {
       }
       
       // Validate actions
-      const validActions = [];
+      const validActions: AgentAction[] = [];
       for (const action of parsed.actions) {
         if (this.validateAction(action)) {
-          validActions.push(action);
+          validActions.push(action as AgentAction);
         }
       }
       
@@ -175,21 +185,28 @@ export class AIAgent {
   }
 
   /** Validate action structure */
-  private validateAction(action: any): boolean {
-    if (!action.type || !action.path) {
+  private validateAction(action: unknown): action is AgentAction {
+    if (typeof action !== 'object' || action === null) {
       return false;
     }
     
-    switch (action.type) {
+    const obj = action as Record<string, unknown>;
+    if (typeof obj.type !== 'string' || typeof obj.path !== 'string') {
+      return false;
+    }
+    
+    switch (obj.type) {
       case 'upsert_file':
       case 'append':
-        return !!action.content;
+        return typeof obj.content === 'string';
       case 'replace':
-        return !!(action.pattern && action.replacement !== undefined);
+        return typeof obj.pattern === 'string' && obj.replacement !== undefined;
       case 'insert':
-        return !!(action.anchor && action.content && action.position);
+        return typeof obj.anchor === 'string' && 
+               typeof obj.content === 'string' && 
+               (obj.position === 'above' || obj.position === 'below');
       case 'optimize_imports':
-        return !!action.language;
+        return obj.language === 'ts' || obj.language === 'py';
       default:
         return false;
     }
