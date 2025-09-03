@@ -99,6 +99,17 @@ visit https://marketplace.visualstudio.com/items?itemName=aryansrao.deekseek-ext
 
 DeepSeek brings powerful AI assistance directly into VS Code, running completely locally through Ollama:
 
+### 🚀 New AI Agent Features (GitHub Copilot-like)
+
+The extension now includes an advanced AI Agent that can understand entire projects and make intelligent code modifications:
+
+- **🤖 Project Understanding** - Analyzes your entire codebase contextually
+- **🔧 JSON-based Actions** - Precise code modifications (upsert, replace, insert, optimize)
+- **📁 Workspace Integration** - Direct file editing through VS Code WorkspaceEdit
+- **✅ Confirmation Dialogs** - Preview and approve changes before applying
+- **🎯 Context-aware** - Detects frameworks (React, Vue, Python) and dependencies
+- **🔒 Security-focused** - Path sanitization and safe operations only
+
 ### Core AI Features
 - **Code Generation** - Get intelligent code suggestions
 - **Real-time Help** - Ask questions about your code
@@ -126,6 +137,35 @@ DeepSeek brings powerful AI assistance directly into VS Code, running completely
 - **Performance Review**: Algorithm complexity, memory usage, I/O optimization
 - **Best Practices Review**: PEP 8 compliance, type hints, error handling
 - **Testing Review**: Unit test coverage, integration tests, mock strategies
+
+### 🛠️ AI Agent Commands
+
+#### Available Commands (Ctrl+Shift+P)
+- **DeepSeek: Run AI Agent Task** - Choose from predefined tasks like code review, debugging, optimization
+- **DeepSeek: Review Current File** - Comprehensive analysis of the active file
+- **DeepSeek: Continuous Optimize (Light)** - Multi-iteration improvements (1-10 rounds)
+
+#### Configuration
+
+Create a `.env` file in your project root:
+```env
+OLLAMA_URL=http://127.0.0.1:11434
+OLLAMA_MODEL=deepseek-r1:latest
+OLLAMA_TIMEOUT_MS=15000
+```
+
+Or configure via VS Code settings:
+- `deepseek.ollamaUrl` - Ollama service URL
+- `deepseek.ollamaModel` - Model to use  
+- `deepseek.autoApply` - Auto-apply changes without confirmation
+- `deepseek.maxContextBytes` - Context size limit (default: 40KB)
+
+#### Action Types Supported
+- **upsert_file** - Create or overwrite files
+- **append** - Add content to end of file
+- **replace** - Regex-based replacements
+- **insert** - Insert content above/below anchor
+- **optimize_imports** - Sort and clean imports
 
   
 
