@@ -73,8 +73,62 @@
       {
         "command": "deep-seek.python.test",
         "title": "Generate Python Tests"
+      },
+      {
+        "command": "deepseek.agent.runTask",
+        "title": "DeepSeek: Run AI Agent Task"
+      },
+      {
+        "command": "deepseek.agent.reviewActiveFile",
+        "title": "DeepSeek: Review Current File"
+      },
+      {
+        "command": "deepseek.agent.continuous",
+        "title": "DeepSeek: Continuous Optimize (Light)"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "DeepSeek",
+      "properties": {
+        "deepseek.ollamaUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:11434",
+          "description": "Ollama service URL"
+        },
+        "deepseek.ollamaModel": {
+          "type": "string",
+          "default": "deepseek-r1:latest",
+          "description": "Default Ollama model to use"
+        },
+        "deepseek.ollamaTimeout": {
+          "type": "number",
+          "default": 15000,
+          "description": "Timeout for Ollama requests in milliseconds"
+        },
+        "deepseek.temperature": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Temperature for model responses (0-1)"
+        },
+        "deepseek.autoApply": {
+          "type": "boolean",
+          "default": false,
+          "description": "Apply plan without confirmation"
+        },
+        "deepseek.maxContextBytes": {
+          "type": "number",
+          "default": 40000,
+          "description": "Maximum context size in bytes"
+        },
+        "deepseek.promptTemplateFolder": {
+          "type": "string",
+          "default": "~/.deepseek/templates",
+          "description": "Folder containing custom prompt templates"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -96,6 +150,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "dotenv": "^17.2.2",
     "ollama": "^0.5.12"
   }
 }

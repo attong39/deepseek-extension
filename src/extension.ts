@@ -2,6 +2,8 @@ import * as fs from 'fs';
 import ollama from 'ollama';
 import * as path from 'path';
 import * as vscode from 'vscode';
+import { AIAgent } from './aiAgent';
+import { OllamaClient } from './ollamaClient';
 
 // Python Development Workflow Integration
 const PYTHON_FILE_PATTERNS = ['**/*.py', '**/*.pyi', '**/*.pyx', '**/*.pxd'];
@@ -238,6 +240,9 @@ function getWebviewContent(context: vscode.ExtensionContext): string {
 export function activate(context: vscode.ExtensionContext) {
 	console.log('DeepSeek extension is now active!');
 
+	// Initialize AI Agent
+	const aiAgent = new AIAgent();
+
 	// Python Development Workflow Integration
 	const pythonProjectDetector = new PythonProjectDetector();
 	const pythonWorkflowManager = new PythonWorkflowManager();
@@ -261,6 +266,78 @@ export function activate(context: vscode.ExtensionContext) {
 		const disposable = vscode.commands.registerCommand(commandId, async () => {
 			await handlePythonCommand(commandId, context);
 		});
+		context.subscriptions.push(disposable);
+	});
+
+	// Register AI Agent commands
+	const agentCommands = [
+		{
+			command: 'deepseek.agent.runTask',
+			handler: async () => {
+				const taskOptions = [
+					'Review code và phát hiện vấn đề',
+					'Debug và tìm lỗi',
+					'Tối ưu hiệu suất',
+					'Thêm documentation',
+					'Tạo unit tests',
+					'Cải thiện type safety',
+					'Refactor code structure'
+				];
+				
+				const selectedTask = await vscode.window.showQuickPick(taskOptions, {
+					placeHolder: 'Chọn loại task muốn thực hiện'
+				});
+				
+				if (selectedTask) {
+					try {
+						const plan = await aiAgent.runTask(selectedTask);
+						await aiAgent.confirmAndApply(plan);
+					} catch (error) {
+						vscode.window.showErrorMessage(`Task failed: ${error instanceof Error ? error.message : String(error)}`);
+					}
+				}
+			}
+		},
+		{
+			command: 'deepseek.agent.reviewActiveFile',
+			handler: async () => {
+				try {
+					const plan = await aiAgent.reviewActiveFile();
+					await aiAgent.confirmAndApply(plan);
+				} catch (error) {
+					vscode.window.showErrorMessage(`Review failed: ${error instanceof Error ? error.message : String(error)}`);
+				}
+			}
+		},
+		{
+			command: 'deepseek.agent.continuous',
+			handler: async () => {
+				const maxIterations = await vscode.window.showInputBox({
+					prompt: 'Maximum number of iterations (default: 3)',
+					value: '3',
+					validateInput: (value) => {
+						const num = parseInt(value);
+						if (isNaN(num) || num < 1 || num > 10) {
+							return 'Please enter a number between 1 and 10';
+						}
+						return undefined;
+					}
+				});
+				
+				if (maxIterations) {
+					try {
+						await aiAgent.continuous(parseInt(maxIterations));
+					} catch (error) {
+						vscode.window.showErrorMessage(`Continuous optimization failed: ${error instanceof Error ? error.message : String(error)}`);
+					}
+				}
+			}
+		}
+	];
+
+	// Register all AI agent commands
+	agentCommands.forEach(({ command, handler }) => {
+		const disposable = vscode.commands.registerCommand(command, handler);
 		context.subscriptions.push(disposable);
 	});
 
