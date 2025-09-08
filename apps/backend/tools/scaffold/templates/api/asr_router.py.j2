@@ -1,0 +1,20 @@
+${AUTO_HEADER}
+from fastapi import APIRouter, UploadFile, File, Depends
+from zeta_vn.core.services.asr_service import ASRService
+from zeta_vn.core.adapters.asr_whisper import WhisperASR
+import tempfile, shutil, os
+
+router = APIRouter(prefix="/asr", tags=["asr"])
+
+async def get_service():
+    return ASRService(asr=WhisperASR())
+
+@router.post("/transcribe")
+async def transcribe(file: UploadFile = File(...), svc: ASRService = Depends(get_service)):
+    with tempfile.NamedTemporaryFile(delete=False, suffix=os.path.splitext(file.filename)[1]) as tmp:
+        shutil.copyfileobj(file.file, tmp)
+        tmp_path = tmp.name
+    try:
+        return await svc.transcribe_and_learn(tmp_path)
+    finally:
+        os.unlink(tmp_path)

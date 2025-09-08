@@ -1,0 +1,45 @@
+{
+  "$id": "zeta://contracts/config/app-config.schema.json",
+  "type": "object",
+  "required": [
+    "flags",
+    "retentionDays"
+  ],
+  "properties": {
+    "flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ENABLE_TELEMETRY": {
+          "type": "boolean",
+          "default": false
+        },
+        "ENABLE_FEDERATED": {
+          "type": "boolean",
+          "default": false
+        },
+        "ENABLE_CV": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "retentionDays": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 365,
+      "default": 30
+    },
+    "apiBase": {
+      "type": "string",
+      "minLength": 1,
+      "default": "/api"
+    },
+    "wsHealthPath": {
+      "type": "string",
+      "minLength": 1,
+      "default": "/ws/health"
+    }
+  },
+  "additionalProperties": false
+}

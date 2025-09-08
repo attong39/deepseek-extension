@@ -1,0 +1,32 @@
+apiVersion: v2
+name: zeta-agent
+description: Zeta AI Agent - Intelligent coding assistant powered by Ollama
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+
+keywords:
+  - ai
+  - coding
+  - assistant
+  - ollama
+  - vscode
+
+home: https://github.com/zeta/apps/zeta-ai-agent
+sources:
+  - https://github.com/zeta/apps/zeta-ai-agent
+
+maintainers:
+  - name: Zeta AI Team
+    email: team@zeta-ai.com
+
+annotations:
+  category: Development
+  artifacthub.io/changes: |
+    - Initial release of Zeta AI Agent
+  artifacthub.io/images: |
+    - name: zeta-agent
+      image: ghcr.io/zeta/apps/zeta-ai-agent:1.0.0
+  artifacthub.io/license: MIT
+  artifacthub.io/operator: "false"
+  artifacthub.io/prerelease: "false"

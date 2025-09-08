@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[pre-commit] Update OpenAPI hash..."
+uv run python tools/consistency/openapi_hash.py --write
+git add apps/desktop/src/constants/OPENAPI_HASH.ts || true
+
+echo "[pre-commit] Consistency Guard..."
+uv run python tools/consistency/run_all.py
+
+# ---------- Auto-Fix missing imports / deps ----------
+echo "[pre-commit] Auto-fix (changed-only)..."
+uv run python tools/auto_fix/cli.py all --changed-only
+git add -u
+
+echo "[pre-commit] OK"

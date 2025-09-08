@@ -1,0 +1,13 @@
+{
+  "api_key": "REPLACE_WITH_PRODUCTION_API_KEY",
+  "host": "https://ollama.com",
+  "model": "gpt-oss:120b",
+  "available_models": [
+    "gpt-oss:20b",
+    "gpt-oss:120b"
+  ],
+  "local_fallback": true,
+  "timeout": 30,
+  "max_retries": 3,
+  "stream": true
+}

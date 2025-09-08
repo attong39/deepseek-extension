@@ -1,0 +1,183 @@
+/**
+ * ThemeToggle Styles
+ * CSS cho theme toggle button với smooth animations
+ */
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  overflow: hidden;
+}
+
+.theme-toggle:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+/* Size Variants */
+.theme-toggle--sm {
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: 0.875rem;
+}
+
+.theme-toggle--md {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: 1rem;
+}
+
+.theme-toggle--lg {
+  padding: var(--spacing-3) var(--spacing-4);
+  font-size: 1.125rem;
+}
+
+/* Icon Container */
+.theme-toggle__icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon Styles */
+.theme-toggle__icon {
+  position: absolute;
+  width: 1.25em;
+  height: 1.25em;
+  transition: all var(--transition-normal);
+  transform-origin: center;
+}
+
+/* Size-specific icon sizes */
+.theme-toggle--sm .theme-toggle__icon {
+  width: 1em;
+  height: 1em;
+}
+
+.theme-toggle--lg .theme-toggle__icon {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+/* Sun Icon */
+.theme-toggle__sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-toggle__sun.theme-toggle__icon--hidden {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.8);
+}
+
+/* Moon Icon */
+.theme-toggle__moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.theme-toggle__moon.theme-toggle__icon--hidden {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.8);
+}
+
+/* Label */
+.theme-toggle__label {
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.theme-toggle:hover .theme-toggle__label {
+  color: var(--color-text-primary);
+}
+
+/* Dark Theme Adjustments */
+.theme-dark .theme-toggle {
+  background: var(--color-bg-elevated);
+  border-color: var(--color-border-primary);
+}
+
+.theme-dark .theme-toggle:hover {
+  background: var(--color-bg-tertiary);
+  border-color: var(--color-border-secondary);
+}
+
+/* Icon Animation on Theme Change */
+.theme-toggle__icon-container::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(circle, var(--color-interactive-primary) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0);
+  transition: all var(--transition-normal);
+  z-index: -1;
+}
+
+.theme-toggle:active .theme-toggle__icon-container::before {
+  opacity: 0.1;
+  transform: scale(1);
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle__icon,
+  .theme-toggle__label {
+    transition: none;
+  }
+  
+  .theme-toggle__icon.theme-toggle__icon--hidden {
+    transform: scale(0);
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .theme-toggle {
+    border-width: 2px;
+  }
+  
+  .theme-toggle:focus {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+}
+
+/* Compact variant for toolbars */
+.theme-toggle--compact {
+  padding: var(--spacing-1);
+  border-radius: var(--radius-base);
+  min-width: auto;
+}
+
+.theme-toggle--compact .theme-toggle__label {
+  display: none;
+}
+
+/* RTL Support */
+[dir="rtl"] .theme-toggle {
+  direction: ltr; /* Icons should always face same direction */
+}

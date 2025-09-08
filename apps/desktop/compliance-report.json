@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-08-28T20:09:49.613Z",
+  "sbom": {
+    "json": true,
+    "xml": true
+  },
+  "licenses": {
+    "json": true,
+    "csv": true
+  },
+  "compliance_status": "GENERATED"
+}

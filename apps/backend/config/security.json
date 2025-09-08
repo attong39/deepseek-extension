@@ -1,0 +1,7 @@
+{
+  "jwt_secret": "change-me-in-production",
+  "jwt_algorithm": "HS256",
+  "jwt_expiration": 3600,
+  "password_min_length": 8,
+  "session_timeout": 1800
+}

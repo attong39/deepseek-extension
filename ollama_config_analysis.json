@@ -1,0 +1,24 @@
+{
+  "primary": {
+    "name": "Local Ollama",
+    "endpoint": "http://127.0.0.1:11434",
+    "model": "deepseek-coder:6.7b",
+    "status": "✅ Working",
+    "cost": "Free"
+  },
+  "online_attempts": [
+    {
+      "name": "Ollama Official API",
+      "endpoint": "https://api.ollama.com/v1",
+      "api_key": "7da59eeb32d8447bbf291f5842bbe3a7.KoeW1XFcpJqaLn7-2LbRjMNY",
+      "status": "❓ Unknown"
+    },
+    {
+      "name": "Ollama Cloud",
+      "endpoint": "https://cloud.ollama.com/v1",
+      "api_key": "7da59eeb32d8447bbf291f5842bbe3a7.KoeW1XFcpJqaLn7-2LbRjMNY",
+      "status": "❓ Unknown"
+    }
+  ],
+  "recommendation": "Use local Ollama as primary, keep API key for future online access"
+}

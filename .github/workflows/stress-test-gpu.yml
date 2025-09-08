@@ -1,0 +1,88 @@
+name: Ollama Stress Test (GPU)
+
+on:
+  workflow_dispatch:
+    inputs:
+      request-count:
+        description: 'Number of total requests'
+        required: false
+        default: '100'
+        type: string
+      concurrency:
+        description: 'Number of concurrent requests'
+        required: false
+        default: '10'
+        type: string
+  schedule:
+    - cron: '0 4 * * *'  # Daily at 4 AM UTC
+
+jobs:
+  stress-test-gpu:
+    runs-on: [self-hosted, gpu]
+    timeout-minutes: 30
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Verify GPU availability
+      run: |
+        nvidia-smi
+        nvcc --version || echo "CUDA not available"
+
+    - name: Start Ollama with GPU support
+      run: |
+        docker run -d \
+          --name ollama-gpu \
+          -p 11434:11434 \
+          -v ollama-data:/root/.ollama \
+          --gpus=all \
+          ollama/ollama:latest
+        
+        sleep 20
+        docker logs ollama-gpu
+
+    - name: Pull optimized model for GPU
+      run: |
+        docker exec ollama-gpu ollama pull codellama:13b-instruct
+        docker exec ollama-gpu ollama list
+
+    - name: Install PowerShell
+      run: |
+        apt-get update
+        apt-get install -y powershell
+
+    - name: Run GPU stress test
+      shell: pwsh
+      run: |
+        $requestCount = ${{ github.event.inputs.request-count || '100' }}
+        $concurrency = ${{ github.event.inputs.concurrency || '10' }}
+        
+        ./scripts/stress_test_ollama.ps1 -RequestCount $requestCount -Concurrency $concurrency -BaseUrl "http://localhost:11434" -Model "codellama:13b-instruct"
+        
+        if ($LASTEXITCODE -ne 0) {
+          exit 1
+        }
+
+    - name: Collect GPU metrics
+      run: |
+        docker exec ollama-gpu nvidia-smi --query-gpu=utilization.gpu,memory.used,memory.total --format=csv > gpu-metrics.csv
+        docker stats --no-stream > container-stats.log
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: stress-test-gpu-results
+        path: |
+          stress_test_*.log
+          gpu-metrics.csv
+          container-stats.log
+          ollama_metrics_*.json
+
+    - name: Cleanup
+      if: always()
+      run: |
+        docker stop ollama-gpu || true
+        docker rm ollama-gpu || true
+        docker volume rm ollama-data || true

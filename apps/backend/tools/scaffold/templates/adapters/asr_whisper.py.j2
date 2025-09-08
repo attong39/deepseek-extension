@@ -1,0 +1,10 @@
+${AUTO_HEADER}
+from faster_whisper import WhisperModel
+
+class WhisperASR:
+    def __init__(self, model_size: str = "base"):
+        self.model = WhisperModel(model_size)
+
+    async def transcribe(self, audio_path: str, *, lang: str | None = None) -> str:
+        segments, info = self.model.transcribe(audio_path, language=lang, vad_filter=True)
+        return " ".join([s.text for s in segments])

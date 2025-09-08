@@ -1,0 +1,302 @@
+# Zeta Core Production Alert Rules
+# Prometheus alerting rules for WebSocket, Zero-Trust, and Agent performance
+
+groups:
+
+# ================================================================
+# Zero-Trust Security Alerts
+# ================================================================
+- name: zeta-security
+  rules:
+  
+  - alert: ZeroTrustDenialSpike
+    expr: rate(zeta_zt_decisions_total{allow="false"}[1m]) > 5
+    for: 30s
+    labels:
+      severity: critical
+      component: zero-trust
+      team: security
+    annotations:
+      summary: "Zero-Trust denial spike detected"
+      description: "Zero-Trust is denying >5 requests/minute (current: {{ $value | humanize }}/min). Possible attack or misconfiguration."
+      impact: "User access may be blocked incorrectly"
+      action: "Check Zero-Trust policy configuration and recent rule changes"
+      runbook: "https://docs.zeta.ai/runbooks/security/zero-trust-denials"
+  
+  - alert: ZeroTrustHighRiskDecisions
+    expr: rate(zeta_zt_decisions_total{risk="high"}[5m]) > 2
+    for: 2m
+    labels:
+      severity: warning
+      component: zero-trust
+      team: security
+    annotations:
+      summary: "High risk decisions increasing"
+      description: "Zero-Trust marking >2 decisions/minute as high risk (current: {{ $value | humanize }}/min)"
+      impact: "Elevated security risk in access decisions"
+      action: "Review high-risk access patterns and user behavior"
+  
+  - alert: JWTValidationFailures
+    expr: rate(zeta_jwt_validation_failures_total[1m]) > 10
+    for: 1m
+    labels:
+      severity: warning
+      component: jwt
+      team: security
+    annotations:
+      summary: "JWT validation failures increasing"
+      description: "JWT validation failing >10 times/minute (current: {{ $value | humanize }}/min)"
+      impact: "Authentication issues affecting users"
+      action: "Check JWT configuration, JWKS endpoint, and token formats"
+  
+  - alert: OPAEvaluationFailures
+    expr: rate(zeta_opa_requests_total{status="failed"}[2m]) > 1
+    for: 1m
+    labels:
+      severity: critical
+      component: opa
+      team: security
+    annotations:
+      summary: "OPA policy evaluation failures"
+      description: "OPA policy evaluation failing >1 time/2min (current: {{ $value | humanize }}/2min)"
+      impact: "Policy decisions may be incorrect or unavailable"
+      action: "Check OPA server connectivity and policy bundle status"
+
+# ================================================================
+# WebSocket Performance Alerts
+# ================================================================
+- name: zeta-websocket
+  rules:
+  
+  - alert: WebSocketLatencyHigh
+    expr: histogram_quantile(0.95, sum(rate(zeta_ws_send_latency_seconds_bucket[2m])) by (le, route)) > 0.2
+    for: 2m
+    labels:
+      severity: warning
+      component: websocket
+      team: backend
+    annotations:
+      summary: "WebSocket P95 latency high"
+      description: "WebSocket P95 latency >200ms on route {{ $labels.route }} (current: {{ $value | humanize }}s)"
+      impact: "Degraded real-time user experience"
+      action: "Check WebSocket handler performance and system load"
+      dashboard: "https://grafana.zeta.ai/d/websocket-performance"
+  
+  - alert: WebSocketLatencyCritical
+    expr: histogram_quantile(0.95, sum(rate(zeta_ws_send_latency_seconds_bucket[1m])) by (le, route)) > 0.5
+    for: 1m
+    labels:
+      severity: critical
+      component: websocket
+      team: backend
+    annotations:
+      summary: "WebSocket P95 latency critical"
+      description: "WebSocket P95 latency >500ms on route {{ $labels.route }} (current: {{ $value | humanize }}s)"
+      impact: "Severely degraded user experience, timeouts likely"
+      action: "Immediate investigation required - check system resources, database, or scale out"
+  
+  - alert: WebSocketConnectionLeak
+    expr: zeta_ws_connections{route="/agents/teams/run"} > 2000
+    for: 5m
+    labels:
+      severity: critical
+      component: websocket
+      team: backend
+    annotations:
+      summary: "WebSocket connection leak detected"
+      description: "WebSocket connections >2000 on {{ $labels.route }} (current: {{ $value }})"
+      impact: "Resource exhaustion, potential service degradation"
+      action: "Check for connection cleanup issues, implement connection limits"
+  
+  - alert: WebSocketBackpressureHigh
+    expr: rate(zeta_ws_backpressure_total[1m]) > 0.1
+    for: 2m
+    labels:
+      severity: warning
+      component: websocket
+      team: backend
+    annotations:
+      summary: "WebSocket backpressure events increasing"
+      description: "WebSocket backpressure events >0.1/minute (current: {{ $value | humanize }}/min)"
+      impact: "Messages being dropped, user data loss possible"
+      action: "Check message queue sizes, consider scaling or optimization"
+  
+  - alert: WebSocketErrorRateHigh
+    expr: rate(zeta_ws_errors_total[1m]) / rate(zeta_ws_messages_total[1m]) > 0.02
+    for: 3m
+    labels:
+      severity: warning
+      component: websocket
+      team: backend
+    annotations:
+      summary: "WebSocket error rate high"
+      description: "WebSocket error rate >2% (current: {{ $value | humanizePercentage }})"
+      impact: "Degraded service reliability"
+      action: "Check error logs and WebSocket handler implementation"
+
+# ================================================================
+# Agent Orchestration Alerts
+# ================================================================
+- name: zeta-agents
+  rules:
+  
+  - alert: AgentExecutionFailureRate
+    expr: rate(zeta_agent_steps_total{status="failed"}[5m]) / rate(zeta_agent_steps_total[5m]) > 0.1
+    for: 3m
+    labels:
+      severity: critical
+      component: agents
+      team: ai
+    annotations:
+      summary: "Agent execution failure rate high"
+      description: "Agent execution failing >10% of the time (current: {{ $value | humanizePercentage }})"
+      impact: "AI workflows not completing successfully"
+      action: "Check agent configuration, dependencies, and resource availability"
+  
+  - alert: AgentTeamLatencyHigh
+    expr: histogram_quantile(0.90, sum(rate(zeta_team_latency_seconds_bucket[5m])) by (le)) > 30
+    for: 2m
+    labels:
+      severity: warning
+      component: agents
+      team: ai
+    annotations:
+      summary: "Agent team execution latency high"
+      description: "Agent team P90 latency >30s (current: {{ $value | humanize }}s)"
+      impact: "Slow AI workflow execution"
+      action: "Check agent performance, optimize workflows, or scale resources"
+  
+  - alert: AgentTeamStuck
+    expr: increase(zeta_active_teams_total{status="running"}[10m]) == 0 and zeta_active_teams_total{status="running"} > 0
+    for: 5m
+    labels:
+      severity: critical
+      component: agents
+      team: ai
+    annotations:
+      summary: "Agent teams appear stuck"
+      description: "No progress in running agent teams for 10+ minutes"
+      impact: "AI workflows not progressing, potential deadlock"
+      action: "Check for resource contention, infinite loops, or orchestrator issues"
+
+# ================================================================
+# Knowledge Graph Performance
+# ================================================================
+- name: zeta-knowledge-graph
+  rules:
+  
+  - alert: KnowledgeGraphQueryLatency
+    expr: histogram_quantile(0.95, sum(rate(zeta_kg_query_duration_seconds_bucket[2m])) by (le)) > 0.05
+    for: 2m
+    labels:
+      severity: warning
+      component: knowledge-graph
+      team: backend
+    annotations:
+      summary: "Knowledge graph query latency high"
+      description: "Knowledge graph P95 query latency >50ms (current: {{ $value | humanize }}s)"
+      impact: "Slow agent reasoning and decision making"
+      action: "Check graph size, query complexity, or consider optimization"
+  
+  - alert: KnowledgeGraphSize
+    expr: zeta_knowledge_graph_entities_total > 100000
+    for: 0s
+    labels:
+      severity: info
+      component: knowledge-graph
+      team: ai
+    annotations:
+      summary: "Knowledge graph approaching size limits"
+      description: "Knowledge graph has >100k entities (current: {{ $value }})"
+      impact: "Potential performance degradation"
+      action: "Consider graph pruning, archiving, or scaling strategy"
+  
+  - alert: KnowledgeGraphErrorRate
+    expr: rate(zeta_kg_queries_total{status="error"}[1m]) > 0.5
+    for: 2m
+    labels:
+      severity: critical
+      component: knowledge-graph
+      team: backend
+    annotations:
+      summary: "Knowledge graph error rate high"
+      description: "Knowledge graph queries failing >0.5/minute (current: {{ $value | humanize }}/min)"
+      impact: "Agent reasoning capabilities degraded"
+      action: "Check graph database connectivity and data integrity"
+
+# ================================================================
+# System Resource Alerts
+# ================================================================
+- name: zeta-resources
+  rules:
+  
+  - alert: HighMemoryUsage
+    expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 85
+    for: 5m
+    labels:
+      severity: warning
+      component: system
+      team: platform
+    annotations:
+      summary: "High memory usage"
+      description: "Memory usage >85% (current: {{ $value | humanize }}%)"
+      impact: "Risk of out-of-memory errors"
+      action: "Check for memory leaks or scale resources"
+  
+  - alert: HighCPUUsage
+    expr: 100 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
+    for: 5m
+    labels:
+      severity: warning
+      component: system
+      team: platform
+    annotations:
+      summary: "High CPU usage"
+      description: "CPU usage >80% (current: {{ $value | humanize }}%)"
+      impact: "Performance degradation"
+      action: "Check for CPU-intensive processes or scale resources"
+  
+  - alert: DiskSpaceLow
+    expr: (1 - (node_filesystem_avail_bytes / node_filesystem_size_bytes)) * 100 > 85
+    for: 2m
+    labels:
+      severity: critical
+      component: system
+      team: platform
+    annotations:
+      summary: "Disk space low"
+      description: "Disk usage >85% on {{ $labels.mountpoint }} (current: {{ $value | humanize }}%)"
+      impact: "Risk of service failure due to disk full"
+      action: "Clean up logs, scale storage, or investigate disk usage"
+
+# ================================================================
+# Database Performance
+# ================================================================
+- name: zeta-database
+  rules:
+  
+  - alert: DatabaseConnectionPoolExhausted
+    expr: hikaricp_connections_active / hikaricp_connections_max > 0.9
+    for: 1m
+    labels:
+      severity: critical
+      component: database
+      team: backend
+    annotations:
+      summary: "Database connection pool near exhaustion"
+      description: "Database connection pool >90% utilized ({{ $value | humanizePercentage }})"
+      impact: "New requests may be blocked"
+      action: "Check for connection leaks or increase pool size"
+  
+  - alert: DatabaseQueryLatencyHigh
+    expr: histogram_quantile(0.95, sum(rate(spring_data_repository_invocations_seconds_bucket[2m])) by (le)) > 0.1
+    for: 2m
+    labels:
+      severity: warning
+      component: database
+      team: backend
+    annotations:
+      summary: "Database query latency high"
+      description: "Database P95 query latency >100ms (current: {{ $value | humanize }}s)"
+      impact: "Slow application response times"
+      action: "Check slow queries, optimize indexes, or scale database"

@@ -1,0 +1,45 @@
+{
+  "cache": {
+    "cache_created": false,
+    "cache_size": 0,
+    "cache_entries": 0,
+    "command_success": false,
+    "duration": 0.09062361717224121
+  },
+  "lint_fix": {
+    "command_success": false,
+    "file_was_modified": false,
+    "duration": 0.09452223777770996,
+    "original_content": "import os,sys,json  # Multiple imports on one line\ndef test_func( ):\n    x=1+2  # No spaces around operator\n    return x",
+    "fixed_content": "import os,sys,json  # Multiple imports on one line\ndef test_func( ):\n    x=1+2  # No spaces around operator\n    return x"
+  },
+  "makefile": {
+    "fix-imports": {
+      "success": false,
+      "duration": 0.028003692626953125,
+      "has_output": false
+    },
+    "fast-fix": {
+      "success": false,
+      "duration": 0.026997804641723633,
+      "has_output": false
+    },
+    "lint-fix": {
+      "success": false,
+      "duration": 0.027518272399902344,
+      "has_output": false
+    },
+    "cleanup": {
+      "success": false,
+      "duration": 0.04200100898742676,
+      "has_output": false
+    }
+  },
+  "performance": {
+    "first_run_duration": 0.14405202865600586,
+    "second_run_duration": 0.09655213356018066,
+    "improvement_seconds": 0.047499895095825195,
+    "improvement_percent": 32.974124376446134,
+    "cache_working": true
+  }
+}

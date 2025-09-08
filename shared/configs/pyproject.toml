@@ -1,0 +1,380 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zeta-ai-server"
+version = "0.1.0"
+description = "ZETA AI Server — Advanced AI system with Clean Architecture"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+  {name = "ZETA AI Team", email = "dev@zeta-ai.vn"},
+]
+keywords = ["ai", "fastapi", "clean-architecture", "async", "microservices"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Framework :: FastAPI",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+]
+
+# ---- Keep base dependencies lean; push heavy AI libs to extras ----
+dependencies = [
+  # Web framework & runtime
+  "fastapi>=0.115.0,<1.0.0",
+  "uvicorn[standard]>=0.30.0,<1.0.0",
+  # Validation & settings
+  "pydantic>=2.11.0,<3.0.0",
+  "pydantic-settings>=2.6.0,<3.0.0",
+  "email-validator>=2.0.0,<3.0.0",
+  # HTTP
+  "httpx>=0.28.0,<1.0.0",
+  "requests>=2.32.0,<3.0.0",
+  # Auth & uploads
+  "python-jose[cryptography]>=3.3.0,<4.0.0",
+  "passlib[bcrypt]>=1.7.4,<2.0.0",
+  "python-multipart>=0.0.12,<1.0.0",
+  # Data layer
+  "sqlalchemy>=2.0.35,<3.0.0",
+  "alembic>=1.13.0,<2.0.0",
+  "asyncpg>=0.29.0,<1.0.0",
+  "redis>=5.2.0,<6.0.0",
+  "aioredis>=2.0.0,<3.0.0",
+  # Task queue (optional at runtime but common)
+  "celery>=5.4.0,<6.0.0",
+  # Utilities
+  "tenacity>=9.0.0,<10.0.0",
+  "click>=8.1.7,<9.0.0",
+  "rich>=14.1.0",
+  "numpy>=1.26.4",
+  "pillow>=10.4.0",
+  "psutil>=7.0.0",
+]
+
+[project.optional-dependencies]
+# ---- Dev toolchain ----
+dev = [
+  # Testing
+  "pytest>=8.3.0,<9.0.0",
+  "pytest-asyncio>=0.24.0,<1.0.0",
+  "pytest-cov>=6.0.0,<7.0.0",
+  "pytest-mock>=3.14.0,<4.0.0",
+  "fakeredis>=2.20.1,<3.0.0",
+
+  # Code quality
+  "ruff>=0.5.0,<1.0.0",
+  "mypy>=1.13.0,<2.0.0",
+  "pre-commit>=4.0.0,<5.0.0",
+  "import-linter>=2.0.0,<3.0.0",
+  "vulture>=2.11,<3.0",
+  "bandit>=1.7.10,<2.0.0",
+  "pip-audit>=2.7.3,<3.0.0",
+
+  # Type stubs
+  "types-requests>=2.32.0,<3.0.0",
+  "types-PyYAML>=6.0.12,<7.0.0",
+
+  # Docs
+  "mkdocs>=1.6.1,<2.0.0",
+  "mkdocs-material>=9.5.44,<10.0.0",
+]
+
+# ---- Production logging/observability ----
+production = [
+  "gunicorn>=23.0.0,<24.0.0",
+  "python-json-logger>=2.0.7,<3.0.0",
+  "sentry-sdk[fastapi]>=2.18.0,<3.0.0",
+  "uvloop>=0.17.0,<1.0.0; sys_platform != 'win32'",
+  "httptools>=0.6.0,<1.0.0",
+]
+
+# ---- AI/LLM stacks moved to extras to avoid bloating base install ----
+llm = [
+  "openai>=1.55.0,<2.0.0",
+  "google-generativeai>=0.7.2,<1.0.0",
+  # downstream LLM integrations removed from extras here to avoid heavy base
+  # installs. Re-add if you enable advanced LLM workflows.
+]
+
+vector = [
+  "pinecone-client>=5.0.0,<6.0.0",
+  # vector DB clients removed by default: weaviate/chromadb are optional
+]
+
+cv = [
+  "opencv-python>=4.8.1.78,<5.0.0",
+  "easyocr>=1.7.0,<2.0.0",
+]
+
+observability = [
+  "prometheus-client>=0.21.0,<1.0.0",
+  "structlog>=24.4.0,<25.0.0",
+  # OpenTelemetry core + OTLP exporter
+  "opentelemetry-api>=1.27.0,<2.0.0",
+  "opentelemetry-sdk>=1.27.0,<2.0.0",
+  "opentelemetry-exporter-otlp>=1.27.0,<2.0.0",
+  # Instrumentations (beta series matching API/SDK)
+  "opentelemetry-instrumentation-fastapi>=0.48b0,<0.49",
+  "opentelemetry-instrumentation-sqlalchemy>=0.48b0,<0.49",
+  "opentelemetry-instrumentation-redis>=0.48b0,<0.49",
+  "opentelemetry-instrumentation-celery>=0.48b0,<0.49",
+]
+
+# ---- AI security/anomaly/phishing/deepfake baseline ----
+security-ai = [
+  # Streaming anomaly detection (UEBA-like)
+  "river>=0.21.0,<1.0.0",
+  # Outlier / drift detection
+  # Removed heavy ML extras (alibi-detect, pyod). Re-add in targeted installs.
+  # URL/host parsing for phishing analysis
+  "tldextract>=5.1.0,<6.0.0",
+  # Light runtime for model-based detection
+  # onnxruntime/opencv optional
+  # Threat intel (optional)
+  # stix2/taxii2-client optional
+  # YARA (optional, may require platform toolchain)
+  # yara-python optional
+]
+
+# GPU builds are environment-specific; keep them opt-in.
+# Install with: uv pip install -U torch --index-url https://download.pytorch.org/whl/cu124
+# or define a private extra mapping to your infra mirror.
+
+[project.scripts]
+zeta-server = "zeta_vn.app.main:main"
+
+[project.urls]
+Homepage = "https://github.com/zeta-ai/zeta-server"
+Documentation = "https://docs.zeta-ai.vn"
+Repository = "https://github.com/zeta-ai/zeta-server"
+Issues = "https://github.com/zeta-ai/zeta-server/issues"
+
+# ==================== TOOL CONFIGURATIONS ====================
+
+[tool.setuptools.packages.find]
+where = [""]
+include = ["zeta_vn*"]
+exclude = ["tests*", "docs*", "scripts*", "*.egg-info*"]
+
+# ---- uv configuration (works with PEP 621 groups) ----
+[tool.uv]
+index-url = "https://pypi.org/simple"
+# Example of platform-specific custom indexes can be added here when needed.
+
+# ---- Ruff (>=0.5) consolidated config: no duplicated sections ----
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["zeta_vn", "tests", "scripts"]
+output-format = "grouped"
+per-file-ignores = ["scripts/check_duplicates.py:C901"]
+
+[tool.ruff.lint]
+select = ["E","F","I","TID","PLC","PLE","PLW"]
+ignore = ["E203","E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["zeta_vn"]
+force-sort-within-sections = true
+lines-after-imports = 2
+combine-as-imports = true
+
+[tool.ruff.lint.flake8-tidy-imports]
+# Ban relative imports across the codebase
+ban-relative-imports = "all"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+# ---- mypy (strict) ----
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+extra_checks = true
+
+# Exclude docs/examples and backup folders to avoid duplicate module conflict
+exclude = [
+  "docs/examples/.*",
+  "examples/.*",
+  "\\.safe_fix_backups.*",
+  "backup.*",
+  ".*backup.*",
+  "zeta_vn/zeta_vn/.*",
+]
+
+# Output
+show_error_codes = true
+show_column_numbers = true
+show_error_context = true
+color_output = true
+error_summary = true
+
+# Imports
+ignore_missing_imports = false
+follow_imports = "normal"
+no_implicit_reexport = true
+namespace_packages = true
+explicit_package_bases = true
+
+[[tool.mypy.overrides]]
+module = [
+  "zeta_vn.core.domain.entities.agent",
+]
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = [
+  "celery.*",
+  "redis.*",
+  "pinecone.*",
+  "weaviate.*",
+  "chromadb.*",
+  "langchain.*",
+  "openai.*",
+  "anthropic.*",
+  "transformers.*",
+  "sentence_transformers.*",
+  "strawberry.*",
+  "prometheus_client.*",
+  "structlog.*",
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+  "kombu.*",
+  "qrcode.*",
+  "bleach",
+]
+ignore_missing_imports = true
+
+
+# ---- pytest ----
+[tool.pytest.ini_options]
+minversion = "7.4"
+addopts = [
+  "--strict-markers",
+  "--strict-config",
+  "--cov=zeta_vn",
+  "--cov-report=term-missing:skip-covered",
+  "--cov-report=html:reports/coverage_html",
+  "--cov-report=xml:reports/coverage.xml",
+  "--cov-fail-under=95",
+  "--junit-xml=reports/pytest.xml",
+  "-ra",
+]
+testpaths = ["zeta_vn/tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+  "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+  "integration: marks tests as integration tests",
+  "unit: marks tests as unit tests",
+  "api: marks tests as API tests",
+  "database: marks tests as database tests",
+  "websocket: marks websocket tests",
+  "performance: marks performance tests",
+  "stress: marks stress tests",
+  "minio: marks E2E tests that require MinIO and aioboto3",
+]
+asyncio_mode = "auto"
+filterwarnings = [
+  "error",
+  "ignore::UserWarning",
+  "ignore::DeprecationWarning",
+  "ignore::PendingDeprecationWarning",
+]
+
+# ---- coverage ----
+[tool.coverage.run]
+source = ["zeta_vn"]
+branch = true
+omit = [
+  "*/tests/*",
+  "*/test_*",
+  "*/__pycache__/*",
+  "*/migrations/*",
+  "*/venv/*",
+  "*/.venv/*",
+  "*/scripts/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "def __str__",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+  "class .*\\bProtocol\\):",
+  "@(abc\\.)?abstractmethod",
+]
+show_missing = true
+skip_covered = true
+skip_empty = true
+
+# ---- bandit ----
+[tool.bandit]
+exclude_dirs = ["tests", ".venv", "venv"]
+skips = ["B101", "B601"]
+
+[tool.bandit.assert_used]
+skips = ["*_test.py", "test_*.py"]
+
+# ---- import-linter: enforce Clean Architecture ----
+[tool.importlinter]
+root_package = "zeta_vn"
+
+[[tool.importlinter.contracts]]
+name = "Clean architecture layering"
+type = "layers"
+layers = [
+  "zeta_vn.app",
+  "zeta_vn.data",
+  "zeta_vn.core",
+]
+
+[[tool.importlinter.contracts]]
+name = "Core must not import app/data"
+type = "forbidden"
+source_modules = ["zeta_vn.core"]
+forbidden_modules = ["zeta_vn.app", "zeta_vn.data"]
+
+[[tool.importlinter.contracts]]
+name = "App must not import data (except DI wiring)"
+type = "forbidden"
+source_modules = ["zeta_vn.app"]
+forbidden_modules = ["zeta_vn.data"]
+ignore_imports = [
+  "zeta_vn.app.di_container -> zeta_vn.data.external.llm.gemini_client",
+  "zeta_vn.app.di_container -> zeta_vn.data.models.base",
+  "zeta_vn.app.di_container -> zeta_vn.data.repositories.sqlalchemy_agent_repository",
+  "zeta_vn.app.di_container -> zeta_vn.data.repositories.sqlalchemy_memory_repository",
+  "zeta_vn.app.di_container -> zeta_vn.data.repositories.sqlalchemy_user_repository",
+  "zeta_vn.app.di_container -> zeta_vn.data.repositories.training_job_repository",
+  "zeta_vn.app.di_container -> zeta_vn.data.repositories.dataset_item_repository",
+]

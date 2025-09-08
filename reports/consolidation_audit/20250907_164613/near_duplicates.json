@@ -1,0 +1,137 @@
+{
+  "3d0d1e6baa324eb13334345296f835133e964fd2940063632ef2b89fccd77392": [
+    "E:\\zeta-monorepo\\apps\\backend\\auth.ts",
+    "E:\\zeta-monorepo\\apps\\desktop\\src\\api\\auth.ts"
+  ],
+  "e9b53dd4de2a9be9fc98bdbc08029f4bca0c1e8ec6f63f1498ed2d29dec1e6dd": [
+    "E:\\zeta-monorepo\\apps\\backend\\profiler_demo.py",
+    "E:\\zeta-monorepo\\apps\\backend\\examples\\profiler_demo.py"
+  ],
+  "9742d64004d6bfe705b1f8d22aadd3f4743b74007d5c26192e0355469d7a9da4": [
+    "E:\\zeta-monorepo\\apps\\backend\\simple_app.py",
+    "E:\\zeta-monorepo\\apps\\backend\\examples\\simple_app.py"
+  ],
+  "178258be2a32bb69a0985da9fcbb12291e2d034d5a17491d41e6fd55fe7b6aa0": [
+    "E:\\zeta-monorepo\\apps\\backend\\wsSchema.ts",
+    "E:\\zeta-monorepo\\apps\\desktop\\src\\api\\wsSchema.ts"
+  ],
+  "97386ed382be38d36346d6f4389e2fcc3e14a4e23f57af120251c52eec27edf9": [
+    "E:\\zeta-monorepo\\apps\\backend\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\app\\api\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\app\\middleware\\security\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\app\\websockets\\router\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\domain\\entities\\Agent\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\domain\\entities\\Chat\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\domain\\entities\\Memory\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\domain\\entities\\Plan\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\infrastructure\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\infrastructure\\events\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\infrastructure\\llm_providers\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\infrastructure\\messaging\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\infrastructure\\search\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\infrastructure\\storage\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\plugins\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\policies\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\registry\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\services\\ai\\agents\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\services\\ai\\analytics\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\services\\ai\\multimodal\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\use_cases\\chat\\start_chat\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\use_cases\\memory\\store_memory\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\data\\adapters\\llm\\anthropic_adapter\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\data\\adapters\\llm\\openai_adapter\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\data\\dto\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\data\\dtos\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\data\\utils\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\ingest\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\scripts\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\storage\\uploads\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\trainer\\deployment\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\trainer\\ingest\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\trainer\\triage\\__init__.py"
+  ],
+  "c42286af0bf960365cf77ce71486951dbf30df52119d683020f3cbb7d1820ecc": [
+    "E:\\zeta-monorepo\\apps\\backend\\app\\api\\websockets\\agent_websocket.py",
+    "E:\\zeta-monorepo\\apps\\backend\\app\\websockets\\agent_websocket.py"
+  ],
+  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855": [
+    "E:\\zeta-monorepo\\apps\\backend\\app\\containers\\external_container.py",
+    "E:\\zeta-monorepo\\apps\\backend\\app\\containers\\repository_container.py",
+    "E:\\zeta-monorepo\\apps\\backend\\app\\containers\\service_container.py",
+    "E:\\zeta-monorepo\\apps\\backend\\app\\dependencies\\production.py",
+    "E:\\zeta-monorepo\\apps\\backend\\app\\dependencies\\production_clean.py",
+    "E:\\zeta-monorepo\\apps\\backend\\app\\serializers\\agent_serializers.py",
+    "E:\\zeta-monorepo\\apps\\backend\\config\\production.py",
+    "E:\\zeta-monorepo\\apps\\backend\\config\\environments\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\pipeline.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\services\\rule_engine_service.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\services\\vector_search_service.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\use_cases\\training\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\use_cases\\user\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\infra\\vector_backends\\faiss_store.py",
+    "E:\\zeta-monorepo\\apps\\backend\\integration\\data_fetchers\\web_fetcher.py",
+    "E:\\zeta-monorepo\\apps\\backend\\tests\\test_enhanced_rag.py",
+    "E:\\zeta-monorepo\\apps\\backend\\tests\\unit\\test_chat.py",
+    "E:\\zeta-monorepo\\apps\\backend\\tests\\unit\\test_rag_foundation.py",
+    "E:\\zeta-monorepo\\apps\\desktop\\src\\__tests__\\setup.d.ts"
+  ],
+  "a6284e6d3d43bdfbf0da732945adb2b4f31147c92bea47aee100d7f556c22d00": [
+    "E:\\zeta-monorepo\\apps\\backend\\app\\deps\\external.py",
+    "E:\\zeta-monorepo\\apps\\backend\\app\\deps\\services.py"
+  ],
+  "9b5e461cc35f4f004308d84b1b58025b37b93f511092473930c9bcfca2b92f3d": [
+    "E:\\zeta-monorepo\\apps\\backend\\core\\services\\chat\\conversation.py",
+    "E:\\zeta-monorepo\\extension\\deepseek-core\\tests\\__init__.py"
+  ],
+  "3cc9893e561ee3cec5b4c9fe89b4d32c2d6c3e0ec5a61bf9dc7de83ccc991e4a": [
+    "E:\\zeta-monorepo\\apps\\desktop\\src\\services\\inputController.ts",
+    "E:\\zeta-monorepo\\apps\\desktop\\src\\services\\robotFacade.ts"
+  ],
+  "96cb853389b3ad5ff83c48b6a016159a219925626a7ff8da58be854800465bd3": [
+    "E:\\zeta-monorepo\\docs\\AI_SELF_MANAGEMENT_COMPLETE.md",
+    "E:\\zeta-monorepo\\extension\\deepseek-core\\auto\\AI_SELF_MANAGEMENT_COMPLETE.md"
+  ],
+  "959840fea53adcb3fd6fb560d372babd7ce9c376836c94de536379e73da27dab": [
+    "E:\\zeta-monorepo\\docs\\AI_SELF_MANAGEMENT_SETUP.md",
+    "E:\\zeta-monorepo\\extension\\deepseek-core\\auto\\AI_SELF_MANAGEMENT_SETUP.md"
+  ],
+  "e3fd551cfb31f9b9a9514f28dead2884338c64e9edac6a8fa5f5d48b6fd1e84e": [
+    "E:\\zeta-monorepo\\docs\\AUTOMATION_IMPLEMENTATION_ROADMAP.md",
+    "E:\\zeta-monorepo\\extension\\deepseek-core\\auto\\AUTOMATION_IMPLEMENTATION_ROADMAP.md"
+  ],
+  "d88d24a4735798c798076ef493ca9abf33bfb398b42ef5080b6f4d0e53b0b611": [
+    "E:\\zeta-monorepo\\extension\\test-agent.js",
+    "E:\\zeta-monorepo\\extension\\test-code.js"
+  ],
+  "017ade7f58eef247dda774196dfebdf6699c1610fcfdd9b599e4bde18fcbc617": [
+    "E:\\zeta-monorepo\\extension\\coverage\\block-navigation.js",
+    "E:\\zeta-monorepo\\extension\\coverage\\lcov-report\\block-navigation.js"
+  ],
+  "39460b590b82a07039a6854054c322e40a28528d2fff17b4e16bfb80dd0091ea": [
+    "E:\\zeta-monorepo\\extension\\coverage\\prettify.js",
+    "E:\\zeta-monorepo\\extension\\coverage\\lcov-report\\prettify.js"
+  ],
+  "bc898c9b9ec9b34c1f5038a1e9f254de8b50562ac83d612bb9f7c584bb132b6d": [
+    "E:\\zeta-monorepo\\extension\\coverage\\sorter.js",
+    "E:\\zeta-monorepo\\extension\\coverage\\lcov-report\\sorter.js"
+  ],
+  "8c82bd26314f0ba5990cf9f7b14415d73961f0a32ab56fc05abb406922338c46": [
+    "E:\\zeta-monorepo\\extension\\out\\aiAgentClean.js",
+    "E:\\zeta-monorepo\\extension\\out\\aiAgentFixed.js",
+    "E:\\zeta-monorepo\\extension\\out\\aiAgent_new.js",
+    "E:\\zeta-monorepo\\extension\\out\\extensionClean.js",
+    "E:\\zeta-monorepo\\extension\\out\\responseTypes.js",
+    "E:\\zeta-monorepo\\extension\\out\\test-ollama.js",
+    "E:\\zeta-monorepo\\extension\\out\\test-sample.js",
+    "E:\\zeta-monorepo\\extension\\out\\test_ollama_client.js"
+  ],
+  "675b4492bd3c2ba85cdb60de7e366af07a7c4a73adf981756b4308a1b2899b64": [
+    "E:\\zeta-monorepo\\tools\\scripts\\maintenance\\fix_all_init_files.py",
+    "E:\\zeta-monorepo\\tools\\scripts\\maintenance\\fix_entity_imports.py",
+    "E:\\zeta-monorepo\\tools\\scripts\\maintenance\\fix_final_modules.py",
+    "E:\\zeta-monorepo\\tools\\scripts\\maintenance\\fix_goal_constructors.py",
+    "E:\\zeta-monorepo\\tools\\scripts\\maintenance\\fix_model_imports.py",
+    "E:\\zeta-monorepo\\tools\\scripts\\maintenance\\fix_pydantic_validators.py",
+    "E:\\zeta-monorepo\\tools\\scripts\\maintenance\\fix_test_imports.py"
+  ]
+}

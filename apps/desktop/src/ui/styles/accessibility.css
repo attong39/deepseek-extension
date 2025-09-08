@@ -1,0 +1,231 @@
+/**
+ * Accessibility CSS
+ * Styles cho accessibility features và WCAG compliance
+ */
+
+/* High Contrast Mode */
+.high-contrast {
+  --theme-bg-primary: #000000;
+  --theme-bg-secondary: #111111;
+  --theme-text-primary: #ffffff;
+  --theme-text-secondary: #cccccc;
+  --theme-border-primary: #ffffff;
+  --theme-accent-primary: #ffff00;
+  --theme-accent-secondary: #00ffff;
+}
+
+.high-contrast * {
+  border-color: var(--theme-border-primary) !important;
+}
+
+.high-contrast a {
+  color: var(--theme-accent-secondary) !important;
+}
+
+.high-contrast button {
+  border: 2px solid var(--theme-border-primary) !important;
+  background-color: var(--theme-bg-secondary) !important;
+  color: var(--theme-text-primary) !important;
+}
+
+/* Reduced Motion */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Font Size Scaling */
+:root {
+  --accessibility-font-scale: 1;
+  --accessibility-motion: normal;
+}
+
+html {
+  font-size: calc(16px * var(--accessibility-font-scale));
+}
+
+/* Enhanced Focus Indicators */
+:focus-visible {
+  outline: 3px solid var(--theme-accent-primary, #2196f3) !important;
+  outline-offset: 2px !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.5) !important;
+}
+
+/* Skip Links */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+  padding: 8px;
+  z-index: 10000;
+  text-decoration: none;
+  border-radius: 4px;
+  border: 2px solid var(--theme-accent-primary);
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Keyboard Navigation Helpers */
+.keyboard-navigation {
+  outline: none;
+}
+
+.keyboard-navigation:focus-visible {
+  outline: 2px solid var(--theme-accent-primary);
+  outline-offset: 2px;
+}
+
+/* Interactive Element Sizes (WCAG AA) */
+button,
+a,
+input,
+select,
+textarea {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+button.small,
+.MuiIconButton-root {
+  min-height: 32px;
+  min-width: 32px;
+}
+
+/* Color Contrast Helpers */
+.high-contrast-text {
+  color: var(--theme-text-primary) !important;
+  background-color: var(--theme-bg-primary) !important;
+}
+
+.high-contrast-bg {
+  background-color: var(--theme-bg-secondary) !important;
+  border: 1px solid var(--theme-border-primary) !important;
+}
+
+/* Text Selection */
+::selection {
+  background-color: var(--theme-accent-primary);
+  color: var(--theme-bg-primary);
+}
+
+::-moz-selection {
+  background-color: var(--theme-accent-primary);
+  color: var(--theme-bg-primary);
+}
+
+/* Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High Contrast Preferences */
+@media (prefers-contrast: high) {
+  :root {
+    --theme-text-primary: #000000;
+    --theme-bg-primary: #ffffff;
+    --theme-border-primary: #000000;
+  }
+}
+
+/* Font Size Preferences */
+@media (prefers-reduced-data: reduce) {
+  /* Simplified styles for reduced data usage */
+  * {
+    font-family: system-ui, sans-serif !important;
+  }
+}
+
+/* Dark Mode Accessibility */
+@media (prefers-color-scheme: dark) {
+  .high-contrast {
+    --theme-bg-primary: #000000;
+    --theme-text-primary: #ffffff;
+    --theme-accent-primary: #ffff00;
+  }
+}
+
+/* Print Accessibility */
+@media print {
+  .skip-link,
+  .accessibility-menu {
+    display: none !important;
+  }
+  
+  * {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* Loading States with Accessibility */
+.loading-spinner[aria-busy="true"] {
+  position: relative;
+}
+
+.loading-spinner[aria-busy="true"]::after {
+  content: "Đang tải...";
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+}
+
+/* Error States */
+.error-message {
+  color: #d32f2f;
+  font-weight: 500;
+}
+
+.high-contrast .error-message {
+  color: #ff6666 !important;
+  background-color: #000000 !important;
+  padding: 4px 8px;
+  border: 2px solid #ff6666;
+}
+
+/* Success States */
+.success-message {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.high-contrast .success-message {
+  color: #66ff66 !important;
+  background-color: #000000 !important;
+  padding: 4px 8px;
+  border: 2px solid #66ff66;
+}

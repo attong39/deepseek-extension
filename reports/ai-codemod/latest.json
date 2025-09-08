@@ -1,0 +1,150 @@
+{
+  "results": [
+    {
+      "file_path": "E:\\zeta-monorepo\\ai_auto_optimizer.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\ai_optimize_project.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\ai_project_scanner.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\api_endpoint_discovery.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\api_status.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\check_ollama_vscode.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\cicd_generator.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\configure_turbo_ollama.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\consolidate_monorepo.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\directory_structure.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\finalize_ollama_setup.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\find_turbo_endpoint.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\fix_continue.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\fix_imports_exports.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\fix_syntax_errors.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\integration_mapper.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\master_optimizer.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\network_diagnostics.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\ollama_online_auth.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\ollama_smart_setup.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\performance_profiler.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\security_auditor.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\setup_turbo_ollama.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    },
+    {
+      "file_path": "E:\\zeta-monorepo\\setup_vscode_continue.py",
+      "applied": true,
+      "transform": "typing",
+      "detail": "Added Any annotations for missing type hints"
+    }
+  ],
+  "applied_count": 24,
+  "dry_run": false
+}

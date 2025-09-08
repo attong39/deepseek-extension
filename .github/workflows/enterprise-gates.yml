@@ -1,0 +1,431 @@
+# Enterprise Gates CI - Production RC-v1.1.0
+# This workflow enforces enterprise security gates and quality standards
+name: Enterprise Gates CI
+
+on:
+  push:
+    branches: [ main, develop, 'release/**' ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: "3.11"
+  NODE_VERSION: "20"
+  POETRY_VERSION: "1.6.1"
+  
+  # Security scanning configuration
+  TRIVY_SEVERITY: "HIGH,CRITICAL"
+  COSIGN_EXPERIMENTAL: 1
+  
+  # Quality gates
+  MIN_COVERAGE: 85
+  MAX_COMPLEXITY: 10
+  
+  # Container registry
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/zeta-backend
+
+jobs:
+  # Security Audit & Dependency Check
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: ${{ env.POETRY_VERSION }}
+        
+    - name: Install dependencies
+      run: |
+        cd apps/backend
+        poetry install --with dev,security
+        
+    - name: Run pip-audit
+      run: |
+        cd apps/backend
+        poetry run pip-audit --desc --format=json --output=pip-audit-report.json
+        
+    - name: Check audit results
+      run: |
+        cd apps/backend
+        # Fail if HIGH or CRITICAL vulnerabilities found
+        CRITICAL_COUNT=$(jq '[.vulnerabilities[] | select(.aliases[0].severity == "HIGH" or .aliases[0].severity == "CRITICAL")] | length' pip-audit-report.json)
+        echo "Critical/High vulnerabilities: $CRITICAL_COUNT"
+        if [ "$CRITICAL_COUNT" -gt 0 ]; then
+          echo "❌ Security Gate FAILED: Critical/High vulnerabilities found"
+          jq '.vulnerabilities[] | select(.aliases[0].severity == "HIGH" or .aliases[0].severity == "CRITICAL")' pip-audit-report.json
+          exit 1
+        fi
+        echo "✅ Security Gate PASSED: No critical vulnerabilities"
+        
+    - name: Run Bandit SAST
+      run: |
+        cd apps/backend
+        poetry run bandit -r app/ -f json -o bandit-report.json --severity-level high
+        
+    - name: Check Bandit results
+      run: |
+        cd apps/backend
+        # Check if any high severity issues
+        HIGH_ISSUES=$(jq '[.results[] | select(.issue_severity == "HIGH")] | length' bandit-report.json)
+        echo "High severity issues: $HIGH_ISSUES"
+        if [ "$HIGH_ISSUES" -gt 0 ]; then
+          echo "❌ SAST Gate FAILED: High severity issues found"
+          jq '.results[] | select(.issue_severity == "HIGH")' bandit-report.json
+          exit 1
+        fi
+        echo "✅ SAST Gate PASSED: No high severity issues"
+        
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-reports
+        path: |
+          apps/backend/pip-audit-report.json
+          apps/backend/bandit-report.json
+
+  # SBOM Generation
+  sbom-generation:
+    name: SBOM Generation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: ${{ env.POETRY_VERSION }}
+        
+    - name: Install dependencies
+      run: |
+        cd apps/backend
+        poetry install --only main
+        
+    - name: Generate SBOM with cyclonedx
+      run: |
+        cd apps/backend
+        poetry run cyclonedx-py poetry --output-format json --output-file sbom.json
+        
+    - name: Validate SBOM
+      run: |
+        cd apps/backend
+        # Check SBOM has required components
+        COMPONENT_COUNT=$(jq '.components | length' sbom.json)
+        echo "SBOM components: $COMPONENT_COUNT"
+        if [ "$COMPONENT_COUNT" -lt 5 ]; then
+          echo "❌ SBOM Gate FAILED: Too few components"
+          exit 1
+        fi
+        echo "✅ SBOM Gate PASSED: $COMPONENT_COUNT components found"
+        
+    - name: Upload SBOM
+      uses: actions/upload-artifact@v3
+      with:
+        name: sbom
+        path: apps/backend/sbom.json
+
+  # Quality Gates - Testing & Coverage
+  quality-gates:
+    name: Quality Gates
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: ${{ env.POETRY_VERSION }}
+        
+    - name: Install dependencies
+      run: |
+        cd apps/backend
+        poetry install --with dev,test
+        
+    - name: Run type checking (mypy)
+      run: |
+        cd apps/backend
+        poetry run mypy app/ --config-file mypy.ini
+        
+    - name: Run linting (ruff)
+      run: |
+        cd apps/backend
+        poetry run ruff check app/ --output-format=json > ruff-report.json
+        
+    - name: Check linting results
+      run: |
+        cd apps/backend
+        ERROR_COUNT=$(jq '. | length' ruff-report.json)
+        echo "Linting errors: $ERROR_COUNT"
+        if [ "$ERROR_COUNT" -gt 0 ]; then
+          echo "❌ Lint Gate FAILED: $ERROR_COUNT errors found"
+          cat ruff-report.json
+          exit 1
+        fi
+        echo "✅ Lint Gate PASSED: No errors"
+        
+    - name: Run tests with coverage
+      run: |
+        cd apps/backend
+        poetry run pytest tests/ \
+          --cov=app \
+          --cov-report=json \
+          --cov-report=term \
+          --cov-fail-under=${{ env.MIN_COVERAGE }} \
+          --junitxml=pytest-report.xml
+        
+    - name: Check coverage gate
+      run: |
+        cd apps/backend
+        COVERAGE=$(jq '.totals.percent_covered' coverage.json)
+        echo "Test coverage: ${COVERAGE}%"
+        if (( $(echo "$COVERAGE < ${{ env.MIN_COVERAGE }}" | bc -l) )); then
+          echo "❌ Coverage Gate FAILED: ${COVERAGE}% < ${{ env.MIN_COVERAGE }}%"
+          exit 1
+        fi
+        echo "✅ Coverage Gate PASSED: ${COVERAGE}% >= ${{ env.MIN_COVERAGE }}%"
+        
+    - name: Upload test reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-reports
+        path: |
+          apps/backend/coverage.json
+          apps/backend/pytest-report.xml
+          apps/backend/ruff-report.json
+
+  # Container Security Scanning
+  container-security:
+    name: Container Security
+    runs-on: ubuntu-latest
+    needs: [security-audit, quality-gates]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Build container image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./apps/backend
+        push: false
+        tags: ${{ env.IMAGE_NAME }}:test
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: ${{ env.IMAGE_NAME }}:test
+        format: 'json'
+        output: 'trivy-report.json'
+        severity: ${{ env.TRIVY_SEVERITY }}
+        
+    - name: Check Trivy results
+      run: |
+        CRITICAL_COUNT=$(jq '[.Results[]?.Vulnerabilities[]? | select(.Severity == "CRITICAL")] | length' trivy-report.json)
+        HIGH_COUNT=$(jq '[.Results[]?.Vulnerabilities[]? | select(.Severity == "HIGH")] | length' trivy-report.json)
+        echo "Critical vulnerabilities: $CRITICAL_COUNT"
+        echo "High vulnerabilities: $HIGH_COUNT"
+        
+        if [ "$CRITICAL_COUNT" -gt 0 ]; then
+          echo "❌ Container Security Gate FAILED: $CRITICAL_COUNT critical vulnerabilities"
+          jq '[.Results[]?.Vulnerabilities[]? | select(.Severity == "CRITICAL")]' trivy-report.json
+          exit 1
+        fi
+        echo "✅ Container Security Gate PASSED: No critical vulnerabilities"
+        
+    - name: Upload container security report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: container-security-report
+        path: trivy-report.json
+
+  # Infrastructure as Code Security
+  iac-security:
+    name: IaC Security
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run Trivy config scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'config'
+        format: 'json'
+        output: 'trivy-iac-report.json'
+        severity: 'HIGH,CRITICAL'
+        
+    - name: Check IaC results
+      run: |
+        if [ -f trivy-iac-report.json ]; then
+          CRITICAL_COUNT=$(jq '[.Results[]?.Misconfigurations[]? | select(.Severity == "CRITICAL")] | length' trivy-iac-report.json)
+          echo "Critical IaC misconfigurations: $CRITICAL_COUNT"
+          
+          if [ "$CRITICAL_COUNT" -gt 0 ]; then
+            echo "❌ IaC Security Gate FAILED: $CRITICAL_COUNT critical misconfigurations"
+            jq '[.Results[]?.Misconfigurations[]? | select(.Severity == "CRITICAL")]' trivy-iac-report.json
+            exit 1
+          fi
+        fi
+        echo "✅ IaC Security Gate PASSED: No critical misconfigurations"
+        
+    - name: Upload IaC security report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: iac-security-report
+        path: trivy-iac-report.json
+
+  # Container Signing (if main branch)
+  container-signing:
+    name: Container Signing
+    runs-on: ubuntu-latest
+    needs: [container-security]
+    if: github.ref == 'refs/heads/main'
+    
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install Cosign
+      uses: sigstore/cosign-installer@v3
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Log in to Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Extract metadata
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix={{branch}}-
+          
+    - name: Build and push container image
+      id: build
+      uses: docker/build-push-action@v5
+      with:
+        context: ./apps/backend
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        
+    - name: Sign container image
+      run: |
+        cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
+        
+    - name: Verify signature
+      run: |
+        cosign verify \
+          --certificate-identity-regexp 'https://github\.com/${{ github.repository_owner }}/${{ github.event.repository.name }}' \
+          --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' \
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
+
+  # Enterprise Gates Summary
+  enterprise-gates-summary:
+    name: Enterprise Gates Summary
+    runs-on: ubuntu-latest
+    needs: [security-audit, sbom-generation, quality-gates, container-security, iac-security]
+    if: always()
+    
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v3
+      
+    - name: Generate summary report
+      run: |
+        echo "# 🛡️ Enterprise Gates CI Summary" > summary.md
+        echo "" >> summary.md
+        echo "## Security Gates" >> summary.md
+        echo "- Security Audit: ${{ needs.security-audit.result }}" >> summary.md
+        echo "- SBOM Generation: ${{ needs.sbom-generation.result }}" >> summary.md
+        echo "- Container Security: ${{ needs.container-security.result }}" >> summary.md
+        echo "- IaC Security: ${{ needs.iac-security.result }}" >> summary.md
+        echo "" >> summary.md
+        echo "## Quality Gates" >> summary.md
+        echo "- Quality Gates: ${{ needs.quality-gates.result }}" >> summary.md
+        echo "" >> summary.md
+        echo "## Overall Status" >> summary.md
+        
+        # Check if all gates passed
+        if [[ "${{ needs.security-audit.result }}" == "success" && \
+              "${{ needs.sbom-generation.result }}" == "success" && \
+              "${{ needs.quality-gates.result }}" == "success" && \
+              "${{ needs.container-security.result }}" == "success" && \
+              "${{ needs.iac-security.result }}" == "success" ]]; then
+          echo "✅ **ALL ENTERPRISE GATES PASSED** - Ready for production deployment" >> summary.md
+        else
+          echo "❌ **ENTERPRISE GATES FAILED** - Deployment blocked" >> summary.md
+        fi
+        
+        cat summary.md
+        
+    - name: Upload summary
+      uses: actions/upload-artifact@v3
+      with:
+        name: enterprise-gates-summary
+        path: summary.md
+        
+    - name: Comment PR (if PR)
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const summary = fs.readFileSync('summary.md', 'utf8');
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: summary
+          });

@@ -1,0 +1,48 @@
+{{- if .Values.persistence.enabled }}
+{{- if not .Values.persistence.existingClaim }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "zeta-agent.pvcName" . }}
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+  labels:
+    {{- include "zeta-agent.labels" . | nindent 4 }}
+    {{- with .Values.persistence.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.persistence.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  accessModes:
+    {{- range .Values.persistence.accessModes }}
+    - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size | quote }}
+  {{- if .Values.persistence.storageClass }}
+  {{- if (eq "-" .Values.persistence.storageClass) }}
+  storageClassName: ""
+  {{- else }}
+  storageClassName: {{ .Values.persistence.storageClass | quote }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.persistence.selector }}
+  selector:
+    {{- toYaml .Values.persistence.selector | nindent 4 }}
+  {{- end }}
+  {{- if .Values.persistence.dataSource }}
+  dataSource:
+    {{- toYaml .Values.persistence.dataSource | nindent 4 }}
+  {{- end }}
+  {{- if .Values.persistence.dataSourceRef }}
+  dataSourceRef:
+    {{- toYaml .Values.persistence.dataSourceRef | nindent 4 }}
+  {{- end }}
+  {{- if .Values.persistence.volumeMode }}
+  volumeMode: {{ .Values.persistence.volumeMode }}
+  {{- end }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-09-09 00:13:11",
+  "results": {
+    "ai-optimizer": "UNREACHABLE (HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001C0FFC16F10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')))",
+    "prometheus": "UNREACHABLE (HTTPConnectionPool(host='localhost', port=9090): Max retries exceeded with url: /-/healthy (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001C0FFC5D590>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')))",
+    "grafana": "UNREACHABLE (HTTPConnectionPool(host='localhost', port=3000): Max retries exceeded with url: /api/health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001C0FFC5FC90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')))"
+  }
+}

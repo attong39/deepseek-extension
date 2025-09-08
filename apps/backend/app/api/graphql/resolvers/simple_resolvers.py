@@ -1,0 +1,35 @@
+from __future__ import annotations
+
+from typing import Any
+
+from apps.backend.core.services.ai.rag.registry import registry
+import dict
+import h
+import int
+import list
+import q
+import source
+import str
+import text
+import top_k
+
+"""Simple GraphQL resolvers for One-Click Learning."""
+
+
+def resolve_rag_search(*_, q: str, top_k: int) -> list[dict[str, Any]]:
+    """Resolver for ragSearch query."""
+    service = registry.get("rag.service")
+    hits = service.search(q, top_k=top_k)
+    return [h.model_dump() for h in hits]
+
+
+def resolve_ingest_text(*_, source: str, text: str) -> int:
+    """Resolver for ingestText mutation."""
+    service = registry.get("rag.service")
+    return service.ingest_texts([(source, text)])
+
+
+__all__ = [
+    "resolve_ingest_text",
+    "resolve_rag_search",
+]

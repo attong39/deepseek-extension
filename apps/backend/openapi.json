@@ -1,0 +1,70 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Zeta Backend API",
+    "version": "1.1.0",
+    "description": "Production RC-v1.1.0 Enterprise API"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "Service is healthy"
+          }
+        }
+      }
+    },
+    "/api/v1/security/status": {
+      "get": {
+        "summary": "Security subsystem status",
+        "responses": {
+          "200": {
+            "description": "Security status"
+          }
+        }
+      }
+    },
+    "/api/v1/security/policy/evaluate": {
+      "post": {
+        "summary": "Evaluate Zero-Trust policy",
+        "responses": {
+          "200": {
+            "description": "Policy decision"
+          }
+        }
+      }
+    },
+    "/api/v1/observability/health": {
+      "get": {
+        "summary": "Comprehensive health check",
+        "responses": {
+          "200": {
+            "description": "Health status"
+          }
+        }
+      }
+    },
+    "/api/v1/observability/metrics": {
+      "get": {
+        "summary": "Prometheus metrics",
+        "responses": {
+          "200": {
+            "description": "Metrics data"
+          }
+        }
+      }
+    },
+    "/api/v1/ws": {
+      "get": {
+        "summary": "WebSocket endpoint",
+        "responses": {
+          "101": {
+            "description": "WebSocket upgrade"
+          }
+        }
+      }
+    }
+  }
+}

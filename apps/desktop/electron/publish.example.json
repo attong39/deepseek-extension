@@ -1,0 +1,6 @@
+{
+  "provider": "github",
+  "owner": "<your-org>",
+  "repo": "<repo-name>",
+  "releaseType": "draft"
+}

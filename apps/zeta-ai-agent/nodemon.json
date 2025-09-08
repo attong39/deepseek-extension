@@ -1,0 +1,19 @@
+{
+  "watch": ["src"],
+  "ext": "ts,json",
+  "ignore": ["src/**/*.test.ts", "src/**/*.spec.ts"],
+  "exec": "npm run compile && npm test",
+  "delay": 1000,
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "events": {
+    "start": "echo 'Starting development watch mode...'",
+    "crash": "echo 'Nodemon crashed! Restarting...'",
+    "restart": "echo 'Restarting due to changes...'"
+  },
+  "restartable": "rs",
+  "colours": true,
+  "legacyWatch": false,
+  "verbose": false
+}

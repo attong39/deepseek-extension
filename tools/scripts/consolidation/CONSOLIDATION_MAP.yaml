@@ -1,0 +1,70 @@
+version: 1
+rules:
+  # Entrypoints - gộp về main.py với profile dispatch
+  - kind: profile
+    to: zeta_vn.app.main:run
+    from:
+      - zeta_vn.app.main_production:run
+      - zeta_vn.app.main_minimal:run
+      - zeta_vn.app.main_observability_demo:run
+      - zeta_vn.app.main_blueprint:run
+      - zeta_vn.app.main_blueprint_demo:run
+      - zeta_vn.app.main_blueprint_working:run
+
+  # API v1 "_old" files → shim to canonical
+  - kind: shim
+    to: zeta_vn.app.api.v1.auth
+    from: [zeta_vn.app.api.v1.auth_old]
+
+  - kind: shim
+    to: zeta_vn.app.api.v1.meta
+    from: [zeta_vn.app.api.v1.meta_old]
+
+  # Outbox - hardened làm canonical
+  - kind: strategy
+    to: zeta_vn.core.application.outbox_hardened
+    from:
+      - zeta_vn.core.application.outbox
+      - zeta_vn.core.application.outbox_fixed
+
+  # ASR adapters - gộp về core/adapters/asr/*
+  - kind: shim
+    to: zeta_vn.core.adapters.asr.whisper_adapter
+    from: [zeta_vn.core.adapters.asr_whisper]
+
+  # Database async - remove old
+  - kind: remove
+    to: zeta_vn.data.database_async
+    from: [zeta_vn.data.database_async_old]
+
+  # RAG pipelines → strategy pattern trong 1 file
+  - kind: strategy
+    to: zeta_vn.app.ai.rag.pipeline
+    from:
+      - zeta_vn.app.ai.rag.production_pipeline
+      - zeta_vn.app.ai.rag.pipeline_simple_clean
+      - zeta_vn.app.ai.rag.optimized
+
+  # WebSockets - gộp về app/websockets
+  - kind: strategy
+    to: zeta_vn.app.websockets
+    from:
+      - zeta_vn.core.websockets.training_ws
+      - zeta_vn.realtime.training_ws
+
+  # Observability - shim từ app về core
+  - kind: shim
+    to: zeta_vn.core.observability
+    from: [zeta_vn.app.observability]
+
+  # Demo/test files - remove duplicates
+  - kind: remove
+    to: null
+    from:
+      - demo_schemas
+      - demo_server_standalone
+      - cv2
+      - easyocr
+      - mss
+      - openai
+      - pyautogui

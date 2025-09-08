@@ -1,0 +1,25 @@
+{
+  "environment": "production",
+  "debug": false,
+  "logging": {
+    "level": "INFO",
+    "file": "production/logs/app.log",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  },
+  "ai": {
+    "turbo_enabled": true,
+    "model": "gpt-oss:120b",
+    "timeout": 30,
+    "max_retries": 3
+  },
+  "security": {
+    "enable_audit": true,
+    "scan_interval": 3600,
+    "alert_threshold": "MEDIUM"
+  },
+  "performance": {
+    "enable_monitoring": true,
+    "metrics_interval": 60,
+    "cache_enabled": true
+  }
+}

@@ -1,0 +1,89 @@
+name: Ollama Stress Test (Linux)
+
+on:
+  workflow_dispatch:
+    inputs:
+      request-count:
+        description: 'Number of total requests'
+        required: false
+        default: '50'
+        type: string
+      concurrency:
+        description: 'Number of concurrent requests'
+        required: false
+        default: '5'
+        type: string
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  stress-test-linux:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Start Ollama in Docker
+      run: |
+        sudo docker run -d \
+          --name ollama-test \
+          -p 11434:11434 \
+          -v ollama-data:/root/.ollama \
+          ollama/ollama:latest
+        # Wait for Ollama to be ready
+        sleep 15
+        curl -sSf http://localhost:11434/api/tags || echo "Ollama starting..."
+
+    - name: Pull test model
+      run: |
+        sudo docker exec ollama-test ollama pull phi3:mini
+        sudo docker exec ollama-test ollama list
+
+    - name: Install PowerShell
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y powershell
+
+    - name: Run stress test
+      shell: pwsh
+      run: |
+        $requestCount = ${{ github.event.inputs.request-count || '50' }}
+        $concurrency = ${{ github.event.inputs.concurrency || '5' }}
+        ./scripts/stress_test_ollama.ps1 -RequestCount $requestCount -Concurrency $concurrency -BaseUrl "http://localhost:11434"
+        if ($LASTEXITCODE -ne 0) { exit 1 }
+
+    - name: Collect container logs
+      if: always()
+      run: |
+        sudo docker logs ollama-test > ollama-container.log 2>&1 || true
+        sudo docker stats --no-stream > container-stats.log || true
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: stress-test-linux-results
+        path: |
+          stress_test_*.log
+          ollama-container.log
+          container-stats.log
+          ollama_metrics_*.json
+
+    - name: Cleanup Docker
+      if: always()
+      run: |
+        sudo docker stop ollama-test || true
+        sudo docker rm ollama-test || true
+        sudo docker volume rm ollama-data || true
+
+    - name: Send Slack notification on failure
+      if: failure()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        channel: '#zeta-alerts'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}

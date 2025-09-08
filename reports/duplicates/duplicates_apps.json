@@ -1,0 +1,40 @@
+{
+  "generated_at": "2025-09-08T00:03:02",
+  "root_paths": [
+    "E:\\zeta-monorepo\\apps"
+  ],
+  "settings": {
+    "exclude": [
+      ".DS_Store",
+      ".git",
+      ".idea",
+      ".mypy_cache",
+      ".pytest_cache",
+      ".ruff_cache",
+      ".venv",
+      ".vscode",
+      "__pycache__",
+      "build",
+      "coverage",
+      "dist",
+      "htmlcov",
+      "node_modules",
+      "out",
+      "venv"
+    ],
+    "include_hidden": false,
+    "follow_symlinks": false,
+    "min_size": 1,
+    "max_size": null,
+    "algo": "sha256",
+    "head_bytes": 65536,
+    "workers": 32,
+    "relative_paths": true
+  },
+  "scan": {
+    "files_scanned": 2548,
+    "bytes_scanned": 69602746,
+    "duration_seconds": 0.1657395362854004
+  },
+  "duplicates": []
+}

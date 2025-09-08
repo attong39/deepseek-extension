@@ -1,0 +1,11 @@
+${AUTO_HEADER}
+from zeta_vn.core.domain.ports.asr import ASRPort
+
+class ASRService:
+    def __init__(self, asr: ASRPort):
+        self.asr = asr
+
+    async def transcribe_and_learn(self, audio_path: str, *, lang: str | None = None) -> dict:
+        text = await self.asr.transcribe(audio_path, lang=lang)
+        # TODO: connect to trainer: summarize -> ingest to KB
+        return {"text": text}

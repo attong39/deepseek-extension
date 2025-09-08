@@ -1,0 +1,8 @@
+${AUTO_HEADER}
+import pytest
+from zeta_vn.core.adapters.asr_whisper import WhisperASR
+
+@pytest.mark.asyncio
+async def test_asr_instantiation():
+    asr = WhisperASR(model_size="tiny")
+    assert asr is not None

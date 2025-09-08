@@ -1,0 +1,17 @@
+{
+  "MongoClient": {"python": "pymongo", "ts": "mongodb"},
+  "np": {"python": "numpy"},
+  "pd": {"python": "pandas"},
+  "plt": {"python": "matplotlib"},
+  "FastAPI": {"python": "fastapi"},
+  "WebSocket": {"ts": "ws"},
+  "React": {"ts": "react"},
+  "axios": {"ts": "axios"},
+  "lodash": {"ts": "lodash"},
+  "moment": {"ts": "moment"},
+  "uuid": {"python": "uuid", "ts": "uuid"},
+  "redis": {"python": "redis", "ts": "redis"},
+  "jwt": {"python": "PyJWT", "ts": "jsonwebtoken"},
+  "bcrypt": {"python": "bcrypt", "ts": "bcrypt"},
+  "dotenv": {"python": "python-dotenv", "ts": "dotenv"}
+}

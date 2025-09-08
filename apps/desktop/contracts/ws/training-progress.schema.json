@@ -1,0 +1,26 @@
+{
+  "$id": "zeta://contracts/ws/training-progress.schema.json",
+  "type": "object",
+  "required": [
+    "progress"
+  ],
+  "properties": {
+    "progress": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "running",
+        "done",
+        "error"
+      ]
+    },
+    "message": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

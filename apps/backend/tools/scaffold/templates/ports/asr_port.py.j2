@@ -1,0 +1,5 @@
+${AUTO_HEADER}
+from typing import Protocol
+
+class ASRPort(Protocol):
+    async def transcribe(self, audio_path: str, *, lang: str | None = None) -> str: ...

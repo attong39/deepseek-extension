@@ -1,0 +1,34 @@
+name: Root CI - Lint & Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  root-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install root deps
+        run: npm ci
+      - name: Install apps/backend deps (poetry)
+        uses: abatilo/actions-poetry@v3
+        with:
+          poetry-version: '1.7.1'
+      - name: Poetry install
+        working-directory: apps/backend
+        run: poetry install --no-interaction --no-root
+      - name: Lint JS/TS (non-blocking failure for gradual rollout)
+        run: npm run lint:js
+      - name: Lint Python
+        run: npm run lint:py
+      - name: Format check
+        run: npm run format:check
+      - name: Tests (workspace)
+        run: npm run test:ci

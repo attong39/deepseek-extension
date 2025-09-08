@@ -1,0 +1,8 @@
+# Đảm bảo review bắt buộc theo vùng mã
+/docs/                      @your-org/docs-team
+/contracts/                 @your-org/arch-team
+/src/services/              @your-org/app-core
+/electron/                  @your-org/desktop-core
+/.github/workflows/         @your-org/ci-cd
+/scripts/                   @your-org/ci-cd
+/config/                    @your-org/arch-team

@@ -1,0 +1,317 @@
+# Zeta Backend Helm Chart Values
+# Production RC-v1.1.0 Configuration
+
+# Global settings
+global:
+  imageRegistry: ""
+  imagePullSecrets: []
+  
+# Application configuration
+app:
+  name: zeta-backend
+  version: "v1.1.0"
+  environment: production
+  
+# Image configuration
+image:
+  registry: ghcr.io
+  repository: zeta-monorepo/zeta-backend
+  tag: "v1.1.0"
+  pullPolicy: IfNotPresent
+  
+# Deployment configuration
+deployment:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+      
+  # Resource limits
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 2000m
+      memory: 2Gi
+      
+  # Probes
+  livenessProbe:
+    httpGet:
+      path: /api/v1/observability/liveness
+      port: 8000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+    
+  readinessProbe:
+    httpGet:
+      path: /api/v1/observability/readiness
+      port: 8000
+    initialDelaySeconds: 15
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+    
+  startupProbe:
+    httpGet:
+      path: /api/v1/observability/startup
+      port: 8000
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 30
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+  annotations: {}
+
+# Ingress configuration
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: api.zeta.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: zeta-backend-tls
+      hosts:
+        - api.zeta.local
+
+# Environment variables
+env:
+  # Application settings
+  ENVIRONMENT: production
+  LOG_LEVEL: INFO
+  API_VERSION: "v1.1.0"
+  
+  # Database configuration (from secrets)
+  DATABASE_URL: 
+    valueFrom:
+      secretKeyRef:
+        name: zeta-backend-secrets
+        key: database-url
+        
+  # Redis configuration
+  REDIS_URL:
+    valueFrom:
+      secretKeyRef:
+        name: zeta-backend-secrets
+        key: redis-url
+
+# Feature flags
+featureFlags:
+  # Zero Trust & Security
+  ENABLE_ZERO_TRUST: "true"
+  ENABLE_OPA: "true"
+  ENABLE_PROMETHEUS: "true"
+  
+  # JWT/JWKS Configuration
+  JWKS_URL: "https://auth.zeta.local/.well-known/jwks.json"
+  JWKS_CACHE_TTL: "3600"
+  JWKS_REFRESH_INTERVAL: "1800"
+  
+  # OPA Configuration
+  OPA_URL: "http://opa-service:8181/v1/data/zeta/zt"
+  OPA_TIMEOUT: "5"
+  
+  # WebSocket Configuration
+  WS_MAX_CONNECTIONS: "10000"
+  WS_MESSAGE_RATE_LIMIT: "100"
+  WS_HEARTBEAT_INTERVAL: "30"
+
+# Security settings
+security:
+  # Pod security context
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    
+  # Container security context
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
+    
+  # Network policies
+  networkPolicy:
+    enabled: true
+    ingress:
+      - from:
+          - podSelector:
+              matchLabels:
+                app.kubernetes.io/name: nginx-ingress
+        ports:
+          - protocol: TCP
+            port: 8000
+      - from:
+          - podSelector:
+              matchLabels:
+                app.kubernetes.io/name: prometheus
+        ports:
+          - protocol: TCP
+            port: 8000
+
+# Horizontal Pod Autoscaler
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+  
+# Pod Disruption Budget
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 2
+
+# ServiceMonitor for Prometheus
+serviceMonitor:
+  enabled: true
+  interval: 30s
+  path: /api/v1/observability/metrics
+  labels:
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: zeta
+    
+# Additional volumes
+volumes:
+  # Temporary directory for file uploads
+  - name: tmp
+    emptyDir: {}
+  # Config maps for policies
+  - name: opa-policies
+    configMap:
+      name: zeta-opa-policies
+
+volumeMounts:
+  - name: tmp
+    mountPath: /tmp
+  - name: opa-policies
+    mountPath: /app/policies
+    readOnly: true
+
+# Init containers
+initContainers:
+  # Database migration
+  - name: migrate-db
+    image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+    command: ["python", "-m", "alembic", "upgrade", "head"]
+    env: "{{ .Values.env }}"
+
+# Secrets (created separately)
+secrets:
+  create: false
+  name: zeta-backend-secrets
+
+# ConfigMaps
+configMaps:
+  # OPA Policies
+  opa-policies:
+    create: true
+    data:
+      zero_trust.rego: |
+        # OPA Zero Trust policy content will be mounted here
+        # This should match the content from policy/opa/bundles/zero_trust.rego
+
+# External dependencies
+dependencies:
+  # Database (PostgreSQL)
+  postgresql:
+    enabled: false  # Use external managed database
+    
+  # Redis
+  redis:
+    enabled: false  # Use external managed Redis
+    
+  # OPA
+  opa:
+    enabled: true
+    image:
+      repository: openpolicyagent/opa
+      tag: "latest"
+    service:
+      port: 8181
+    config: |
+      services:
+        authz:
+          url: http://opa-service:8181
+      bundles:
+        authz:
+          resource: /bundles/zero_trust.tar.gz
+      decision_logs:
+        console: true
+
+# Monitoring and observability
+monitoring:
+  # Prometheus metrics
+  prometheus:
+    enabled: true
+    port: 8000
+    path: /api/v1/observability/metrics
+    
+  # Jaeger tracing
+  jaeger:
+    enabled: false
+    endpoint: "http://jaeger-collector:14268/api/traces"
+    
+  # Log aggregation
+  logging:
+    level: INFO
+    format: json
+    
+# Load testing configuration
+loadTesting:
+  enabled: false  # Enable for load test environments
+  k6:
+    image: grafana/k6:latest
+    script: /scripts/k6_websocket_load.js
+    vus: 200
+    duration: 300s
+    
+# Chaos engineering
+chaosEngineering:
+  enabled: false  # Enable for chaos test environments
+  chaosMonkey:
+    enabled: false
+    interval: 3600  # 1 hour
+    
+# Development overrides (used in dev/staging)
+dev:
+  # Reduced resources for development
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+      
+  # Debug settings
+  env:
+    LOG_LEVEL: DEBUG
+    ENABLE_DEBUG: "true"
+    
+  # Disable some production features
+  featureFlags:
+    ENABLE_ZERO_TRUST: "false"
+    ENABLE_OPA: "false"

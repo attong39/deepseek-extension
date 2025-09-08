@@ -1,0 +1,116 @@
+name: consistency-autofix
+
+on:
+  pull_request:
+    branches: [main, develop]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  autofix:
+    # Chỉ chạy trên PR cùng repo (không fork)
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Setup Python with uv
+        uses: astral-sh/setup-uv@v3
+        
+      - name: Install dependencies
+        run: uv sync --all-extras --dev
+        
+      # 1) Chạy Guard để sinh reports/result.json (có hash_match)
+      - name: Run Consistency Guard (non-blocking)
+        run: |
+          set -e
+          uv run python tools/consistency/run_all.py || true
+          
+      # 2) Quyết định có phải "hash-only" không
+      - name: Analyze Guard results
+        id: decide
+        run: |
+          python - <<'PY'
+          import json, sys, os
+          from pathlib import Path
+          
+          try:
+              result_file = Path("reports/consistency/result.json")
+              if not result_file.exists():
+                  print("hash_only=false")
+                  sys.exit(0)
+                  
+              j = json.loads(result_file.read_text("utf-8"))
+              cmp = j.get("compare", {})
+              
+              # Kiểm tra có critical mismatches không
+              critical_issues = [
+                  cmp.get("api", {}).get("missing_in_frontend", []),
+                  cmp.get("ws_routes", {}).get("missing_in_frontend", []),
+                  cmp.get("ws_events", {}).get("missing_in_frontend", [])
+              ]
+              
+              has_critical = any(issues for issues in critical_issues)
+              hash_match = j.get("hash_match", True)
+              
+              # Hash-only fix: hash không match nhưng không có critical issues
+              hash_only = (not hash_match) and (not has_critical)
+              
+              print(f"hash_only={str(hash_only).lower()}")
+              print(f"hash_match={hash_match}")
+              print(f"has_critical={has_critical}")
+              
+              with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                  f.write(f"hash_only={str(hash_only).lower()}\n")
+                  f.write(f"hash_match={hash_match}\n")
+                  f.write(f"has_critical={has_critical}\n")
+                  
+          except Exception as e:
+              print(f"Error analyzing results: {e}")
+              print("hash_only=false")
+              with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+                  f.write("hash_only=false\n")
+          PY
+          
+      # 3) Nếu hash-only → cập nhật file và commit vào branch PR
+      - name: Update OPENAPI_HASH.ts
+        if: steps.decide.outputs.hash_only == 'true'
+        run: |
+          echo "Updating OpenAPI hash..."
+          uv run python tools/consistency/openapi_hash.py --write
+          
+      - name: Commit hash changes
+        if: steps.decide.outputs.hash_only == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(contracts): sync OPENAPI_HASH.ts to current OpenAPI"
+          file_pattern: apps/desktop/src/constants/OPENAPI_HASH.ts
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          
+      # 4) Sticky comment trạng thái
+      - name: Update PR comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: always()
+        with:
+          header: Consistency Auto-Fix
+          message: |
+            ## 🤖 Consistency Auto-Fix Results
+            
+            **Hash-only fix**: ${{ steps.decide.outputs.hash_only }}
+            **Hash match**: ${{ steps.decide.outputs.hash_match }}
+            **Critical issues**: ${{ steps.decide.outputs.has_critical }}
+            
+            ${{ steps.decide.outputs.hash_only == 'true' && '✅ **Auto-fixed**: Đã tự động cập nhật `OPENAPI_HASH.ts` vào nánh PR.' || '' }}
+            ${{ steps.decide.outputs.hash_only == 'false' && steps.decide.outputs.has_critical == 'true' && '⚠️ **Manual fix required**: Có critical contract mismatches cần xử lý thủ công.' || '' }}
+            ${{ steps.decide.outputs.hash_only == 'false' && steps.decide.outputs.has_critical == 'false' && '✅ **All good**: Contracts đã đồng bộ.' || '' }}
+            
+            ---
+            *Auto-fix chỉ hoạt động cho PR cùng repo. Fork PRs cần chạy `make guard-fix` thủ công.*

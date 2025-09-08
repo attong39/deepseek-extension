@@ -1,0 +1,72 @@
+name: 🎯 Bug Report
+description: "Báo cáo lỗi sản phẩm desktop_ai_zeta"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Cảm ơn bạn đã báo cáo lỗi!** Thông tin này sẽ giúp team fix nhanh chóng.
+
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: "📝 Mô tả lỗi"
+      description: "Mô tả rõ lỗi gì xảy ra"
+      placeholder: "VD: Khi click Training Progress thì app crash..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug_reproduce
+    attributes:
+      label: "🔄 Cách tái hiện"
+      description: "Các bước tái hiện lỗi"
+      placeholder: |
+        1. Mở app
+        2. Click vào '...'
+        3. Gõ '...'
+        4. Thấy lỗi
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug_expected
+    attributes:
+      label: "✅ Mong muốn"
+      description: "Bạn mong muốn điều gì xảy ra?"
+      placeholder: "App nên làm gì thay vì crash"
+
+  - type: input
+    id: version
+    attributes:
+      label: "📦 Version"
+      description: "Tìm trong About > App Version"
+      placeholder: "v1.0.0-beta.1"
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: "💻 Hệ điều hành"
+      options:
+        - Windows 11
+        - Windows 10
+        - macOS
+        - Ubuntu/Linux
+    validations:
+      required: true
+
+  - type: textarea
+    id: diagnostic_data
+    attributes:
+      label: "🔍 Diagnostic Data"
+      description: "Chạy `npm run diagnostics` và paste kết quả"
+      placeholder: "Paste diagnostic data từ scripts/diagnostics_pack.mjs"
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "📋 Checklist"
+      options:
+        - label: "Tôi đã restart app và vẫn gặp lỗi"
+        - label: "Tôi đã kiểm tra version mới nhất"
+        - label: "Tôi đã đọc SECURITY.md nếu liên quan bảo mật"

@@ -1,0 +1,30 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WS schema freeze > is stable 1`] = `
+{
+  "$id": "zeta://contracts/ws/training-progress.schema.json",
+  "additionalProperties": false,
+  "properties": {
+    "message": {
+      "type": "string",
+    },
+    "progress": {
+      "maximum": 100,
+      "minimum": 0,
+      "type": "number",
+    },
+    "status": {
+      "enum": [
+        "running",
+        "done",
+        "error",
+      ],
+      "type": "string",
+    },
+  },
+  "required": [
+    "progress",
+  ],
+  "type": "object",
+}
+`;

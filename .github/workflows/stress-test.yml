@@ -1,0 +1,76 @@
+name: Ollama Stress Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      request-count:
+        description: 'Number of total requests'
+        required: false
+        default: '50'
+        type: string
+      concurrency:
+        description: 'Number of concurrent requests'
+        required: false
+        default: '5'
+        type: string
+  schedule:
+    - cron: '0 2 * * *'
+
+jobs:
+  stress-test:
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Ollama
+      shell: pwsh
+      run: |
+        Invoke-WebRequest -Uri https://ollama.ai/download/OllamaSetup.exe -OutFile OllamaSetup.exe
+        Start-Process -Wait -FilePath .\OllamaSetup.exe -ArgumentList "/S"
+        Remove-Item OllamaSetup.exe -Force
+        $env:PATH += ";C:\Program Files\Ollama"
+        echo "C:\Program Files\Ollama" >> $env:GITHUB_PATH
+
+    - name: Start Ollama service
+      shell: pwsh
+      run: |
+        Start-Process -FilePath powershell -ArgumentList "-NoProfile -WindowStyle Hidden -Command ollama serve" | Out-Null
+        Start-Sleep -Seconds 10
+        ollama --version
+        curl http://localhost:11434/api/tags
+
+    - name: Pull test model
+      shell: pwsh
+      run: |
+        ollama pull phi3:mini
+        ollama list
+
+    - name: Run stress test
+      shell: pwsh
+      run: |
+        $requestCount = if ($env:REQUEST_COUNT) { $env:REQUEST_COUNT } else { "${{ github.event.inputs.request-count }}" }
+        $concurrency = if ($env:CONCURRENCY) { $env:CONCURRENCY } else { "${{ github.event.inputs.concurrency }}" }
+        .\scripts\stress_test_ollama.ps1 -RequestCount $requestCount -Concurrency $concurrency | Tee-Object -FilePath ("stress_test_{0}.log" -f (Get-Date -Format 'yyyyMMdd_HHmmss'))
+        if ($LASTEXITCODE -ne 0) { exit 1 }
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: stress-test-results
+        path: |
+          stress_test_*.log
+          ollama_metrics_*.json
+
+    - name: Send Slack notification on failure
+      if: failure()
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        channel: '#zeta-alerts'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}

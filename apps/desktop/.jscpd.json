@@ -1,0 +1,7 @@
+{
+  "threshold": 2,
+  "minLines": 20,
+  "reporters": ["console", "json"],
+  "output": "../reports/duplicates/jscpd",
+  "ignore": ["src/api/generated/**", "src/services/wsSchema.ts"]
+}

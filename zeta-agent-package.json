@@ -1,0 +1,96 @@
+{
+  "name": "zeta-ai-agent",
+  "version": "1.0.0",
+  "description": "Zeta AI Agent - Intelligent coding assistant with Ollama integration",
+  "main": "src/extension/extension.ts",
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "package": "vsce package"
+  },
+  "keywords": [
+    "ai",
+    "ollama",
+    "coding-assistant",
+    "code-review",
+    "debugging",
+    "typescript",
+    "vscode-extension"
+  ],
+  "engines": {
+    "vscode": "^1.85.0",
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "ollama": "^0.5.12"
+  },
+  "devDependencies": {
+    "@types/node": "20.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^8.42.0",
+    "@typescript-eslint/parser": "^8.42.0",
+    "eslint": "^9.16.0",
+    "typescript": "^5.7.2",
+    "vitest": "^3.2.4"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "zeta.agent.review",
+        "title": "Zeta: Review Code"
+      },
+      {
+        "command": "zeta.agent.debug",
+        "title": "Zeta: Debug Code"
+      },
+      {
+        "command": "zeta.agent.optimize",
+        "title": "Zeta: Optimize Code"
+      },
+      {
+        "command": "zeta.agent.chat",
+        "title": "Zeta: Open AI Chat"
+      }
+    ],
+    "configuration": {
+      "title": "Zeta AI Agent",
+      "properties": {
+        "zeta.ollamaUrl": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Zeta AI Agent: Ollama server URL"
+        },
+        "zeta.defaultModel": {
+          "type": "string",
+          "default": "deepseek-coder",
+          "description": "Zeta AI Agent: Default model for code tasks"
+        },
+        "zeta.maxContextSize": {
+          "type": "number",
+          "default": 1000,
+          "description": "Zeta AI Agent: Maximum context window size"
+        },
+        "zeta.enableCaching": {
+          "type": "boolean",
+          "default": true,
+          "description": "Zeta AI Agent: Enable response caching"
+        },
+        "zeta.rateLimitRequests": {
+          "type": "number",
+          "default": 60,
+          "description": "Zeta AI Agent: Maximum requests per minute"
+        }
+      }
+    }
+  },
+  "activationEvents": [
+    "onCommand:zeta.agent.review",
+    "onCommand:zeta.agent.debug",
+    "onCommand:zeta.agent.optimize",
+    "onCommand:zeta.agent.chat"
+  ]
+}

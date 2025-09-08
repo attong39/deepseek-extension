@@ -1,0 +1,47 @@
+version: 1
+rules:
+  - language: python
+    allowed_transforms:
+      - imports
+      - dead_code
+      - typing
+      - pydantic_v2
+      - fastapi
+      - logging
+      - docstrings
+    max_changes_per_file: 10
+    max_files_per_run: 50
+    excluded_paths:
+      - "**/migrations/**"
+      - "**/generated/**"
+      - "**/third_party/**"
+      - "**/__pycache__/**"
+      - "**/.pytest_cache/**"
+  - "**/venv/**"
+  - "**/.venv/**"
+  - "**/site-packages/**"
+  - "**/.tox/**"
+  - "**/.mypy_cache/**"
+  - language: typescript
+    allowed_transforms:
+      - imports
+      - unused
+      - strict_types
+      - path_aliases
+      - dedupe_reexports
+      - react_props
+    max_changes_per_file: 10
+    max_files_per_run: 50
+    excluded_paths:
+      - "**/node_modules/**"
+      - "**/dist/**"
+      - "**/build/**"
+      - "**/coverage/**"
+general:
+  dry_run_by_default: true
+  require_test_pass: true
+  formatters:
+    python: black
+    typescript: prettier
+  model: deepseek-coder
+  fallback_model: codellama:latest

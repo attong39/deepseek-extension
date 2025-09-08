@@ -1,0 +1,68 @@
+[
+  {
+    "file": "E:\\zeta-monorepo\\apps\\backend\\apiClient.ts",
+    "type": "unresolved_relative_import",
+    "import": "./errorCodes",
+    "message": "Relative import target not found"
+  },
+  {
+    "file": "E:\\zeta-monorepo\\apps\\backend\\apiClient.ts",
+    "type": "unresolved_relative_import",
+    "import": "../services/session",
+    "message": "Relative import target not found"
+  },
+  {
+    "file": "E:\\zeta-monorepo\\apps\\backend\\apiClient.ts",
+    "type": "unresolved_relative_import",
+    "import": "../services/telemetry",
+    "message": "Relative import target not found"
+  },
+  {
+    "file": "E:\\zeta-monorepo\\apps\\backend\\apiClient.ts",
+    "type": "unresolved_relative_import",
+    "import": "../constants",
+    "message": "Relative import target not found"
+  },
+  {
+    "file": "E:\\zeta-monorepo\\apps\\backend\\apiClient.ts",
+    "type": "unresolved_relative_import",
+    "import": "../services/httpMeta",
+    "message": "Relative import target not found"
+  },
+  {
+    "file": "E:\\zeta-monorepo\\apps\\backend\\auth.ts",
+    "type": "unresolved_relative_import",
+    "import": "../constants",
+    "message": "Relative import target not found"
+  },
+  {
+    "file": "E:\\zeta-monorepo\\apps\\backend\\auth.ts",
+    "type": "unresolved_relative_import",
+    "import": "../services/session",
+    "message": "Relative import target not found"
+  },
+  {
+    "file": "E:\\zeta-monorepo\\apps\\backend\\wsSchema.ts",
+    "type": "unresolved_relative_import",
+    "import": "../services/wsSchemaValidators",
+    "message": "Relative import target not found"
+  },
+  {
+    "file": "E:\\zeta-monorepo\\apps\\zeta-ai-agent\\src\\core\\plugins\\pluginUtils.ts",
+    "type": "unresolved_relative_import",
+    "import": "../pluginUtils",
+    "message": "Relative import target not found"
+  },
+  {
+    "file": "E:\\zeta-monorepo\\extension\\run_deepseek_agent.js",
+    "type": "unresolved_relative_import",
+    "import": "./dist/aiAgent",
+    "message": "Relative import target not found"
+  },
+  {
+    "file": "E:\\zeta-monorepo\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\github\\extension.webpack.config.cjs",
+    "type": "unresolved_relative_import",
+    "import": "../shared.webpack.config",
+    "message": "Relative import target not found"
+  }
+]

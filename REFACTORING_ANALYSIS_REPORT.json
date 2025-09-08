@@ -1,0 +1,24 @@
+{
+  "scan_timestamp": "2025-09-09 00:25:04",
+  "total_functions": 0,
+  "complex_functions": 0,
+  "refactored_functions": 0,
+  "suggestions": [],
+  "refactoring_templates": [
+    {
+      "name": "Extract Method Template",
+      "description": "Template for extracting methods from long functions",
+      "code": "def extract_method_example(self):\n    \"\"\"\n    Extract this block into a separate method.\n    \n    Steps:\n    1. Identify the logical block\n    2. Determine required parameters\n    3. Extract and create new method\n    4. Replace original code with method call\n    \"\"\"\n    # Example of code that should be extracted:\n    # Complex logic that forms a cohesive unit\n    pass"
+    },
+    {
+      "name": "Split Conditional Template",
+      "description": "Template for splitting complex conditionals",
+      "code": "def is_condition_met(self) -> bool:\n    \"\"\"\n    Extract complex conditional logic.\n    \n    Returns:\n        bool: True if condition is met\n    \"\"\"\n    # Replace complex if condition with this method\n    return True  # Implement actual condition\n\ndef handle_condition_result(self):\n    \"\"\"Handle the result of the condition check.\"\"\"\n    if self.is_condition_met():\n        # Handle true case\n        pass\n    else:\n        # Handle false case\n        pass"
+    },
+    {
+      "name": "Parameter Object Template",
+      "description": "Template for parameter object pattern",
+      "code": "@dataclass\nclass ProcessingParams:\n    \"\"\"\n    Parameter object to replace multiple function parameters.\n    \"\"\"\n    input_data: Any\n    options: Dict[str, Any]\n    config: Dict[str, Any]\n    \ndef process_with_params(self, params: ProcessingParams):\n    \"\"\"\n    Use parameter object instead of multiple parameters.\n    \n    Args:\n        params: All processing parameters bundled together\n    \"\"\"\n    # Use params.input_data, params.options, etc.\n    pass"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "__init__.py": [
+    {
+      "a": "api\\__init__.py",
+      "b": "middleware\\security\\__init__.py",
+      "similarity": 0.936
+    },
+    {
+      "a": "api\\__init__.py",
+      "b": "websockets\\router\\__init__.py",
+      "similarity": 0.929
+    },
+    {
+      "a": "api\\graphql\\tests\\__init__.py",
+      "b": "auth\\tests\\__init__.py",
+      "similarity": 0.925
+    },
+    {
+      "a": "api\\v1\\auth\\__init__.py",
+      "b": "api\\v1\\router\\__init__.py",
+      "similarity": 0.945
+    },
+    {
+      "a": "api\\v1\\auth\\__init__.py",
+      "b": "infrastructure\\__init__.py",
+      "similarity": 0.913
+    },
+    {
+      "a": "api\\v1\\auth\\__init__.py",
+      "b": "realtime\\__init__.py",
+      "similarity": 0.913
+    },
+    {
+      "a": "api\\v1\\router\\__init__.py",
+      "b": "infrastructure\\__init__.py",
+      "similarity": 0.907
+    },
+    {
+      "a": "api\\v1\\router\\__init__.py",
+      "b": "realtime\\__init__.py",
+      "similarity": 0.907
+    },
+    {
+      "a": "infrastructure\\__init__.py",
+      "b": "realtime\\__init__.py",
+      "similarity": 0.914
+    },
+    {
+      "a": "middleware\\security\\__init__.py",
+      "b": "websockets\\router\\__init__.py",
+      "similarity": 0.905
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+global:
+  # How long to wait before sending a notification again if it has already
+  # been sent successfully for an alert
+  resolve_timeout: 5m
+  
+  # Default SMTP configuration
+  smtp_smarthost: 'smtp.gmail.com:587'
+  smtp_from: 'alerts@zeta.ai'
+  smtp_auth_username: 'alerts@zeta.ai'
+  smtp_auth_password: '${SMTP_PASSWORD}'
+  smtp_require_tls: true
+
+# Templates for notifications
+templates:
+  - '/etc/alertmanager/templates/*.tmpl'
+
+# The root route on which each incoming alert enters
+route:
+  # Default grouping
+  group_by: ['alertname', 'cluster', 'service']
+  
+  # When a new group of alerts is created by an incoming alert, wait at
+  # least 'group_wait' to send the initial notification
+  group_wait: 30s
+  
+  # When the first notification was sent, wait 'group_interval' before
+  # sending a batch of new alerts that started firing for that group
+  group_interval: 5m
+  
+  # If an alert has successfully been sent, wait 'repeat_interval' before
+  # resending them
+  repeat_interval: 12h
+  
+  # Default receiver
+  receiver: 'default-receiver'
+  
+  # Child routes
+  routes:
+    # Critical alerts go to Slack + Email immediately
+    - match:
+        severity: critical
+      receiver: 'critical-alerts'
+      group_wait: 10s
+      repeat_interval: 5m
+      
+    # Warning alerts go to Slack
+    - match:
+        severity: warning
+      receiver: 'warning-alerts'
+      group_wait: 1m
+      repeat_interval: 2h
+      
+    # Info alerts go to email only
+    - match:
+        severity: info
+      receiver: 'info-alerts'
+      group_wait: 5m
+      repeat_interval: 24h
+
+# Inhibition rules allow to mute a set of alerts given that another alert is firing
+inhibit_rules:
+  # If service is down, don't alert on high latency/errors for same service
+  - source_match:
+      alertname: ZetaServiceDown
+    target_match:
+      service: apps/zeta-ai-agent
+    target_match_re:
+      alertname: Zeta(HighLatency|HighErrorRate|NoFeedback)
+    equal: ['service']
+    
+  # If database is down, don't alert on service readiness
+  - source_match:
+      alertname: ZetaDatabaseIssues
+    target_match:
+      alertname: ZetaServiceDown
+    equal: ['service']
+
+receivers:
+  # Default receiver (fallback)
+  - name: 'default-receiver'
+    email_configs:
+      - to: 'devops@zeta.ai'
+        subject: '[ZETA] Alert: {{ .GroupLabels.alertname }}'
+        body: |
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Labels: {{ range .Labels.SortedPairs }}{{ .Name }}={{ .Value }} {{ end }}
+          {{ end }}
+
+  # Critical alerts - Slack + Email + SMS
+  - name: 'critical-alerts'
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#zeta-critical-alerts'
+        title: '🚨 CRITICAL: {{ .GroupLabels.alertname }}'
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Severity:* {{ .Labels.severity }}
+          *Service:* {{ .Labels.service }}
+          *Runbook:* {{ .Annotations.runbook_url }}
+          {{ end }}
+        send_resolved: true
+        color: '{{ if eq .Status "firing" }}danger{{ else }}good{{ end }}'
+    
+    email_configs:
+      - to: 'devops@zeta.ai,oncall@zeta.ai'
+        subject: '[CRITICAL] Zeta AI Agent: {{ .GroupLabels.alertname }}'
+        html: |
+          <h2>🚨 Critical Alert: {{ .GroupLabels.alertname }}</h2>
+          {{ range .Alerts }}
+          <h3>{{ .Annotations.summary }}</h3>
+          <p><strong>Description:</strong> {{ .Annotations.description }}</p>
+          <p><strong>Labels:</strong></p>
+          <ul>
+          {{ range .Labels.SortedPairs }}
+            <li>{{ .Name }}: {{ .Value }}</li>
+          {{ end }}
+          </ul>
+          <p><a href="{{ .Annotations.runbook_url }}">📖 Runbook</a></p>
+          <hr>
+          {{ end }}
+
+  # Warning alerts - Slack only
+  - name: 'warning-alerts'
+    slack_configs:
+      - api_url: '${SLACK_WEBHOOK_URL}'
+        channel: '#zeta-alerts'
+        title: '⚠️ WARNING: {{ .GroupLabels.alertname }}'
+        text: |
+          {{ range .Alerts }}
+          *Alert:* {{ .Annotations.summary }}
+          *Description:* {{ .Annotations.description }}
+          *Service:* {{ .Labels.service }}
+          *Runbook:* {{ .Annotations.runbook_url }}
+          {{ end }}
+        send_resolved: true
+        color: 'warning'
+
+  # Info alerts - Email only
+  - name: 'info-alerts'
+    email_configs:
+      - to: 'team@zeta.ai'
+        subject: '[INFO] Zeta AI Agent: {{ .GroupLabels.alertname }}'
+        body: |
+          {{ range .Alerts }}
+          Alert: {{ .Annotations.summary }}
+          Description: {{ .Annotations.description }}
+          Service: {{ .Labels.service }}
+          Runbook: {{ .Annotations.runbook_url }}
+          {{ end }}
+
+  # Microsoft Teams alternative (uncomment if needed)
+  # - name: 'teams-alerts'
+  #   webhook_configs:
+  #     - url: '${TEAMS_WEBHOOK_URL}'
+  #       title: 'Zeta AI Agent Alert'
+  #       text: |
+  #         {{ range .Alerts }}
+  #         **{{ .Annotations.summary }}**
+  #         
+  #         {{ .Annotations.description }}
+  #         
+  #         Severity: {{ .Labels.severity }}
+  #         Service: {{ .Labels.service }}
+  #         {{ end }}

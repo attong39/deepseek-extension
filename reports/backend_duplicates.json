@@ -1,0 +1,181 @@
+{
+  "root": "E:\\zeta-monorepo\\apps\\backend\\app",
+  "total_files": 325,
+  "duplicate_filenames": {
+    "db.py": [
+      "db.py",
+      "deps\\db.py"
+    ],
+    "dependencies.py": [
+      "dependencies.py",
+      "auth\\dependencies.py"
+    ],
+    "factory.py": [
+      "factory.py",
+      "api\\v1\\router\\factory.py"
+    ],
+    "__init__.py": [
+      "__init__.py",
+      "api\\__init__.py",
+      "api\\graphql\\__init__.py",
+      "api\\graphql\\core\\__init__.py",
+      "api\\graphql\\directives\\__init__.py",
+      "api\\graphql\\mutations\\__init__.py",
+      "api\\graphql\\queries\\__init__.py",
+      "api\\graphql\\resolvers\\__init__.py",
+      "api\\graphql\\scalars\\__init__.py",
+      "api\\graphql\\schema\\__init__.py",
+      "api\\graphql\\subscriptions\\__init__.py",
+      "api\\graphql\\tests\\__init__.py",
+      "api\\v1\\__init__.py",
+      "api\\v1\\agent\\__init__.py",
+      "api\\v1\\auth\\__init__.py",
+      "api\\v1\\chat\\__init__.py",
+      "api\\v1\\endpoints\\__init__.py",
+      "api\\v1\\memory\\__init__.py",
+      "api\\v1\\rag\\__init__.py",
+      "api\\v1\\router\\__init__.py",
+      "api\\v1\\status\\__init__.py",
+      "api\\v1\\ws\\__init__.py",
+      "api\\v1\\_common\\__init__.py",
+      "api\\v2\\__init__.py",
+      "api\\websockets\\__init__.py",
+      "auth\\__init__.py",
+      "auth\\tests\\__init__.py",
+      "common\\__init__.py",
+      "containers\\__init__.py",
+      "controllers\\__init__.py",
+      "dependencies\\__init__.py",
+      "deps\\__init__.py",
+      "exceptions\\__init__.py",
+      "handlers\\__init__.py",
+      "infrastructure\\__init__.py",
+      "middleware\\__init__.py",
+      "middleware\\security\\__init__.py",
+      "minimal_rag\\__init__.py",
+      "monitoring\\__init__.py",
+      "observability\\__init__.py",
+      "realtime\\__init__.py",
+      "schemas\\__init__.py",
+      "security\\__init__.py",
+      "serializers\\__init__.py",
+      "services\\__init__.py",
+      "startup\\__init__.py",
+      "status\\__init__.py",
+      "status\\checks\\__init__.py",
+      "utils\\__init__.py",
+      "validators\\__init__.py",
+      "websockets\\__init__.py",
+      "websockets\\router\\__init__.py"
+    ],
+    "agent.py": [
+      "api\\graphql\\schema\\agent.py",
+      "schemas\\agent.py",
+      "serializers\\agent.py"
+    ],
+    "memory.py": [
+      "api\\graphql\\schema\\memory.py",
+      "api\\v1\\memory.py",
+      "dependencies\\memory.py",
+      "schemas\\memory.py"
+    ],
+    "training.py": [
+      "api\\graphql\\schema\\training.py",
+      "api\\v1\\training.py",
+      "status\\checks\\training.py"
+    ],
+    "admin.py": [
+      "api\\v1\\admin.py",
+      "serializers\\admin.py"
+    ],
+    "admin_outbox.py": [
+      "api\\v1\\admin_outbox.py",
+      "api\\v1\\endpoints\\admin_outbox.py"
+    ],
+    "auth.py": [
+      "api\\v1\\auth.py",
+      "deps\\auth.py",
+      "serializers\\auth.py"
+    ],
+    "automation.py": [
+      "api\\v1\\automation.py",
+      "serializers\\automation.py"
+    ],
+    "health.py": [
+      "api\\v1\\health.py",
+      "api\\v1\\_common\\health.py"
+    ],
+    "performance.py": [
+      "api\\v1\\performance.py",
+      "middleware\\performance.py"
+    ],
+    "rag.py": [
+      "api\\v1\\rag.py",
+      "schemas\\rag.py",
+      "status\\checks\\rag.py"
+    ],
+    "router.py": [
+      "api\\v1\\router.py",
+      "api\\v1\\agent\\router.py",
+      "api\\v1\\auth\\router.py",
+      "api\\v1\\chat\\router.py",
+      "api\\v1\\memory\\router.py",
+      "api\\v1\\rag\\router.py",
+      "api\\v1\\status\\router.py",
+      "api\\v2\\router.py",
+      "api\\websockets\\router.py"
+    ],
+    "ws.py": [
+      "api\\v1\\ws.py",
+      "serializers\\ws.py"
+    ],
+    "metrics.py": [
+      "api\\v1\\_common\\metrics.py",
+      "monitoring\\metrics.py",
+      "observability\\metrics.py"
+    ],
+    "security.py": [
+      "api\\v1\\_common\\security.py",
+      "deps\\security.py",
+      "middleware\\security.py",
+      "websockets\\security.py"
+    ],
+    "agent_websocket.py": [
+      "api\\websockets\\agent_websocket.py",
+      "websockets\\agent_websocket.py"
+    ],
+    "chat_websocket.py": [
+      "api\\websockets\\chat_websocket.py",
+      "websockets\\chat_websocket.py"
+    ],
+    "schemas.py": [
+      "common\\schemas.py",
+      "websockets\\schemas.py"
+    ],
+    "production.py": [
+      "dependencies\\production.py",
+      "security\\production.py"
+    ],
+    "database.py": [
+      "deps\\database.py",
+      "status\\checks\\database.py"
+    ],
+    "jwt.py": [
+      "middleware\\jwt.py",
+      "security\\jwt.py"
+    ],
+    "logging.py": [
+      "middleware\\logging.py",
+      "observability\\logging.py"
+    ],
+    "observability.py": [
+      "middleware\\observability.py",
+      "startup\\observability.py"
+    ],
+    "training_ws.py": [
+      "realtime\\training_ws.py",
+      "websockets\\training_ws.py"
+    ]
+  },
+  "duplicate_contents": {}
+}

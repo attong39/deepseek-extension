@@ -1,0 +1,124 @@
+models:
+  gpt-5:
+    provider: openai
+    role: teacher_verifier
+    use_cases: ["complex_reasoning", "code_generation", "agent_planning", "data_labeling", "verification"]
+    cost_per_1k: 10.0
+    context_length: 128000
+    max_output_tokens: 16384
+    supports_vision: false
+    supports_function_calling: true
+    latency_ms: 2000
+    availability: "24/7"
+    
+  gpt-4o:
+    provider: openai
+    role: multimodal_realtime
+    use_cases: ["vision", "audio", "realtime_interaction", "multimodal"]
+    cost_per_1k: 5.0
+    context_length: 128000
+    max_output_tokens: 16384
+    supports_vision: true
+    supports_function_calling: true
+    latency_ms: 800
+    availability: "24/7"
+    
+  gpt-4.1-nano:
+    provider: openai
+    role: edge_agent
+    use_cases: ["lightweight_tasks", "trigger_events", "edge_trigger"]
+    cost_per_1k: 0.5
+    context_length: 64000
+    max_output_tokens: 4096
+    supports_vision: false
+    supports_function_calling: true
+    latency_ms: 300
+    availability: "24/7"
+    
+  llama-4-scout:
+    provider: meta
+    role: student_primary
+    use_cases: ["general_reasoning", "text_processing", "on_prem_inference", "chat"]
+    cost_per_1k: 0.1  # self-hosted
+    context_length: 131072
+    max_output_tokens: 8192
+    supports_vision: false
+    supports_function_calling: true
+    latency_ms: 1500
+    availability: "self_hosted"
+    
+  qwen3:
+    provider: alibaba
+    role: specialist_coder
+    use_cases: ["code_generation", "code_analysis", "coding"]
+    cost_per_1k: 0.1  # self-hosted
+    context_length: 131072
+    max_output_tokens: 8192
+    supports_vision: false
+    supports_function_calling: true
+    latency_ms: 1200
+    availability: "self_hosted"
+    
+  qwen2.5-vl:
+    provider: alibaba
+    role: specialist_vision
+    use_cases: ["document_parsing", "image_analysis", "pdf_processing", "document_vision"]
+    cost_per_1k: 0.2  # self-hosted
+    context_length: 131072
+    max_output_tokens: 8192
+    supports_vision: true
+    supports_function_calling: true
+    latency_ms: 2000
+    availability: "self_hosted"
+    
+  gpt-oss-20b:
+    provider: openai
+    role: open_weight_general
+    use_cases: ["sensitive_data", "cost_effective_long_term", "function_calling"]
+    cost_per_1k: 0.05  # self-hosted
+    context_length: 65536
+    max_output_tokens: 4096
+    supports_vision: false
+    supports_function_calling: true
+    latency_ms: 1800
+    availability: "self_hosted"
+    
+  gpt-oss-120b:
+    provider: openai
+    role: open_weight_advanced
+    use_cases: ["complex_reasoning", "coding", "planning", "sensitive_data"]
+    cost_per_1k: 0.15  # self-hosted
+    context_length: 65536
+    max_output_tokens: 8192
+    supports_vision: false
+    supports_function_calling: true
+    latency_ms: 3000
+    availability: "self_hosted"
+
+# Routing rules
+routing_rules:
+  high_security:
+    preferred_providers: ["meta", "alibaba", "openai_oss"]
+    avoid_providers: ["openai"]
+    
+  cost_optimized:
+    max_cost_per_1k: 1.0
+    prefer_self_hosted: true
+    
+  low_latency:
+    max_latency_ms: 1000
+    preferred_models: ["gpt-4.1-nano", "gpt-4o"]
+    
+  high_context:
+    min_context_length: 100000
+    preferred_models: ["llama-4-scout", "qwen3", "qwen2.5-vl"]
+
+# Model aliases cho backward compatibility
+aliases:
+  teacher: gpt-5
+  student: llama-4-scout
+  realtime: gpt-4o
+  edge: gpt-4.1-nano
+  coder: qwen3
+  vision: qwen2.5-vl
+  private: gpt-oss-120b

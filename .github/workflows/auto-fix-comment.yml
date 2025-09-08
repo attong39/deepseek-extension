@@ -1,0 +1,23 @@
+name: auto-fix-comment
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+      - run: uv sync --all-extras --dev
+      - run: uv run python tools/auto_fix/cli.py all --changed-only --use-cache --dry-run
+      - name: Read report
+        id: rep
+        run: echo "json=$(cat reports/auto_fix/report.json | tr -d '\n')" >> "$GITHUB_OUTPUT"
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: Auto-Fix Report
+          message: |
+            **Auto-Fix (dry-run)**:
+            ```json
+            ${{ steps.rep.outputs.json }}
+            ```

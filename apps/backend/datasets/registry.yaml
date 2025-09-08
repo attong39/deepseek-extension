@@ -1,0 +1,46 @@
+datasets:
+  - name: "web_crawled_2025_08"
+    source: "web_crawler"
+    triage_version: "v1"
+    labeler: "gpt-5"
+    created_at: "2025-08-24T00:00:00Z"
+    shards: []
+    policy_version: "safety_v1"
+    metadata:
+      quality_score: 0.95
+      samples_count: 0
+      size_mb: 0
+      tags: ["web", "general"]
+      
+  - name: "code_samples_2025_08"
+    source: "github_crawler"
+    triage_version: "v1"
+    labeler: "gpt-5"
+    created_at: "2025-08-24T00:00:00Z"
+    shards: []
+    policy_version: "safety_v1"
+    metadata:
+      quality_score: 0.92
+      samples_count: 0
+      size_mb: 0
+      tags: ["code", "programming"]
+      
+  - name: "reasoning_chains_2025_08"
+    source: "synthetic_generator"
+    triage_version: "v1"
+    labeler: "gpt-5"
+    created_at: "2025-08-24T00:00:00Z"
+    shards: []
+    policy_version: "safety_v1"
+    metadata:
+      quality_score: 0.98
+      samples_count: 0
+      size_mb: 0
+      tags: ["reasoning", "synthetic"]
+
+registry_config:
+  storage_path: "datasets/shards"
+  backup_path: "datasets/backups"
+  max_shard_size_mb: 100
+  compression: "gzip"
+  checksum_algorithm: "sha256"

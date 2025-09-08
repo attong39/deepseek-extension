@@ -1,0 +1,89 @@
+name: Consistency Guard
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  consistency-guard:
+    name: Desktop ↔ AI Server Contract Sync
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Python with uv
+      uses: astral-sh/setup-uv@v3
+      
+    - name: Install dependencies
+      run: uv sync --all-extras --dev
+        
+    - name: Create frontend directory (if missing)
+      run: |
+        mkdir -p apps/desktop/src
+        
+    - name: Check OpenAPI hash
+      id: hash
+      run: uv run python tools/consistency/openapi_hash.py --check
+      continue-on-error: true
+        
+    - name: Run Consistency Guard
+      id: guard
+      run: uv run python tools/consistency/run_all.py
+      continue-on-error: true
+        
+    - name: Auto-Fix check (CI, changed-only)
+      run: |
+        uv run python tools/auto_fix/cli.py all --changed-only
+        git diff --quiet || (echo "Auto-fix created changes. Commit locally (make fix-imports)"; exit 1)
+        
+    - name: Upload Consistency Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: consistency-guard-report
+        path: reports/consistency/
+        retention-days: 30
+        
+    - name: Comment on PR (sticky)
+      if: github.event_name == 'pull_request'
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        header: Consistency Guard
+        message: |
+          ## Consistency Guard Report
+          
+          **OpenAPI hash**: ${{ steps.hash.outcome }}
+          **Guard result**:  ${{ steps.guard.outcome }}
+
+          📊 **Download detailed report**: [consistency-guard-report](../actions/runs/${{ github.run_id }})
+          
+          ${{ steps.hash.outcome == 'failure' && '🚨 **OpenAPI hash mismatch** - run `uv run python tools/consistency/openapi_hash.py --write`' || '' }}
+          ${{ steps.guard.outcome == 'failure' && '🚨 **Critical contract mismatches detected** - see report for details' || '' }}
+          ${{ steps.hash.outcome == 'success' && steps.guard.outcome == 'success' && '✅ **All contracts synchronized**' || '' }}
+          
+    - name: Fail if critical
+      if: steps.guard.outcome == 'failure' || steps.hash.outcome == 'failure'
+      run: |
+        echo "❌ Contract mismatch detected. See artifacts for details."
+        echo ""
+        if [ -f "reports/consistency/result.md" ]; then
+          echo "Summary:"
+          head -20 reports/consistency/result.md
+        fi
+        echo ""
+        echo "Please fix contracts and run 'uv run python tools/consistency/openapi_hash.py --write'"
+        exit 1
+        
+    - name: Success Summary
+      if: steps.guard.outcome == 'success' && steps.hash.outcome == 'success'
+      run: |
+        echo "✅ Consistency Guard completed successfully"
+        echo "🎉 All contracts are perfectly synchronized"

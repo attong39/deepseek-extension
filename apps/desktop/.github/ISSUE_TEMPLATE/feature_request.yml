@@ -1,0 +1,75 @@
+name: 💡 Feature Request
+description: "Đề xuất tính năng mới cho desktop_ai_zeta"
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Cảm ơn bạn đã đóng góp ý tưởng!** Feature request giúp product phát triển theo nhu cầu thực tế.
+
+  - type: textarea
+    id: feature_problem
+    attributes:
+      label: "🎯 Problem/Pain Point"
+      description: "Bạn gặp vấn đề gì cần giải quyết?"
+      placeholder: "Tôi muốn làm ... nhưng hiện tại app không hỗ trợ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature_solution
+    attributes:
+      label: "💫 Solution mong muốn"
+      description: "Bạn mong muốn tính năng hoạt động như thế nào?"
+      placeholder: "Tôi muốn có button/menu/dialog để..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature_alternatives
+    attributes:
+      label: "🔄 Alternatives đã thử"
+      description: "Bạn đã thử cách nào khác chưa?"
+      placeholder: "Tôi đã thử workaround A, B nhưng không tối ưu vì..."
+
+  - type: dropdown
+    id: feature_priority
+    attributes:
+      label: "⚡ Mức độ ưu tiên"
+      options:
+        - "🔥 High - blocking daily workflow"
+        - "⚖️ Medium - improve experience"
+        - "🌱 Low - nice to have"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: feature_category
+    attributes:
+      label: "📂 Category"
+      options:
+        - "🤖 AI/ML Features"
+        - "🖥️ UI/UX"
+        - "📊 Analytics/Reporting"
+        - "🔧 Developer Tools"
+        - "⚙️ Settings/Config"
+        - "🔌 Integrations"
+        - "🔐 Security"
+        - "📱 Platform Support"
+        - "🚀 Performance"
+        - "📝 Other"
+
+  - type: input
+    id: feature_usage
+    attributes:
+      label: "👥 Ai sẽ dùng tính năng này?"
+      placeholder: "End users, developers, admins, specific persona..."
+
+  - type: checkboxes
+    id: feature_checklist
+    attributes:
+      label: "📋 Checklist"
+      options:
+        - label: "Tôi đã search existing issues/features"
+        - label: "Tôi đã đọc roadmap/changelog"
+        - label: "Feature này không conflict với existing architecture"

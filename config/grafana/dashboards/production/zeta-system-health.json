@@ -1,0 +1,15 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Zeta System Health",
+    "tags": ["zeta", "health", "production"],
+    "timezone": "browser",
+    "panels": [
+      {"id": 1, "title": "Prometheus Up", "type": "stat", "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4}, "targets": [{"expr": "up{job=\"prometheus\"}", "refId": "A"}]},
+      {"id": 2, "title": "Node Exporter Up", "type": "stat", "gridPos": {"x": 6, "y": 0, "w": 6, "h": 4}, "targets": [{"expr": "up{job=\"node-exporter\"}", "refId": "A"}]},
+      {"id": 3, "title": "Ollama Up", "type": "stat", "gridPos": {"x": 12, "y": 0, "w": 6, "h": 4}, "targets": [{"expr": "avg_over_time(zeta_ollama_up[1m])", "refId": "A"}]}
+    ],
+    "time": {"from": "now-6h", "to": "now"},
+    "refresh": "10s"
+  }
+}

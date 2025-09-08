@@ -1,0 +1,15 @@
+# Alertmanager base config with Slack receiver
+route:
+  receiver: slack_zeta_alerts
+  group_by: ['alertname']
+  routes:
+    - receiver: slack_zeta_alerts
+      matchers:
+        - severity=~"warning|critical"
+
+receivers:
+  - name: slack_zeta_alerts
+    slack_configs:
+      - channel: '#zeta-alerts'
+        api_url: 'https://hooks.slack.com/services/XXX'
+        send_resolved: true

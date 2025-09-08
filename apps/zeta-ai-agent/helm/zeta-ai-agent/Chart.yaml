@@ -1,0 +1,24 @@
+apiVersion: v2
+name: apps/zeta-ai-agent
+description: Enterprise-ready AI agent extension with monitoring and alerting
+version: 1.0.0
+appVersion: "1.0.0"
+type: application
+keywords:
+  - ai
+  - agent
+  - vscode
+  - extension
+  - monitoring
+  - prometheus
+home: https://github.com/your-org/apps/zeta-ai-agent
+sources:
+  - https://github.com/your-org/apps/zeta-ai-agent
+maintainers:
+  - name: Zeta AI Team
+    email: team@zeta.ai
+    url: https://zeta.ai
+icon: https://raw.githubusercontent.com/your-org/apps/zeta-ai-agent/main/media/icon.png
+annotations:
+  category: Development Tools
+  licenses: MIT

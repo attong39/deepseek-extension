@@ -1,0 +1,40 @@
+name: Weekly Security Audit
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+
+jobs:
+  npm-audit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: ["extension", "apps/desktop"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - run: |
+          cd ${{ matrix.project }}
+          npm ci
+          npm audit --audit-level=high || true
+
+  pip-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pip-audit
+        run: pipx install pip-audit
+      - name: Audit apps/backend
+        working-directory: apps/backend
+        run: |
+          python -m venv .venv
+          . .venv/bin/activate || source .venv/bin/activate || true
+          pip install poetry
+          poetry install --no-interaction --no-root
+          pip-audit || true

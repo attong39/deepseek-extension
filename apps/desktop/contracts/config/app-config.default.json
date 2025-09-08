@@ -1,0 +1,10 @@
+{
+  "flags": {
+    "ENABLE_TELEMETRY": false,
+    "ENABLE_FEDERATED": false,
+    "ENABLE_CV": false
+  },
+  "retentionDays": 30,
+  "apiBase": "/api",
+  "wsHealthPath": "/ws/health"
+}

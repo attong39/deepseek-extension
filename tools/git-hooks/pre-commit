@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Sample pre-commit hook to run a quick consolidation audit on staged Python/TS changes.
+# To enable: git config core.hooksPath tools/git-hooks
+
+set -euo pipefail
+
+CHANGED=$(git diff --cached --name-only --diff-filter=ACM | tr '\n' ' ')
+if [ -z "$CHANGED" ]; then
+  exit 0
+fi
+
+# Run a quick audit (no near-dup to keep it fast)
+if command -v python >/dev/null 2>&1; then
+  python scripts/consolidation_audit.py --root . --report-dir reports/precommit_audit --no-near >/dev/null 2>&1 || true
+fi
+
+exit 0

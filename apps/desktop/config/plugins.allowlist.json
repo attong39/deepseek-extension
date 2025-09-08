@@ -1,0 +1,9 @@
+{
+  "allow": [
+    "demo.plugin",
+    "cv.inference",
+    "federated.client",
+    "training-monitor",
+    "system-monitor"
+  ]
+}

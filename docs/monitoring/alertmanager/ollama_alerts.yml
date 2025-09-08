@@ -1,0 +1,37 @@
+# Example Alertmanager/Prometheus rule group for Ollama
+# Ensure metric names match apps/backend/ollama/monitoring.py
+# Histogram base name: zeta_ollama_request_duration_seconds
+# Counter: zeta_ollama_requests_total
+
+- name: ollama_alerts
+  rules:
+  - alert: OllamaHighLoad
+    # Approximate RPS via request count rate over 1m window
+    expr: sum(rate(zeta_ollama_requests_total[1m])) > 100
+    for: 5m
+    labels:
+      severity: warning
+      service: ollama
+    annotations:
+      summary: "Ollama under high load"
+      description: "Ollama is processing more than 100 requests per second across methods"
+
+  - alert: OllamaDown
+    expr: avg_over_time(zeta_ollama_up[2m]) < 0.5
+    for: 2m
+    labels:
+      severity: critical
+      service: ollama
+    annotations:
+      summary: "Ollama appears down"
+      description: "Health checks failing or unreachable"
+
+  - alert: OllamaHighLatencyP95
+    expr: histogram_quantile(0.95, sum(rate(zeta_ollama_request_duration_seconds_bucket[5m])) by (le)) > 2
+    for: 10m
+    labels:
+      severity: warning
+      service: ollama
+    annotations:
+      summary: "High p95 latency"
+      description: "p95 of Ollama request latency > 2s over last 10m"

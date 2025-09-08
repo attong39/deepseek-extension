@@ -1,0 +1,92 @@
+{{- if .Values.networkPolicy.enabled }}
+apiVersion: {{ include "zeta-agent.networkPolicy.apiVersion" . }}
+kind: NetworkPolicy
+metadata:
+  name: {{ include "zeta-agent.fullname" . }}
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+  labels:
+    {{- include "zeta-agent.labels" . | nindent 4 }}
+    {{- with .Values.networkPolicy.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.networkPolicy.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "zeta-agent.selectorLabels" . | nindent 6 }}
+  policyTypes:
+    {{- if .Values.networkPolicy.ingress.enabled }}
+    - Ingress
+    {{- end }}
+    {{- if .Values.networkPolicy.egress.enabled }}
+    - Egress
+    {{- end }}
+  {{- if .Values.networkPolicy.ingress.enabled }}
+  ingress:
+    {{- with .Values.networkPolicy.ingress.rules }}
+    {{- toYaml . | nindent 4 }}
+    {{- else }}
+    # Default ingress rules
+    - from:
+        # Allow ingress from same namespace
+        - namespaceSelector:
+            matchLabels:
+              name: {{ .Release.Namespace }}
+        # Allow ingress from ingress controller
+        - namespaceSelector:
+            matchLabels:
+              name: ingress-nginx
+        # Allow ingress from monitoring namespace
+        - namespaceSelector:
+            matchLabels:
+              name: monitoring
+      ports:
+        - protocol: TCP
+          port: {{ .Values.service.targetPort }}
+        {{- if .Values.metrics.enabled }}
+        - protocol: TCP
+          port: {{ .Values.metrics.port }}
+        {{- end }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.networkPolicy.egress.enabled }}
+  egress:
+    {{- with .Values.networkPolicy.egress.rules }}
+    {{- toYaml . | nindent 4 }}
+    {{- else }}
+    # Default egress rules
+    - to: []
+      ports:
+        # DNS
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+        # HTTP/HTTPS
+        - protocol: TCP
+          port: 80
+        - protocol: TCP
+          port: 443
+        # Ollama API (if external)
+        {{- if and .Values.env.ollamaUrl (contains "://" .Values.env.ollamaUrl) }}
+        - protocol: TCP
+          port: 11434
+        {{- end }}
+    # Allow egress to same namespace services
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: {{ .Release.Namespace }}
+      ports:
+        - protocol: TCP
+          port: {{ .Values.service.targetPort }}
+        {{- if .Values.metrics.enabled }}
+        - protocol: TCP
+          port: {{ .Values.metrics.port }}
+        {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}

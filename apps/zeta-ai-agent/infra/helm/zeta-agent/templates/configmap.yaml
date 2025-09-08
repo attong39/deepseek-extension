@@ -1,0 +1,129 @@
+{{- if .Values.configMap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "zeta-agent.configMapName" . }}
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+  labels:
+    {{- include "zeta-agent.labels" . | nindent 4 }}
+    {{- with .Values.configMap.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.configMap.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  {{- with .Values.configMap.data }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+  # Default configuration
+  app.json: |
+    {
+      "name": "zeta-agent",
+      "version": "{{ .Chart.AppVersion }}",
+      "description": "Zeta AI Agent - Autonomous AI Code Assistant",
+      "environment": "{{ .Values.env.nodeEnv }}",
+      "port": {{ .Values.service.targetPort }},
+      "logging": {
+        "level": "{{ .Values.env.logLevel }}",
+        "format": "json",
+        "timestamp": true
+      },
+      "ai": {
+        "model": "{{ .Values.env.ollamaModel }}",
+        "endpoint": "{{ .Values.env.ollamaUrl }}",
+        "timeout": 30000,
+        "maxTokens": 4096
+      },
+      "vector": {
+        "database": "{{ .Values.env.vectorDbPath }}",
+        "dimensions": 384,
+        "indexType": "hnsw"
+      },
+      "memory": {
+        "shortTerm": {
+          "maxSize": 100,
+          "ttl": 3600
+        },
+        "longTerm": {
+          "maxSize": 1000,
+          "persistencePath": "/data/memory"
+        }
+      },
+      "security": {
+        "enableAuth": false,
+        "rateLimiting": {
+          "enabled": true,
+          "maxRequests": 100,
+          "windowMs": 60000
+        }
+      },
+      "features": {
+        "codeAnalysis": true,
+        "autoCompletion": true,
+        "refactoring": true,
+        "testing": true,
+        "documentation": true
+      }
+    }
+  
+  # Nginx configuration (if nginx sidecar is enabled)
+  {{- if .Values.nginx.enabled }}
+  nginx.conf: |
+    events {
+        worker_connections 1024;
+    }
+    
+    http {
+        upstream apps/backend {
+            server localhost:{{ .Values.service.targetPort }};
+        }
+        
+        server {
+            listen 80;
+            server_name {{ .Values.ingress.hosts | first | .host | default "localhost" }};
+            
+            location / {
+                proxy_pass http://apps/backend;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                
+                # WebSocket support
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
+                
+                # Timeouts
+                proxy_connect_timeout 30s;
+                proxy_send_timeout 30s;
+                proxy_read_timeout 30s;
+            }
+            
+            location /health {
+                access_log off;
+                return 200 "healthy\n";
+                add_header Content-Type text/plain;
+            }
+        }
+    }
+  {{- end }}
+  
+  # Prometheus scrape configuration
+  {{- if .Values.metrics.enabled }}
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+    
+    scrape_configs:
+      - job_name: 'zeta-agent'
+        static_configs:
+          - targets: ['localhost:{{ .Values.metrics.port }}']
+        metrics_path: /metrics
+        scrape_interval: 30s
+        scrape_timeout: 10s
+  {{- end }}
+{{- end }}

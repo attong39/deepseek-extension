@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "eslint": "^9.34.0",
+    "jscpd": "^3.5.10",
+    "openapi-typescript": "^6.7.6",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "ts-prune": "^0.10.3",
+    "typescript": "^5.9.2",
+    "vitest": "^1.6.1"
+  }
+}

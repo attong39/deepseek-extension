@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App Config Contract > should have stable schema structure 1`] = `
+{
+  "$id": "zeta://contracts/config/app-config.schema.json",
+  "additionalProperties": false,
+  "properties": {
+    "apiBase": {
+      "default": "/api",
+      "minLength": 1,
+      "type": "string",
+    },
+    "flags": {
+      "additionalProperties": false,
+      "properties": {
+        "ENABLE_CV": {
+          "default": false,
+          "type": "boolean",
+        },
+        "ENABLE_FEDERATED": {
+          "default": false,
+          "type": "boolean",
+        },
+        "ENABLE_TELEMETRY": {
+          "default": false,
+          "type": "boolean",
+        },
+      },
+      "type": "object",
+    },
+    "retentionDays": {
+      "default": 30,
+      "maximum": 365,
+      "minimum": 1,
+      "type": "integer",
+    },
+    "wsHealthPath": {
+      "default": "/ws/health",
+      "minLength": 1,
+      "type": "string",
+    },
+  },
+  "required": [
+    "flags",
+    "retentionDays",
+  ],
+  "type": "object",
+}
+`;

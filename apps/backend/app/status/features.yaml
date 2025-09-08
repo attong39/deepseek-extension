@@ -1,0 +1,100 @@
+# ZETA_VN Feature Matrix Configuration
+# Định nghĩa các tính năng AI cần monitor theo thời gian thực
+
+features:
+  # Core AI Features
+  - key: inference
+    name: "AI Inference"
+    description: "LLM/model inference endpoint"
+    checker: "zeta_vn.app.status.checks.inference:check"
+    critical: true
+    timeout: 5.0
+    dependencies: ["model_service", "gpu"]
+
+  - key: training
+    name: "Model Training"
+    description: "Training pipeline và fine-tuning"
+    checker: "zeta_vn.app.status.checks.training:check"
+    critical: false
+    timeout: 3.0
+    dependencies: ["gpu", "storage"]
+
+  - key: dataset_upload
+    name: "Dataset Upload"
+    description: "File upload và processing"
+    checker: "zeta_vn.app.status.checks.dataset:check"
+    critical: false
+    timeout: 2.0
+    dependencies: ["storage"]
+
+  - key: rag
+    name: "RAG System"
+    description: "Retrieval-Augmented Generation"
+    checker: "zeta_vn.app.status.checks.rag:check"
+    critical: true
+    timeout: 4.0
+    dependencies: ["vector_db", "embedding_service"]
+
+  - key: websocket
+    name: "WebSocket Chat"
+    description: "Real-time chat connections"
+    checker: "zeta_vn.app.status.checks.websocket:check"
+    critical: true
+    timeout: 2.0
+    dependencies: ["redis"]
+
+  - key: gpu
+    name: "GPU Resources"
+    description: "GPU availability và utilization"
+    checker: "zeta_vn.app.status.checks.gpu:check"
+    critical: true
+    timeout: 1.0
+    dependencies: []
+
+  # Infrastructure Features
+  - key: database
+    name: "Database"
+    description: "PostgreSQL connection pool"
+    checker: "zeta_vn.app.status.checks.database:check"
+    critical: true
+    timeout: 2.0
+    dependencies: []
+
+  - key: redis
+    name: "Redis Cache"
+    description: "Redis caching layer"
+    checker: "zeta_vn.app.status.checks.redis:check"
+    critical: false
+    timeout: 1.0
+    dependencies: []
+
+  - key: storage
+    name: "File Storage"
+    description: "S3/MinIO object storage"
+    checker: "zeta_vn.app.status.checks.storage:check"
+    critical: false
+    timeout: 2.0
+    dependencies: []
+
+  - key: vector_db
+    name: "Vector Database"
+    description: "Pinecone/Weaviate/Qdrant"
+    checker: "zeta_vn.app.status.checks.vector_db:check"
+    critical: true
+    timeout: 3.0
+    dependencies: []
+
+# SLO Thresholds
+slo_thresholds:
+  availability_target: 0.995  # 99.5% uptime
+  error_rate_threshold: 0.02  # 2% error rate
+  latency_p95_threshold: 1.0  # 1 second P95
+  critical_feature_count: 6   # Số tính năng critical
+
+# Degradation Rules
+degradation_rules:
+  # Nếu >= 70% features OK → operational
+  # Nếu >= 50% features OK → degraded  
+  # Nếu < 50% features OK → down
+  operational_threshold: 0.7
+  degraded_threshold: 0.5

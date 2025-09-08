@@ -1,0 +1,52 @@
+{{- include "zeta-agent.validateValues" . }}
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "zeta-agent.fullname" . }}-test"
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+  labels:
+    {{- include "zeta-agent.labels" . | nindent 4 }}
+    app.kubernetes.io/component: test
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-weight": "1"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  restartPolicy: Never
+  containers:
+    - name: curl
+      image: curlimages/curl:latest
+      command:
+        - /bin/sh
+        - -c
+        - |
+          set -e
+          echo "Testing Zeta Agent health endpoint..."
+          
+          # Test health endpoint
+          curl -f http://{{ include "zeta-agent.fullname" . }}:{{ .Values.service.port }}/health || {
+            echo "Health check failed"
+            exit 1
+          }
+          
+          echo "Health check passed!"
+          
+          # Test API endpoint
+          curl -f http://{{ include "zeta-agent.fullname" . }}:{{ .Values.service.port }}/api/v1/status || {
+            echo "API status check failed"
+            exit 1
+          }
+          
+          echo "API status check passed!"
+          
+          {{- if .Values.metrics.enabled }}
+          # Test metrics endpoint
+          curl -f http://{{ include "zeta-agent.fullname" . }}:{{ .Values.metrics.port }}/metrics || {
+            echo "Metrics endpoint check failed"
+            exit 1
+          }
+          
+          echo "Metrics endpoint check passed!"
+          {{- end }}
+          
+          echo "All tests passed successfully!"

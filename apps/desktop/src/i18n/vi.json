@@ -1,0 +1,27 @@
+{
+  "title": "ZETA AI Desktop",
+  "login": {
+    "header": "Đăng nhập",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "submit": "Đăng nhập"
+  },
+  "chat": {
+    "placeholder": "Nhập tin nhắn...",
+    "send": "Gửi"
+  },
+  "permission": {
+    "title": "Cấp quyền",
+    "allow": "Cho phép truy cập {{capability}}?",
+    "remember": "Nhớ trong phiên này",
+    "deny": "Từ chối",
+    "allow_btn": "Cho phép",
+    "desc": {
+      "screen": "Cho phép truy cập màn hình để chụp ảnh phục vụ OCR/ghi chú.",
+      "keyboard": "Cho phép gửi tổ hợp phím để tự động hóa thao tác ứng dụng.",
+      "mouse": "Cho phép click/di chuyển chuột cho các tác vụ tự động.",
+      "audio": "Cho phép truy cập micro để nhận diện giọng nói (STT).",
+      "camera": "Cho phép truy cập camera cho các tính năng thị giác."
+    }
+  }
+}

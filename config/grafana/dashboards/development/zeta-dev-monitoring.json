@@ -1,0 +1,14 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Zeta Dev Monitoring",
+    "tags": ["zeta", "development"],
+    "timezone": "browser",
+    "panels": [
+      {"id": 1, "title": "Backend RPS", "type": "graph", "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8}, "targets": [{"expr": "rate(http_requests_total{job=\"zeta-backend\"}[1m])", "refId": "A"}]},
+      {"id": 2, "title": "Backend Latency p95", "type": "graph", "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8}, "targets": [{"expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job=\"zeta-backend\"}[5m]))", "refId": "A"}]}
+    ],
+    "time": {"from": "now-6h", "to": "now"},
+    "refresh": "10s"
+  }
+}

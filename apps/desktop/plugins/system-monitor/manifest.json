@@ -1,0 +1,11 @@
+{
+  "key": "system-monitor",
+  "name": "System Performance Monitor",
+  "version": "1.0.0",
+  "capabilities": [
+    "system-info",
+    "ui-widget"
+  ],
+  "entry": "index.js",
+  "enabled": false
+}

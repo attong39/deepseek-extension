@@ -1,0 +1,32 @@
+# Author: Duy BG VN
+# ZETA AI - Database Backup Storage
+
+# This directory stores database backups and snapshots
+# Critical for disaster recovery and data protection
+
+# Structure:
+# database/
+# ├── daily/           # Daily automated backups
+# ├── weekly/          # Weekly full backups
+# ├── monthly/         # Monthly archive backups
+# ├── snapshots/       # Point-in-time snapshots
+# └── migrations/      # Database migration backups
+
+# Backup Schedule:
+# - Daily incremental: 02:00 UTC
+# - Weekly full: Sunday 01:00 UTC
+# - Monthly archive: 1st day 00:00 UTC
+# - Pre-migration snapshots: Before each migration
+
+# Retention Policy:
+# - Daily backups: 7 days
+# - Weekly backups: 4 weeks
+# - Monthly backups: 12 months
+# - Snapshots: 48 hours
+
+# Security:
+# - All backups are encrypted at rest
+# - Access logs are maintained
+# - Integrity checks performed daily
+
+# Keep this directory in git but exclude actual backup files

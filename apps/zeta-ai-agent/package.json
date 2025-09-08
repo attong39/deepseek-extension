@@ -1,0 +1,284 @@
+{
+  "name": "zeta-ai-agent",
+  "displayName": "Zeta AI Agent",
+  "description": "Intelligent coding assistant powered by Ollama for code review, debugging, optimization, and AI chat",
+  "version": "1.0.0",
+  "publisher": "zeta",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "ai",
+    "ollama",
+    "code-review",
+    "debugging",
+    "optimization",
+    "assistant",
+    "copilot"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "zetaAI.reviewCode",
+        "title": "Review Code",
+        "category": "Zeta AI",
+        "icon": "$(search-view-icon)"
+      },
+      {
+        "command": "zetaAI.debugCode",
+        "title": "Debug Code",
+        "category": "Zeta AI",
+        "icon": "$(debug-alt-small)"
+      },
+      {
+        "command": "zetaAI.optimizeCode",
+        "title": "Optimize Code",
+        "category": "Zeta AI",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "zetaAI.openChat",
+        "title": "Open Chat",
+        "category": "Zeta AI",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "zetaAI.planAction",
+        "title": "Plan Action",
+        "category": "Zeta AI",
+        "icon": "$(list-ordered)"
+      },
+      {
+        "command": "zetaAI.showMemoryStats",
+        "title": "Show Memory Stats",
+        "category": "Zeta AI",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "zetaAI.configure",
+        "title": "Configure",
+        "category": "Zeta AI",
+        "icon": "$(settings-gear)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorTextFocus",
+          "command": "zetaAI.reviewCode",
+          "group": "zetaAI@1"
+        },
+        {
+          "when": "editorTextFocus",
+          "command": "zetaAI.debugCode",
+          "group": "zetaAI@2"
+        },
+        {
+          "when": "editorTextFocus",
+          "command": "zetaAI.optimizeCode",
+          "group": "zetaAI@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "zetaAI.reviewCode",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "zetaAI.debugCode",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "zetaAI.optimizeCode",
+          "when": "editorTextFocus"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "type": "webview",
+          "id": "zetaCodeView",
+          "name": "Zeta AI Analysis",
+          "when": "true",
+          "icon": "$(search-view-icon)"
+        },
+        {
+          "type": "webview",
+          "id": "zetaChatView",
+          "name": "Zeta AI Chat",
+          "when": "true",
+          "icon": "$(comment-discussion)"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Zeta AI",
+      "properties": {
+        "zetaAI.ollamaUrl": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "URL of the Ollama server"
+        },
+        "zetaAI.defaultModel": {
+          "type": "string",
+          "default": "starcoder",
+          "description": "Default Ollama model to use for AI operations (fast responses)"
+        },
+        "zetaAI.highQualityModel": {
+          "type": "string",
+          "default": "attong39/zeta",
+          "description": "High-quality model for complex tasks with Vietnamese support"
+        },
+        "zetaAI.heavyModel": {
+          "type": "string",
+          "default": "codellama:13b-instruct",
+          "description": "Heavy model for complex reasoning tasks"
+        },
+        "zetaAI.complexityThreshold": {
+          "type": "number",
+          "default": 0.6,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Threshold for switching to high-quality model (0-1)"
+        },
+        "zetaAI.enableTurbo": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable Turbo mode for faster responses using Ollama API"
+        },
+        "zetaAI.maxContextSize": {
+          "type": "number",
+          "default": 1000,
+          "description": "Maximum number of context items to maintain in memory"
+        },
+        "zetaAI.enableCaching": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable caching of AI responses"
+        },
+        "zetaAI.cacheTtl": {
+          "type": "number",
+          "default": 3600,
+          "description": "Cache time-to-live in seconds"
+        },
+        "zetaAI.rateLimit": {
+          "type": "number",
+          "default": 60,
+          "description": "Maximum requests per minute"
+        },
+        "zetaAI.security.maxCodeSize": {
+          "type": "number",
+          "default": 100000,
+          "description": "Maximum code size in characters for analysis"
+        },
+        "zetaAI.security.allowedFileExtensions": {
+          "type": "array",
+          "default": [
+            ".ts",
+            ".js",
+            ".py",
+            ".java",
+            ".cpp",
+            ".c",
+            ".cs",
+            ".php",
+            ".rb",
+            ".go",
+            ".rs"
+          ],
+          "description": "File extensions allowed for analysis"
+        },
+        "zetaAI.security.maxContextSize": {
+          "type": "number",
+          "default": 10000,
+          "description": "Maximum context size for security validation"
+        },
+        "zetaAI.security.rateLimitPerMinute": {
+          "type": "number",
+          "default": 60,
+          "description": "Security rate limit per minute"
+        },
+        "zetaAI.performanceMonitoring": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable performance monitoring"
+        },
+        "zetaAI.logLevel": {
+          "type": "string",
+          "enum": [
+            "debug",
+            "info",
+            "warn",
+            "error"
+          ],
+          "default": "info",
+          "description": "Logging level"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "dev": "concurrently \"npm run watch\" \"npm run test:watch\"",
+    "dev:debug": "concurrently \"npm run watch\" \"npm run launch:debug\"",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "lint:fix": "eslint src --ext ts --fix",
+    "test": "node ./out/tests/runTests.js",
+    "test:unit": "node ./out/tests/unit/",
+    "test:integration": "node ./out/tests/integration/",
+    "test:watch": "nodemon --watch src --ext ts --exec \"npm test\"",
+    "test:coverage": "nyc npm test",
+    "clean": "rimraf out",
+    "build": "npm run clean && npm run compile",
+    "build:prod": "npm run clean && npm run lint && npm test && npm run compile",
+    "package": "vsce package",
+    "package:pre": "vsce package --pre-release",
+    "publish": "vsce publish",
+    "publish:pre": "vsce publish --pre-release",
+    "install-extension": "code --install-extension zeta-ai-agent-*.vsix",
+    "launch:debug": "code --extensionDevelopmentPath=$PWD",
+    "analyze": "npm run compile && npm run test && npm run lint",
+    "deps:check": "npm audit && npm outdated",
+    "deps:update": "npm update"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "@vscode/test-electron": "^2.2.0",
+    "chai": "^4.3.7",
+    "concurrently": "^7.6.0",
+    "eslint": "^8.28.0",
+    "mocha": "^10.1.0",
+    "nodemon": "^2.0.20",
+    "nyc": "^15.1.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^4.9.4",
+    "vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "ts-morph": "^26.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/zeta-ai-agent.git"
+  },
+  "license": "MIT"
+}

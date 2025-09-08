@@ -1,0 +1,251 @@
+# One-Click Learning + RAG + DevSecOps Backend
+[project]
+name = "zeta-backend"
+version = "0.1.0"
+requires-python = ">=3.11"
+description = "One-Click Learning + RAG + DevSecOps Backend"
+dependencies = [
+  # ── Core Web ───────────────────────
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.30",
+  "orjson>=3.10",
+  "pydantic>=2.8",
+  "pydantic-settings>=2.5",
+  "sqlmodel>=0.0.22",
+  "sqlalchemy[asyncio]>=2.0",
+  "asyncpg>=0.29",
+  "alembic>=1.13",
+  "httpx>=0.27",
+  "python-multipart>=0.0.9",
+
+  # ── Auth & Security ─────────────────
+  "python-jose[cryptography]>=3.3",
+  "passlib[bcrypt]>=1.7",
+  "itsdangerous>=2.2",
+  "slowapi>=0.1.9",
+  "bcrypt>=4.2",
+  
+  # ── JWT & JWKS (RC v1.1.0) ──────────
+  "PyJWT[crypto]>=2.8.0",
+  "cryptography>=41.0.0",
+
+  # ── Cache & Queue ──────────────────
+  "redis>=5.0",
+  "arq>=0.25.0",
+
+  # ── Observability ──────────────────
+  "prometheus-fastapi-instrumentator>=6.1",
+  "opentelemetry-sdk>=1.27",
+  "opentelemetry-api>=1.27",
+  "opentelemetry-instrumentation-fastapi>=0.48b0",
+  "opentelemetry-exporter-otlp>=1.27",
+  "structlog>=24.1.0",
+
+  # ── RAG & Embedding ─────────────────
+  "numpy>=1.26.4,<2.0",                 # ✅ Mặc định Pin NP1
+  "sentence-transformers>=3.0",
+  "faiss-cpu>=1.8.0.post1",
+  "pgvector>=0.3.5",
+  "tiktoken>=0.7.0",
+  "rank-bm25>=0.2.2",
+
+  # ── Ingest / Extract ───────────────
+  "unstructured>=0.15.7",
+  "pypdf>=4.3",
+  "python-docx>=1.1.0",
+  "beautifulsoup4>=4.12",
+  "lxml>=5.2",
+
+  # ── OCR / ASR ───────────────────────
+  "opencv-python-headless>=4.10",
+  "paddleocr>=2.9.1; platform_system!='Windows'",
+  "faster-whisper>=1.0",
+  "torch>=2.4; platform_machine!='aarch64'",   # NP2‑compatible torch (CPU‑first)
+
+  # ── WS & SSE ───────────────────────
+  "websockets>=13.0",
+  "sse-starlette>=2.0.0",
+
+  # ── Utils ───────────────────────────
+  "python-slugify>=8.0",
+  "pytz>=2024.1",
+]
+
+[project.optional-dependencies]
+# OCR cho production (mặc định, tương thích với numpy<2.0)
+ocr = [
+  "paddleocr>=2.9.1",
+  "opencv-python-headless>=4.8.1",
+]
+
+# OCR alternatives for Windows
+ocr-alt = [
+  "pytesseract>=0.3.13",               # OCR thay thế cho Windows
+  "pillow>=10.0.0",                    # Image processing cho pytesseract
+]
+
+# Advanced vector databases
+qdrant = ["qdrant-client>=1.9"]
+weaviate = ["weaviate-client>=4.9"]
+
+# LLM & acceleration
+llm = ["transformers>=4.44", "accelerate>=0.34", "bitsandbytes>=0.43"]
+
+# GPU support (manual installation required for FAISS-GPU)
+gpu = ["torch[cuda]>=2.0"]  # PyTorch with CUDA, FAISS-GPU cần install riêng
+
+# TTS capabilities
+tts = ["edge-tts>=6.1", "pyttsx3>=2.91"]
+
+# Development tools
+dev = [
+  "ruff>=0.6",
+  "mypy>=1.11",
+  "pytest>=8.3",
+  "pytest-asyncio>=0.23",
+  "pytest-cov>=5.0",
+  "respx>=0.21",
+  "freezegun>=1.5",
+  "hypothesis>=6.112",
+  "faker>=28.4",
+  "bandit>=1.7",
+  "pip-audit>=2.7",
+  "vulture>=2.11",
+  "types-requests",
+  "types-redis",
+]
+
+[tool.uv]
+index-url = "https://pypi.org/simple"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+# Narrow initial rule set for incremental adoption in backend.
+select = ["E", "F", "I", "UP"]
+ignore = ["E501", "S101", "S104"]
+exclude = [
+    "migrations",
+    "alembic",
+    "core",
+    "data",
+    "trainer",
+    "training",
+    "perf",
+    # Exclude optimized/backup variants and known problematic modules for the first pass
+    "app/api/v2/*_optimized.py",
+    "app/**/backup_*.py",
+    "app/middleware/security.py"
+]
+
+# Loosen some rules in tests to avoid false positives and fixtures/mocks noise
+[tool.ruff.per-file-ignores]
+"tests/**" = [
+    "E402",  # module level import not at top of file (okay in tests)
+    "F401",  # imported but unused (common in fixtures)
+    "F811",  # redefinition of unused name (parametrize patterns)
+    "F821",  # undefined name (mocks / stubs)
+    "F841",  # local variable assigned but never used (docs/examples)
+    "B008",  # function call in default argument (test patterns)
+    "S105",  # possible hardcoded password (dummy data)
+    "S106",  # possible hardcoded password in arg (dummy data)
+    "S311",  # non-crypto RNG (fine in tests)
+    "S324",  # insecure hash used (fine in tests)
+    "S110",  # try/except/pass (acceptable in tests)
+    "N802"   # function name should be lowercase (stubs)
+]
+
+"app/**" = [
+    "B008",  # FastAPI Depends/Body in defaults pattern
+    "B904",  # raise from err; acceptable to relax initially
+    "N806",  # uppercase single-letter vars in ML/security snippets
+    "N805",  # first arg not self (dataclass-like utility methods)
+    "F821",  # undefined name (temporary while refactoring)
+    "F822",  # undefined in __all__ (temporary while refactoring)
+]
+
+"config/**" = [
+    "F821",  # undefined name (temporary while refactoring config)
+    "F822",  # undefined in __all__
+]
+
+"app/**/tests/**" = [
+    "E402",
+    "F401",
+    "F811",
+    "F821",
+    "F841"
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+exclude = '''
+(
+    migrations
+| alembic
+| app/middleware/security\.py
+| app\\middleware\\security\.py
+)
+'''
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+follow_imports = "silent"
+namespace_packages = true
+explicit_package_bases = true
+
+# Only check a focused, high-signal subset for now
+files = [
+    "app/di_container.py",
+    "app/factory.py",
+    "app/lifespan.py",
+    "app/main.py",
+    "app/api/v1/router",
+    "config",
+]
+
+# Trim initial scope for actionable type checking; expand incrementally later
+exclude = '''
+(
+    ^migrations/|
+    ^alembic/|
+    ^app/api/v2/|
+    ^app/websockets/|
+    ^app/observability/|
+    ^app/services/|
+    ^app/startup/|
+    ^app/middleware/|
+    ^app/serializers/|
+    ^app/minimal_rag/|
+    ^core/|
+    ^data/
+)
+'''
+
+[[tool.mypy.overrides]]
+module = [
+    "zeta_vn.*",
+    "numpy",
+    "sklearn.*",
+    "torch",
+    "torch.*",
+    "transformers",
+    "networkx",
+    "yaml",
+    "cachetools",
+    "pythonjsonlogger",
+    "opentelemetry.*",
+    "psutil",
+    "orjson",
+    "aiofiles",
+    "jose",
+    "passlib.*",
+    "structlog",
+    "structlog.*"
+]
+ignore_missing_imports = true

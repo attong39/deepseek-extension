@@ -1,0 +1,611 @@
+# Deprecated: OpenAPI spec moved to ../../../docs/api/openapi.yaml
+---
+openapi: 3.0.3
+info:
+  title: ZETA AI Server API
+  description: |
+    Advanced AI Server for agent management, chat, memory, and planning operations.
+
+    ## Features
+    - 🤖 AI Agent Management with multiple model support
+    - 💬 Real-time Chat and Conversation handling
+    - 🧠 Advanced Memory system with vector storage
+    - 📋 AI-powered Planning and task execution
+    - 📊 Analytics and performance monitoring
+    - 🔐 Enterprise-grade security and authentication
+
+    ## Authentication
+    All endpoints require JWT authentication via the `Authorization: Bearer <token>` header.
+
+    ## Rate Limiting
+    - Free tier: 100 requests/hour
+    - Pro tier: 1000 requests/hour
+    - Enterprise: Custom limits
+
+  version: "1.0.0"
+  contact:
+    name: ZETA AI Support
+    url: https://docs.zeta-ai.com
+    email: support@zeta-ai.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.zeta-ai.com/v1
+    description: Production server
+  - url: https://staging-api.zeta-ai.com/v1
+    description: Staging server
+  - url: http://localhost:8000/api/v1
+    description: Development server
+
+security:
+  - bearerAuth: []
+
+paths:
+  # Health Endpoints
+  /health:
+    get:
+      tags: [Health]
+      summary: Basic health check
+      description: Returns the basic health status of the API
+      operationId: getHealth
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /health/detailed:
+    get:
+      tags: [Health]
+      summary: Detailed health check
+      description: Returns detailed health information including dependencies
+      operationId: getDetailedHealth
+      responses:
+        '200':
+          description: Detailed health information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailedHealthResponse'
+
+  # Agent Management
+  /agents:
+    get:
+      tags: [Agents]
+      summary: List all agents
+      description: Retrieve a list of all AI agents
+      operationId: listAgents
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/AgentStatus'
+      responses:
+        '200':
+          description: List of agents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  agents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Agent'
+                  total:
+                    type: integer
+                  limit:
+                    type: integer
+                  offset:
+                    type: integer
+
+    post:
+      tags: [Agents]
+      summary: Create new agent
+      description: Create a new AI agent with specified configuration
+      operationId: createAgent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentCreate'
+      responses:
+        '201':
+          description: Agent created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+        '400':
+          description: Invalid input data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /agents/{agent_id}:
+    get:
+      tags: [Agents]
+      summary: Get agent by ID
+      description: Retrieve a specific agent by its ID
+      operationId: getAgent
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Agent details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+        '404':
+          description: Agent not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    put:
+      tags: [Agents]
+      summary: Update agent
+      description: Update an existing agent's configuration
+      operationId: updateAgent
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentUpdate'
+      responses:
+        '200':
+          description: Agent updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+
+    delete:
+      tags: [Agents]
+      summary: Delete agent
+      description: Delete an agent by its ID
+      operationId: deleteAgent
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Agent deleted successfully
+        '404':
+          description: Agent not found
+
+  # Chat Endpoints
+  /chat/conversations:
+    get:
+      tags: [Chat]
+      summary: List conversations
+      description: Retrieve user's chat conversations
+      operationId: listConversations
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        '200':
+          description: List of conversations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conversations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Conversation'
+
+    post:
+      tags: [Chat]
+      summary: Start new conversation
+      description: Create a new chat conversation
+      operationId: createConversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversationCreate'
+      responses:
+        '201':
+          description: Conversation created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversation'
+
+  /chat/conversations/{conversation_id}/messages:
+    post:
+      tags: [Chat]
+      summary: Send message
+      description: Send a message in a conversation
+      operationId: sendMessage
+      parameters:
+        - name: conversation_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageCreate'
+      responses:
+        '201':
+          description: Message sent and response received
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+
+  # Memory Endpoints
+  /memory:
+    get:
+      tags: [Memory]
+      summary: Retrieve memories
+      description: Search and retrieve stored memories
+      operationId: searchMemories
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+        - name: agent_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Memory search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  memories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Memory'
+
+    post:
+      tags: [Memory]
+      summary: Store memory
+      description: Store a new memory entry
+      operationId: storeMemory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemoryCreate'
+      responses:
+        '201':
+          description: Memory stored successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Memory'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    # Health Schemas
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "healthy"
+        timestamp:
+          type: string
+          format: date-time
+        version:
+          type: string
+          example: "1.0.0"
+
+    DetailedHealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "healthy"
+        timestamp:
+          type: string
+          format: date-time
+        version:
+          type: string
+        services:
+          type: object
+          properties:
+            database:
+              $ref: '#/components/schemas/ServiceHealth'
+            redis:
+              $ref: '#/components/schemas/ServiceHealth'
+            ai_services:
+              $ref: '#/components/schemas/ServiceHealth'
+
+    ServiceHealth:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: ["healthy", "degraded", "unhealthy"]
+        response_time_ms:
+          type: number
+        last_check:
+          type: string
+          format: date-time
+
+    # Agent Schemas
+    Agent:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          $ref: '#/components/schemas/AgentStatus'
+        config:
+          $ref: '#/components/schemas/AgentConfig'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    AgentCreate:
+      type: object
+      required:
+        - name
+        - config
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 500
+        config:
+          $ref: '#/components/schemas/AgentConfig'
+
+    AgentUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 500
+        status:
+          $ref: '#/components/schemas/AgentStatus'
+        config:
+          $ref: '#/components/schemas/AgentConfig'
+
+    AgentConfig:
+      type: object
+      properties:
+        model:
+          type: string
+          enum: ["gpt-4", "gpt-3.5-turbo", "claude-3", "claude-2"]
+          default: "gpt-4"
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          default: 0.7
+        max_tokens:
+          type: integer
+          minimum: 1
+          maximum: 4000
+          default: 2000
+        system_prompt:
+          type: string
+          maxLength: 2000
+
+    AgentStatus:
+      type: string
+      enum: ["active", "inactive", "training", "error"]
+
+    # Chat Schemas
+    Conversation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        agent_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: ["active", "paused", "ended"]
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    ConversationCreate:
+      type: object
+      required:
+        - agent_id
+      properties:
+        agent_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          maxLength: 200
+
+    MessageCreate:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+          minLength: 1
+          maxLength: 10000
+        role:
+          type: string
+          enum: ["user", "assistant"]
+          default: "user"
+
+    MessageResponse:
+      type: object
+      properties:
+        user_message:
+          $ref: '#/components/schemas/Message'
+        assistant_message:
+          $ref: '#/components/schemas/Message'
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        content:
+          type: string
+        role:
+          type: string
+          enum: ["user", "assistant", "system"]
+        timestamp:
+          type: string
+          format: date-time
+
+    # Memory Schemas
+    Memory:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        content:
+          type: string
+        type:
+          type: string
+          enum: ["fact", "preference", "context", "skill"]
+        agent_id:
+          type: string
+          format: uuid
+        relevance_score:
+          type: number
+          minimum: 0
+          maximum: 1
+        created_at:
+          type: string
+          format: date-time
+
+    MemoryCreate:
+      type: object
+      required:
+        - content
+        - agent_id
+      properties:
+        content:
+          type: string
+          minLength: 1
+          maxLength: 5000
+        type:
+          type: string
+          enum: ["fact", "preference", "context", "skill"]
+          default: "fact"
+        agent_id:
+          type: string
+          format: uuid
+
+    # Error Schema
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+
+tags:
+  - name: Health
+    description: Health check endpoints
+  - name: Agents
+    description: AI agent management
+  - name: Chat
+    description: Chat and conversation handling
+  - name: Memory
+    description: Memory storage and retrieval

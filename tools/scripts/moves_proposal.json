@@ -1,0 +1,10 @@
+{
+  "prefix_replacements": {
+    "zeta_vn.app.controllers": "zeta_vn.app.adapters"
+  },
+  "file_moves": {
+    "zeta_vn/app/middleware/headers.py": "zeta_vn/app/middleware/security/headers.py",
+    "zeta_vn/app/middleware/security.py": "zeta_vn/app/middleware/security/security.py",
+    "zeta_vn/app/middleware/zero_trust.py": "zeta_vn/app/middleware/security/zero_trust.py"
+  }
+}

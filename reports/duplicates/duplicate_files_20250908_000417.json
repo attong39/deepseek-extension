@@ -1,0 +1,251 @@
+{
+  "generated_at": "2025-09-08T00:04:17",
+  "root_paths": [
+    "E:\\zeta-monorepo"
+  ],
+  "settings": {
+    "exclude": [
+      ".DS_Store",
+      ".git",
+      ".idea",
+      ".mypy_cache",
+      ".pytest_cache",
+      ".ruff_cache",
+      ".venv",
+      ".vscode",
+      "__pycache__",
+      "build",
+      "coverage",
+      "dist",
+      "htmlcov",
+      "node_modules",
+      "out",
+      "venv"
+    ],
+    "include_hidden": false,
+    "follow_symlinks": false,
+    "min_size": 1,
+    "max_size": null,
+    "algo": "sha256",
+    "head_bytes": 65536,
+    "workers": 32,
+    "relative_paths": true
+  },
+  "scan": {
+    "files_scanned": 3635,
+    "bytes_scanned": 1454796962,
+    "duration_seconds": 0.5495395660400391
+  },
+  "duplicates": [
+    {
+      "hash": "2aa8a37cab111c423bf8df3045ac5af9b5e7ff36b971c2d23a05394b57ae8e61",
+      "size": 24701854,
+      "count": 3,
+      "wasted_bytes": 49403708,
+      "paths": [
+        "reports\\ai-codemod\\analysis_20250907_230433.json",
+        "reports\\ai-codemod\\analysis_20250907_230456.json",
+        "reports\\ai-codemod\\analysis_20250907_230548.json"
+      ]
+    },
+    {
+      "hash": "adcc8af8aaa05661f2bb4da74ba94539e98f6c9ff9f07307ffdc4e0c5b29f142",
+      "size": 93128,
+      "count": 2,
+      "wasted_bytes": 93128,
+      "paths": [
+        "extension\\media\\screenshot2.png",
+        "extension\\web\\assets\\screenshot2.png"
+      ]
+    },
+    {
+      "hash": "992ffcf4fd94ef107c1ab8eff08ba21c9c3876856d9d807ebc21fa8ddf85d108",
+      "size": 87425,
+      "count": 2,
+      "wasted_bytes": 87425,
+      "paths": [
+        "extension\\media\\screenshot1.png",
+        "extension\\web\\assets\\screenshot1.png"
+      ]
+    },
+    {
+      "hash": "ec36a740a3a833df19243124906429f448bd92a09881e6d1709eb6ce23a5fcf7",
+      "size": 17889,
+      "count": 2,
+      "wasted_bytes": 17889,
+      "paths": [
+        "extension\\deepseek-core\\auto\\AUTOMATION_IMPLEMENTATION_ROADMAP.md",
+        "reports\\consolidation_trash\\20250907_175850\\docs\\AUTOMATION_IMPLEMENTATION_ROADMAP.md"
+      ]
+    },
+    {
+      "hash": "88888150b75bbf1a02dd21c53fe03a1f6b959365ff35753dcbf9408f2bbb4fed",
+      "size": 7333,
+      "count": 3,
+      "wasted_bytes": 14666,
+      "paths": [
+        "reports\\consolidation_audit\\20250907_164143\\python_import_issues.json",
+        "reports\\consolidation_audit\\20250907_164613\\python_import_issues.json",
+        "reports\\current_state\\20250907_223444\\python_import_issues.json"
+      ]
+    },
+    {
+      "hash": "e4b33269fd5d16e2f26532c9eba69183cf817e9bc1832d9d40d430d32f4e28f8",
+      "size": 11650,
+      "count": 2,
+      "wasted_bytes": 11650,
+      "paths": [
+        "reports\\current_state\\20250907_223107\\python_import_issues.json",
+        "reports\\quick_audit\\20250907_221340\\python_import_issues.json"
+      ]
+    },
+    {
+      "hash": "aeb5032feafacbe1c90adc959b58ec7924ae663fe7e712d938290f4807bcd7d3",
+      "size": 5127,
+      "count": 3,
+      "wasted_bytes": 10254,
+      "paths": [
+        "reports\\consolidation_audit\\20250907_164143\\python_import_issues.md",
+        "reports\\consolidation_audit\\20250907_164613\\python_import_issues.md",
+        "reports\\current_state\\20250907_223444\\python_import_issues.md"
+      ]
+    },
+    {
+      "hash": "01804d4c0bb108cf7b104241a7b2b7b5c9ef268191f899df08781dea38a15e1e",
+      "size": 10247,
+      "count": 2,
+      "wasted_bytes": 10247,
+      "paths": [
+        "extension\\deepseek-core\\auto\\AI_SELF_MANAGEMENT_SETUP.md",
+        "reports\\consolidation_trash\\20250907_175850\\docs\\AI_SELF_MANAGEMENT_SETUP.md"
+      ]
+    },
+    {
+      "hash": "d88b84a99dcbb4f04c6f5b99d05927d844091e9ee18a147e9c6e76dd58769b17",
+      "size": 8307,
+      "count": 2,
+      "wasted_bytes": 8307,
+      "paths": [
+        "reports\\current_state\\20250907_223107\\python_import_issues.md",
+        "reports\\quick_audit\\20250907_221340\\python_import_issues.md"
+      ]
+    },
+    {
+      "hash": "2d09a7b95612c5b414d9e25e47ca9fde28ed14d82e37c56e7fe0637ef8d7780e",
+      "size": 6730,
+      "count": 2,
+      "wasted_bytes": 6730,
+      "paths": [
+        "extension\\deepseek-core\\auto\\AI_SELF_MANAGEMENT_COMPLETE.md",
+        "reports\\consolidation_trash\\20250907_175850\\docs\\AI_SELF_MANAGEMENT_COMPLETE.md"
+      ]
+    },
+    {
+      "hash": "9e6cb870652e7c0c352d9849b2aff118b29f80f3338c4685f782af4b2b98ad08",
+      "size": 2415,
+      "count": 2,
+      "wasted_bytes": 2415,
+      "paths": [
+        "reports\\ai-codemod\\analysis_20250907_231021.json",
+        "reports\\ai-codemod\\latest.json"
+      ]
+    },
+    {
+      "hash": "6bc28ed66dbae69b5ec3b3df09efc0a5a3ffb3a0a4282972ccecce677acd6202",
+      "size": 1350,
+      "count": 2,
+      "wasted_bytes": 1350,
+      "paths": [
+        "backups\\attong39_zeta_config.txt",
+        "backups\\zeta_py_teacher_config.txt"
+      ]
+    },
+    {
+      "hash": "2fce5f1c8de6418e843041d679975805d9b6870eb282bb757e609bd6ece2b1e5",
+      "size": 220,
+      "count": 7,
+      "wasted_bytes": 1320,
+      "paths": [
+        "reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_all_init_files.py",
+        "reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_entity_imports.py",
+        "reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_final_modules.py",
+        "reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_goal_constructors.py",
+        "reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_model_imports.py",
+        "reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_pydantic_validators.py",
+        "tools\\scripts\\maintenance\\fix_test_imports.py"
+      ]
+    },
+    {
+      "hash": "c3324cc014336f8a62a650866dcd02855711650fb2f69acc675c1d2f3487a632",
+      "size": 761,
+      "count": 2,
+      "wasted_bytes": 761,
+      "paths": [
+        "apps\\desktop\\src\\services\\robotFacade.ts",
+        "reports\\consolidation_trash\\20250907_175850\\apps\\desktop\\src\\services\\inputController.ts"
+      ]
+    },
+    {
+      "hash": "6caef6b1916eaf7202f6aa4c172ad09d658ae9de5a7a2e672b29f90d0f3e9cf4",
+      "size": 160,
+      "count": 2,
+      "wasted_bytes": 160,
+      "paths": [
+        "apps\\backend\\config\\security.json",
+        "config\\security.json"
+      ]
+    },
+    {
+      "hash": "16bc8faf89e9c23da0c0099a548e853142b0be40d6bdc819e354c830083de5de",
+      "size": 152,
+      "count": 2,
+      "wasted_bytes": 152,
+      "paths": [
+        "apps\\backend\\config\\core.json",
+        "config\\core.json"
+      ]
+    },
+    {
+      "hash": "4a26da9aa07c8a5f7cc4d121fdb1b1221e1e9d93e98c693c09afde09176ef966",
+      "size": 137,
+      "count": 2,
+      "wasted_bytes": 137,
+      "paths": [
+        "apps\\backend\\config\\api.json",
+        "config\\api.json"
+      ]
+    },
+    {
+      "hash": "5b48eb87d00514f97ede0b5be97f577dacb2bae7c5b6f4d7ac0ebb8d696b95ef",
+      "size": 112,
+      "count": 2,
+      "wasted_bytes": 112,
+      "paths": [
+        "apps\\backend\\config\\database.json",
+        "config\\database.json"
+      ]
+    },
+    {
+      "hash": "2c6a97af59db9d09ba7e6893cba2c28704d42752818ced1208bd4084f328e487",
+      "size": 111,
+      "count": 2,
+      "wasted_bytes": 111,
+      "paths": [
+        "apps\\backend\\config\\observability.json",
+        "config\\observability.json"
+      ]
+    },
+    {
+      "hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "size": 2,
+      "count": 4,
+      "wasted_bytes": 6,
+      "paths": [
+        "reports\\consolidation_trash\\20250907_175850\\reports\\consolidation_audit\\20250907_164143\\near_duplicates.json",
+        "reports\\current_state\\20250907_223107\\near_duplicates.json",
+        "reports\\current_state\\20250907_223444\\near_duplicates.json",
+        "reports\\quick_audit\\20250907_221340\\near_duplicates.json"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+groups:
+  - name: zeta.rules
+    rules:
+      # High latency alert
+      - alert: ZetaHighLatency
+        expr: rate(zeta_request_duration_seconds_sum[1m]) / rate(zeta_request_duration_seconds_count[1m]) > 2
+        for: 2m
+        labels:
+          severity: warning
+          service: apps/zeta-ai-agent
+        annotations:
+          summary: "High latency detected on Zeta AI Agent"
+          description: "The average request latency over the last minute is {{ $value }} seconds for model {{ $labels.model }}."
+          runbook_url: "https://docs.zeta.ai/runbooks/high-latency"
+
+      # Service down alert
+      - alert: ZetaServiceDown
+        expr: up{job="zeta-metrics"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: apps/zeta-ai-agent
+        annotations:
+          summary: "Zeta AI Agent service is down"
+          description: "Zeta AI Agent metrics server has been down for more than 1 minute."
+          runbook_url: "https://docs.zeta.ai/runbooks/service-down"
+
+      # High error rate
+      - alert: ZetaHighErrorRate
+        expr: rate(zeta_errors_total[5m]) > 0.1
+        for: 3m
+        labels:
+          severity: warning
+          service: apps/zeta-ai-agent
+        annotations:
+          summary: "High error rate on Zeta AI Agent"
+          description: "Error rate is {{ $value }} errors per second over the last 5 minutes."
+          runbook_url: "https://docs.zeta.ai/runbooks/high-error-rate"
+
+      # Low Vietnamese quality
+      - alert: ZetaLowVietnameseQuality
+        expr: avg_over_time(zeta_vietnamese_quality_score[10m]) < 6
+        for: 5m
+        labels:
+          severity: warning
+          service: apps/zeta-ai-agent
+        annotations:
+          summary: "Low Vietnamese quality score detected"
+          description: "Average Vietnamese quality score is {{ $value }} for model {{ $labels.model }} over the last 10 minutes."
+          runbook_url: "https://docs.zeta.ai/runbooks/low-quality"
+
+      # No feedback received
+      - alert: ZetaNoFeedback
+        expr: increase(zeta_feedback_total[1h]) == 0
+        for: 30m
+        labels:
+          severity: info
+          service: apps/zeta-ai-agent
+        annotations:
+          summary: "No feedback received"
+          description: "No feedback has been received in the last hour."
+          runbook_url: "https://docs.zeta.ai/runbooks/no-feedback"
+
+      # Database connection issues
+      - alert: ZetaDatabaseIssues
+        expr: up{job="zeta-metrics",endpoint="/ready"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: apps/zeta-ai-agent
+        annotations:
+          summary: "Database connection issues"
+          description: "Zeta AI Agent cannot connect to its database."
+          runbook_url: "https://docs.zeta.ai/runbooks/database-issues"
+
+      # High memory usage (if running in k8s)
+      - alert: ZetaHighMemoryUsage
+        expr: container_memory_usage_bytes{pod=~"zeta-.*"} / container_spec_memory_limit_bytes > 0.8
+        for: 5m
+        labels:
+          severity: warning
+          service: apps/zeta-ai-agent
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is {{ $value | humanizePercentage }} of limit for pod {{ $labels.pod }}."
+          runbook_url: "https://docs.zeta.ai/runbooks/high-memory"
+
+      # High CPU usage (if running in k8s)
+      - alert: ZetaHighCPUUsage
+        expr: rate(container_cpu_usage_seconds_total{pod=~"zeta-.*"}[5m]) > 0.8
+        for: 10m
+        labels:
+          severity: warning
+          service: apps/zeta-ai-agent
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is {{ $value | humanizePercentage }} for pod {{ $labels.pod }}."
+          runbook_url: "https://docs.zeta.ai/runbooks/high-cpu"

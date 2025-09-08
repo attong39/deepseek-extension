@@ -1,0 +1,321 @@
+# Prometheus Alert Rules for Zeta Backend
+# Production RC-v1.1.0 Enterprise Monitoring
+
+groups:
+  # High Priority - Critical System Health
+  - name: zeta.critical
+    interval: 15s
+    rules:
+    
+    # Service Availability
+    - alert: ZetaServiceDown
+      expr: up{job="zeta-backend"} == 0
+      for: 30s
+      labels:
+        severity: critical
+        component: backend
+        alert_type: availability
+      annotations:
+        summary: "Zeta Backend service is down"
+        description: "Zeta Backend service {{ $labels.instance }} has been down for more than 30 seconds"
+        runbook_url: "https://docs.zeta.local/runbooks/service-down"
+        
+    # High Error Rate
+    - alert: ZetaHighErrorRate
+      expr: rate(http_requests_total{job="zeta-backend",status=~"5.."}[5m]) > 0.1
+      for: 2m
+      labels:
+        severity: critical
+        component: backend
+        alert_type: errors
+      annotations:
+        summary: "High error rate detected"
+        description: "Error rate is {{ $value | humanizePercentage }} for instance {{ $labels.instance }}"
+        runbook_url: "https://docs.zeta.local/runbooks/high-error-rate"
+        
+    # Response Time Degradation
+    - alert: ZetaHighLatency
+      expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="zeta-backend"}[5m])) > 2
+      for: 5m
+      labels:
+        severity: warning
+        component: backend
+        alert_type: performance
+      annotations:
+        summary: "High response latency detected"
+        description: "95th percentile latency is {{ $value }}s for instance {{ $labels.instance }}"
+        runbook_url: "https://docs.zeta.local/runbooks/high-latency"
+
+  # Security - Zero Trust & Policy
+  - name: zeta.security
+    interval: 30s
+    rules:
+    
+    # JWKS Cache Issues
+    - alert: ZetaJWKSCacheDown
+      expr: zeta_jwks_cache_healthy == 0
+      for: 1m
+      labels:
+        severity: critical
+        component: security
+        alert_type: authentication
+      annotations:
+        summary: "JWKS cache is unhealthy"
+        description: "JWKS cache has been unhealthy for more than 1 minute"
+        runbook_url: "https://docs.zeta.local/runbooks/jwks-cache-down"
+        
+    - alert: ZetaJWKSCacheStale
+      expr: time() - zeta_jwks_cache_last_updated > 3600
+      for: 0s
+      labels:
+        severity: warning
+        component: security
+        alert_type: authentication
+      annotations:
+        summary: "JWKS cache is stale"
+        description: "JWKS cache hasn't been updated for {{ $value | humanizeDuration }}"
+        runbook_url: "https://docs.zeta.local/runbooks/jwks-cache-stale"
+        
+    # OPA Policy Engine
+    - alert: ZetaOPADown
+      expr: zeta_opa_requests_total{status="error"} > 0
+      for: 2m
+      labels:
+        severity: critical
+        component: security
+        alert_type: authorization
+      annotations:
+        summary: "OPA policy engine errors"
+        description: "OPA policy engine is experiencing errors on {{ $labels.instance }}"
+        runbook_url: "https://docs.zeta.local/runbooks/opa-down"
+        
+    # High Risk Policy Decisions
+    - alert: ZetaHighRiskDecisions
+      expr: rate(zeta_opa_policy_decisions_total{risk="high"}[5m]) > 0.5
+      for: 5m
+      labels:
+        severity: warning
+        component: security
+        alert_type: authorization
+      annotations:
+        summary: "High risk policy decisions detected"
+        description: "High rate of high-risk policy decisions: {{ $value }}/sec"
+        runbook_url: "https://docs.zeta.local/runbooks/high-risk-decisions"
+        
+    # Authentication Failures
+    - alert: ZetaAuthFailures
+      expr: rate(http_requests_total{job="zeta-backend",status="401"}[5m]) > 0.2
+      for: 3m
+      labels:
+        severity: warning
+        component: security
+        alert_type: authentication
+      annotations:
+        summary: "High authentication failure rate"
+        description: "Authentication failure rate is {{ $value }}/sec for {{ $labels.instance }}"
+        runbook_url: "https://docs.zeta.local/runbooks/auth-failures"
+
+  # WebSocket Performance & Load
+  - name: zeta.websocket
+    interval: 15s
+    rules:
+    
+    # WebSocket Connection Issues
+    - alert: ZetaWebSocketConnectionFailures
+      expr: rate(zeta_websocket_connections_failed_total[5m]) > 0.1
+      for: 2m
+      labels:
+        severity: warning
+        component: websocket
+        alert_type: connectivity
+      annotations:
+        summary: "WebSocket connection failures"
+        description: "WebSocket connection failure rate: {{ $value }}/sec"
+        runbook_url: "https://docs.zeta.local/runbooks/websocket-failures"
+        
+    # Message Throughput Below Target
+    - alert: ZetaWebSocketLowThroughput
+      expr: rate(zeta_websocket_messages_sent_total[1m]) < 8000
+      for: 5m
+      labels:
+        severity: warning
+        component: websocket
+        alert_type: performance
+      annotations:
+        summary: "WebSocket throughput below target"
+        description: "WebSocket message rate {{ $value }}/sec is below 10k target"
+        runbook_url: "https://docs.zeta.local/runbooks/websocket-low-throughput"
+        
+    # Message Queue Backlog
+    - alert: ZetaWebSocketBacklog
+      expr: zeta_websocket_queue_size > 1000
+      for: 3m
+      labels:
+        severity: warning
+        component: websocket
+        alert_type: backpressure
+      annotations:
+        summary: "WebSocket message queue backlog"
+        description: "WebSocket queue size: {{ $value }} messages"
+        runbook_url: "https://docs.zeta.local/runbooks/websocket-backlog"
+
+  # Resource Utilization
+  - name: zeta.resources
+    interval: 30s
+    rules:
+    
+    # High CPU Usage
+    - alert: ZetaHighCPU
+      expr: rate(process_cpu_seconds_total{job="zeta-backend"}[5m]) * 100 > 80
+      for: 5m
+      labels:
+        severity: warning
+        component: system
+        alert_type: resources
+      annotations:
+        summary: "High CPU utilization"
+        description: "CPU usage is {{ $value }}% on {{ $labels.instance }}"
+        runbook_url: "https://docs.zeta.local/runbooks/high-cpu"
+        
+    # High Memory Usage
+    - alert: ZetaHighMemory
+      expr: process_resident_memory_bytes{job="zeta-backend"} / 1024 / 1024 / 1024 > 2
+      for: 5m
+      labels:
+        severity: warning
+        component: system
+        alert_type: resources
+      annotations:
+        summary: "High memory utilization"
+        description: "Memory usage is {{ $value }}GB on {{ $labels.instance }}"
+        runbook_url: "https://docs.zeta.local/runbooks/high-memory"
+        
+    # Too Many Open Files
+    - alert: ZetaHighFileDescriptors
+      expr: process_open_fds{job="zeta-backend"} / process_max_fds{job="zeta-backend"} > 0.8
+      for: 3m
+      labels:
+        severity: warning
+        component: system
+        alert_type: resources
+      annotations:
+        summary: "High file descriptor usage"
+        description: "File descriptor usage is {{ $value | humanizePercentage }}"
+        runbook_url: "https://docs.zeta.local/runbooks/high-file-descriptors"
+
+  # Business Logic & Application
+  - name: zeta.application
+    interval: 30s
+    rules:
+    
+    # Database Connection Issues
+    - alert: ZetaDatabaseConnectionFailures
+      expr: rate(zeta_database_connections_failed_total[5m]) > 0.05
+      for: 2m
+      labels:
+        severity: critical
+        component: database
+        alert_type: connectivity
+      annotations:
+        summary: "Database connection failures"
+        description: "Database connection failure rate: {{ $value }}/sec"
+        runbook_url: "https://docs.zeta.local/runbooks/database-failures"
+        
+    # Cache Miss Rate Too High
+    - alert: ZetaHighCacheMissRate
+      expr: rate(zeta_cache_misses_total[5m]) / rate(zeta_cache_requests_total[5m]) > 0.5
+      for: 5m
+      labels:
+        severity: warning
+        component: cache
+        alert_type: performance
+      annotations:
+        summary: "High cache miss rate"
+        description: "Cache miss rate is {{ $value | humanizePercentage }}"
+        runbook_url: "https://docs.zeta.local/runbooks/high-cache-miss"
+        
+    # Queue Processing Delays
+    - alert: ZetaQueueProcessingDelay
+      expr: zeta_queue_processing_duration_seconds > 30
+      for: 3m
+      labels:
+        severity: warning
+        component: queue
+        alert_type: performance
+      annotations:
+        summary: "Queue processing delays"
+        description: "Queue processing taking {{ $value }}s"
+        runbook_url: "https://docs.zeta.local/runbooks/queue-delays"
+
+  # Load Testing & Chaos
+  - name: zeta.load_test
+    interval: 15s
+    rules:
+    
+    # Load Test Performance Gates
+    - alert: LoadTestPerformanceFailure
+      expr: load_test_ws_messages_sent_total / load_test_duration_seconds < 8000
+      for: 0s
+      labels:
+        severity: critical
+        component: load_test
+        alert_type: performance_gate
+      annotations:
+        summary: "Load test performance gate failure"
+        description: "Load test achieved {{ $value }}/sec, below 10k target"
+        runbook_url: "https://docs.zeta.local/runbooks/load-test-failure"
+        
+    - alert: LoadTestReliabilityFailure
+      expr: load_test_ws_messages_received_total / load_test_ws_messages_sent_total < 0.95
+      for: 0s
+      labels:
+        severity: critical
+        component: load_test
+        alert_type: reliability_gate
+      annotations:
+        summary: "Load test reliability gate failure"
+        description: "Load test success rate {{ $value | humanizePercentage }}, below 95% target"
+        runbook_url: "https://docs.zeta.local/runbooks/load-test-failure"
+        
+    - alert: LoadTestLatencyFailure
+      expr: load_test_ws_message_latency_p95 > 1.0
+      for: 0s
+      labels:
+        severity: critical
+        component: load_test
+        alert_type: latency_gate
+      annotations:
+        summary: "Load test latency gate failure"
+        description: "Load test P95 latency {{ $value }}s, above 1s target"
+        runbook_url: "https://docs.zeta.local/runbooks/load-test-failure"
+
+  # Deployment & Health
+  - name: zeta.deployment
+    interval: 60s
+    rules:
+    
+    # Deployment Health
+    - alert: ZetaUnhealthyPods
+      expr: kube_deployment_status_replicas_unavailable{deployment="zeta-backend"} > 0
+      for: 3m
+      labels:
+        severity: warning
+        component: kubernetes
+        alert_type: deployment
+      annotations:
+        summary: "Unhealthy backend pods"
+        description: "{{ $value }} backend pods are unavailable"
+        runbook_url: "https://docs.zeta.local/runbooks/unhealthy-pods"
+        
+    # Pod Restart Rate
+    - alert: ZetaHighPodRestarts
+      expr: rate(kube_pod_container_status_restarts_total{pod=~"zeta-backend-.*"}[15m]) > 0.1
+      for: 5m
+      labels:
+        severity: warning
+        component: kubernetes
+        alert_type: stability
+      annotations:
+        summary: "High pod restart rate"
+        description: "Pod {{ $labels.pod }} restarting frequently"
+        runbook_url: "https://docs.zeta.local/runbooks/high-restarts"

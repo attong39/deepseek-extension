@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[pre-push] Quick consistency check..."
+
+# Non-blocking hash check
+echo "[pre-push] Checking OpenAPI hash..."
+uv run python tools/consistency/openapi_hash.py --check || {
+    echo "[pre-push] ⚠️  Hash mismatch - consider running 'make guard-fix'"
+}
+
+# Non-blocking Guard check
+echo "[pre-push] Running Consistency Guard..."
+uv run python tools/consistency/run_all.py || {
+    echo "[pre-push] ⚠️  Contract issues detected - check 'make guard' for details"
+}
+
+echo "[pre-push] ✅ Quick check completed (non-blocking)"

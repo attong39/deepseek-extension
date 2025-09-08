@@ -1,0 +1,12 @@
+global:
+  evaluation_interval: 15s
+  scrape_interval: 15s
+rule_files:
+- zeta_alerts.yml
+scrape_configs:
+- job_name: zeta-core-enhanced
+  metrics_path: /metrics
+  scrape_interval: 5s
+  static_configs:
+  - targets:
+    - localhost:8000

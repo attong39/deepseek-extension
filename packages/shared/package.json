@@ -1,0 +1,11 @@
+﻿{
+    "version":  "1.0.0",
+    "name":  "@zeta/shared",
+    "types":  "index.d.ts",
+    "description":  "Shared utilities for Zeta monorepo",
+    "scripts":  {
+                    "test":  "jest",
+                    "build":  "tsc"
+                },
+    "main":  "index.js"
+}

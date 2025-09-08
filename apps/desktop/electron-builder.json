@@ -1,0 +1,24 @@
+{
+  "appId": "com.zeta.desktop",
+  "productName": "ZETA AI Desktop",
+  "files": ["dist/**", "electron/**", "package.json"],
+  "directories": {
+    "buildResources": "build"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      }
+    ]
+  },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "<your-org>",
+      "repo": "<repo-name>",
+      "releaseType": "draft"
+    }
+  ]
+}

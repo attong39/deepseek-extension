@@ -1,0 +1,69 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+
+  - repo: https://github.com/psf/black
+    rev: 23.11.0
+    hooks:
+      - id: black
+        additional_dependencies: ["click<8.1.4"]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.3.3
+    hooks:
+      - id: prettier
+        additional_dependencies: ["prettier@3.3.3"]
+        files: "\.(ts|tsx|js|jsx|json|md|yml|yaml|css|scss|html)$"
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.11.2
+    hooks:
+      - id: mypy
+        additional_dependencies: ["sqlalchemy==2.*","pydantic==2.*"]
+
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        entry: npx --yes eslint --fix
+        language: node
+        types_or: [ts, tsx, js, jsx]
+        require_serial: true
+        pass_filenames: true
+
+      # jscpd – detects duplicated code (threshold 2 %)
+      - id: jscpd
+        name: jscpd duplicate detector
+        entry: bash -c 'npx -y jscpd@4 --min-tokens 50 --threshold 2 --reporters console,markdown'
+        language: system
+        types_or: [python, javascript, ts, tsx]
+        pass_filenames: false
+
+      # Duplicate‑cleanup dry‑run helper (manual trigger)
+      - id: dup-cleanup-dryrun
+        name: Duplicate cleanup dry‑run
+        entry: uv run python tools/cleanup_duplicates.py --report duplicate_code_report_*.json
+        language: system
+        pass_filenames: false
+        stages: [manual]
+
+      # Advanced duplicate cleanup with fail-on-new (CI guard)
+      - id: duplicate-cleanup-plan
+        name: Duplicate‑cleanup (plan, fail‑on‑new)
+        entry: uv run python scripts/cleanup_duplicates.py --report duplicate_code_report_20250909_035652.json --root . --mode plan --fail-on-new --only-ext py,ts,js
+        language: system
+        pass_filenames: false
+        stages: [commit]

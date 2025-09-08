@@ -1,0 +1,6 @@
+{
+  "metrics_enabled": true,
+  "tracing_enabled": true,
+  "log_format": "json",
+  "metrics_interval": 60
+}

@@ -1,0 +1,11 @@
+{
+  "key": "training-monitor",
+  "name": "Training Progress Monitor",
+  "version": "1.0.0",
+  "capabilities": [
+    "websocket-listener",
+    "ui-widget"
+  ],
+  "entry": "index.js",
+  "enabled": true
+}

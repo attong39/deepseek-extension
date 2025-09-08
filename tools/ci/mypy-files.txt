@@ -1,0 +1,7 @@
+# List of files/dirs for targeted mypy runs during triage.
+# Lines starting with # are ignored.
+# Add one path per line (files or directories). Example:
+# zeta_vn/app/main.py
+
+zeta_vn/app/api/v1/chat.py
+zeta_vn/app/api/v1/streaming.py

@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "E:\zeta-monorepo\tools\ai-codemod\engine.py", line 321, in <module>
+    main()
+  File "E:\zeta-monorepo\tools\ai-codemod\engine.py", line 316, in main
+    success = engine.verify()
+              ^^^^^^^^^^^^^^^
+  File "E:\zeta-monorepo\tools\ai-codemod\engine.py", line 172, in verify
+    subprocess.run(["npm", "run", "check:all"], check=True, cwd=self.root_dir)
+  File "C:\Users\USDT239\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\USDT239\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\USDT239\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified

@@ -1,0 +1,17 @@
+name: weekly-cleanup
+on:
+  schedule:
+    - cron: "0 3 * * 1" # Thứ 2 hàng tuần 03:00 UTC
+  workflow_dispatch: {}
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+      - run: uv sync --all-extras --dev
+      - run: uv run python tools/repo_maintenance/cleanup.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cleanup-report
+          path: reports/cleanup

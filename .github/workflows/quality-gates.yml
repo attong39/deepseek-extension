@@ -1,0 +1,25 @@
+name: quality-gates
+on: [push, pull_request]
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Install uv
+        run: pipx install uv
+      - name: Sync deps
+        run: uv sync
+      - name: Ruff + MyPy + Tests
+        run: |
+          uv run ruff check .
+          uv run mypy zeta_vn
+          uv run pytest -q --maxfail=1
+      - name: Duplicate check (jscpd)
+        run: npx -y jscpd@4 --min-tokens 50 --threshold 2 --reporters console,markdown > jscpd.md
+      - name: Upload jscpd report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jscpd-report
+          path: jscpd.md

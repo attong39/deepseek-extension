@@ -1,0 +1,54 @@
+# Dataset Registry - ZETA AI Trainer
+# File này track lineage và metadata của tất cả datasets
+
+version: "1.0"
+updated_at: "2025-08-24T00:00:00Z"
+
+# Datasets registry
+datasets: {}
+  # Ví dụ cấu trúc:
+  # "dataset-uuid-1":
+  #   name: "web_crawl_20250824"
+  #   description: "Dữ liệu crawl từ web educational sites"
+  #   stage: "labeled"
+  #   source_url: "https://example.com"
+  #   source_type: "web"
+  #   raw_hash: "sha256:..."
+  #   processed_hash: "sha256:..."
+  #   triage_policy_version: "1.0"
+  #   labeler_model: "gpt-5"
+  #   labeler_version: "20250824"
+  #   quality:
+  #     safety_score: 0.95
+  #     quality_score: 0.88
+  #     uniqueness_score: 0.92
+  #     relevance_score: 0.85
+  #   sample_count: 1500
+  #   token_count_estimate: 750000
+  #   raw_path: "datasets/raw/dataset-uuid-1.jsonl"
+  #   processed_path: "datasets/processed/dataset-uuid-1"
+  #   created_at: "2025-08-24T10:00:00Z"
+  #   processed_at: "2025-08-24T11:30:00Z"
+  #   consumed_at: null
+  #   used_in_jobs: ["train-job-1", "train-job-2"]
+  #   performance_impact:
+  #     accuracy_improvement: 0.15
+  #     safety_score: 0.98
+
+# Global statistics (auto-computed)
+stats:
+  total_datasets: 0
+  total_samples: 0
+  total_tokens_estimate: 0
+  average_quality: 0.0
+  by_stage:
+    raw: 0
+    triaged: 0  
+    labeled: 0
+    ready: 0
+    consumed: 0
+  by_source_type:
+    web: 0
+    user_feedback: 0
+    self_play: 0
+    manual: 0

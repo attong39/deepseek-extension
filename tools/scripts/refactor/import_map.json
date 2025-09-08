@@ -1,0 +1,28 @@
+{
+  "//": "from -> to (full dotted path); hỗ trợ prefix match cho 'from ... import ...' và 'import ...'",
+  "zeta_vn.core.events.event_bus": "zeta_vn.infrastructure.events.event_bus",
+  "zeta_vn.app.serializers.agent_serializers": "zeta_vn.app.serializers.agent",
+  "zeta_vn.core.services.conversation_manager": "zeta_vn.core.services.chat_service",
+  "zeta_vn.core.services.memory_manager": "zeta_vn.core.services.memory_service",
+  "zeta_vn.core.services.memory_manager_service": "zeta_vn.core.services.memory_service",
+  "zeta_vn.data.repositories.sqlalchemy_agent_repository_bridge": "zeta_vn.data.repositories.sqlalchemy_agent_repository",
+  "zeta_vn.core.services.dashboard_service": "zeta_vn.core.services.analytics.dashboards",
+  "zeta_vn.app.middleware.auth": "zeta_vn.app.middleware.auth_middleware",
+  "zeta_vn.app.middleware.compression": "zeta_vn.app.middleware.compression_middleware",
+  "zeta_vn.app.serializers.admin_serializers": "zeta_vn.app.serializers.admin",
+  "zeta_vn.app.serializers.agents_serializers": "zeta_vn.app.serializers.agent",
+  "zeta_vn.app.serializers.auth_serializers": "zeta_vn.app.serializers.auth",
+  "zeta_vn.app.serializers.user_serializers": "zeta_vn.app.serializers.user",
+
+  "zeta_vn.data.models.agent": "zeta_vn.data.models.agent_model",
+  "zeta_vn.data.models.chat": "zeta_vn.data.models.chat_model",
+  "zeta_vn.data.models.memory": "zeta_vn.data.models.memory_model",
+
+  "zeta_vn.app.middleware.logging": "zeta_vn.app.middleware.logging",
+  "zeta_vn.core.events": "zeta_vn.infrastructure.events",
+
+  "_options": {
+    "absolute_root": "zeta_vn",
+    "allow_relative_tests": true
+  }
+}

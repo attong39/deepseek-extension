@@ -1,0 +1,9 @@
+dist/
+build/
+node_modules/
+coverage/
+src/api/generated/
+*.svg
+*.png
+*.jpg
+*.jpeg

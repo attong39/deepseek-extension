@@ -1,0 +1,158 @@
+# 🚨 Alertmanager Configuration for Zeta AI Agent
+# Email và Slack alerting cho production monitoring
+
+global:
+  # SMTP configuration for email alerts
+  smtp_smarthost: 'smtp.gmail.com:587'
+  smtp_from: 'zeta-ai-alerts@gmail.com'
+  smtp_auth_username: 'zeta-ai-alerts@gmail.com'
+  smtp_auth_password: 'YOUR_EMAIL_APP_PASSWORD'
+  smtp_require_tls: true
+
+# Routing tree - determines which alerts go where
+route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 12h
+  receiver: 'default-receiver'
+  
+  routes:
+    # Critical alerts - immediate notification
+    - match:
+        severity: critical
+      receiver: 'critical-alerts'
+      group_wait: 10s
+      repeat_interval: 5m
+    
+    # High priority alerts
+    - match:
+        severity: warning
+      receiver: 'warning-alerts'
+      group_wait: 1m
+      repeat_interval: 1h
+    
+    # Vietnamese quality degradation
+    - match:
+        alert_type: vietnamese_quality
+      receiver: 'quality-alerts'
+      group_wait: 2m
+      repeat_interval: 30m
+
+# Alert receivers configuration
+receivers:
+  # Default receiver (low priority)
+  - name: 'default-receiver'
+    email_configs:
+      - to: 'dev-team@zeta-ai.dev'
+        subject: '[Zeta AI] {{ .GroupLabels.alertname }} Alert'
+        body: |
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Severity:** {{ .Labels.severity }}
+          **Time:** {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          {{ end }}
+
+  # Critical alerts (immediate response required)  
+  - name: 'critical-alerts'
+    email_configs:
+      - to: 'alerts@zeta-ai.dev,oncall@zeta-ai.dev'
+        subject: '🚨 [CRITICAL] Zeta AI {{ .GroupLabels.alertname }}'
+        body: |
+          ⚠️ **CRITICAL ALERT - Immediate Action Required**
+          
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Severity:** {{ .Labels.severity }}
+          **Service:** {{ .Labels.service }}
+          **Instance:** {{ .Labels.instance }}
+          **Started:** {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          
+          **Runbook:** {{ .Annotations.runbook_url }}
+          **Dashboard:** {{ .Annotations.dashboard_url }}
+          {{ end }}
+    
+    # Slack integration for critical alerts
+    slack_configs:
+      - api_url: 'YOUR_SLACK_WEBHOOK_URL'
+        channel: '#zeta-ai-alerts'
+        username: 'Zeta AI Monitor'
+        icon_emoji: ':warning:'
+        title: '🚨 Critical Alert: {{ .GroupLabels.alertname }}'
+        text: |
+          {{ range .Alerts }}
+          **{{ .Annotations.summary }}**
+          {{ .Annotations.description }}
+          
+          **Severity:** {{ .Labels.severity }}
+          **Service:** {{ .Labels.service }}
+          **Time:** {{ .StartsAt.Format "15:04:05" }}
+          {{ end }}
+        actions:
+          - type: button
+            text: 'View Dashboard'
+            url: '{{ .Annotations.dashboard_url }}'
+          - type: button  
+            text: 'Silence Alert'
+            url: '{{ .GeneratorURL }}'
+
+  # Warning alerts
+  - name: 'warning-alerts'
+    email_configs:
+      - to: 'dev-team@zeta-ai.dev'
+        subject: '⚠️ [WARNING] Zeta AI {{ .GroupLabels.alertname }}'
+        body: |
+          **Warning Alert**
+          
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Description:** {{ .Annotations.description }}
+          **Severity:** {{ .Labels.severity }}
+          **Service:** {{ .Labels.service }}
+          **Started:** {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          {{ end }}
+
+  # Vietnamese quality specific alerts
+  - name: 'quality-alerts'
+    email_configs:
+      - to: 'ai-team@zeta-ai.dev,linguistics@zeta-ai.dev'
+        subject: '🇻🇳 [QUALITY] Vietnamese AI Quality Alert'
+        body: |
+          **Vietnamese Language Quality Degradation**
+          
+          {{ range .Alerts }}
+          **Alert:** {{ .Annotations.summary }}
+          **Model:** {{ .Labels.model }}
+          **Current Quality Score:** {{ .Labels.vietnamese_quality }}
+          **Threshold:** {{ .Labels.threshold }}
+          **Time Period:** {{ .Annotations.time_period }}
+          **Started:** {{ .StartsAt.Format "2006-01-02 15:04:05" }}
+          
+          **Recommended Actions:**
+          1. Check recent model updates
+          2. Review training data quality  
+          3. Verify input preprocessing
+          4. Consider model rollback if severe
+          {{ end }}
+
+# Inhibition rules - prevent duplicate alerts
+inhibit_rules:
+  # If service is down, don't alert on individual metrics
+  - source_match:
+      alertname: ServiceDown
+    target_match:
+      service: '{{ .Labels.service }}'
+    equal: ['service']
+  
+  # If critical alert is firing, suppress warning for same issue
+  - source_match:
+      severity: critical
+    target_match:
+      severity: warning
+    equal: ['alertname', 'instance']
+
+# Templates for custom formatting
+templates:
+  - '/etc/alertmanager/templates/*.tmpl'

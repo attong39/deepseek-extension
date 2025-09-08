@@ -1,0 +1,40 @@
+# Capabilities registry. Extended schema supports py_deps, sys_deps, files with
+# path+template metadata, entry_points and post_hooks.
+
+asr.whisper:
+  description: "ASR từ audio bằng Faster-Whisper"
+  py_deps:
+    - faster-whisper>=1.0.0
+    - ffmpeg-python>=0.2.0
+  sys_deps:
+    - ffmpeg
+  files:
+    - path: zeta_vn/core/domain/ports/asr.py
+      template: ports/asr_port.py.j2
+    - path: zeta_vn/core/services/asr_service.py
+      template: services/asr_service.py.j2
+    - path: zeta_vn/core/adapters/asr_whisper.py
+      template: adapters/asr_whisper.py.j2
+    - path: zeta_vn/app/api/v1/asr.py
+      template: api/asr_router.py.j2
+    - path: tests/test_asr_smoke.py
+      template: tests/test_asr_smoke.py.j2
+  entry_points:
+    zeta.plugins:
+      asr_whisper: zeta_vn.core.adapters.asr_whisper:WhisperASR
+  post_hooks:
+    - openapi_typescript
+
+ocr.paddle:
+  description: "OCR tiếng Việt bằng PaddleOCR"
+  py_deps:
+    - paddleocr>=2.7.0
+  files:
+    - path: zeta_vn/core/domain/ports/ocr.py
+      template: ports/ocr_port.py.j2
+    - path: zeta_vn/core/adapters/ocr_paddle.py
+      template: adapters/ocr_paddle.py.j2
+    - path: zeta_vn/core/services/ocr_service.py
+      template: services/ocr_service.py.j2
+    - path: zeta_vn/app/api/v1/ocr.py
+      template: api/ocr_router.py.j2

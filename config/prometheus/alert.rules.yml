@@ -1,0 +1,29 @@
+groups:
+  - name: zeta-ollama-alerts
+    rules:
+      - alert: ZetaOllamaDown
+        expr: avg_over_time(zeta_ollama_up[2m]) < 0.5
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Ollama target is down"
+          description: "zeta_ollama_up below threshold for 2m."
+
+      - alert: ZetaOllamaHighLoad
+        expr: sum(rate(zeta_ollama_requests_total[1m])) > 100
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High request rate"
+          description: "Overall RPS above 100 for 1m."
+
+      - alert: ZetaOllamaHighP95Latency
+        expr: histogram_quantile(0.95, sum(rate(zeta_ollama_request_duration_seconds_bucket[1m])) by (le)) > 5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High P95 latency"
+          description: "P95 request duration exceeded 5s for 2m."

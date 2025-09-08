@@ -1,0 +1,256 @@
+# Default values for zeta-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Global values
+global:
+  imageRegistry: ""
+  imagePullSecrets: []
+
+# Application configuration
+replicaCount: 1
+
+image:
+  registry: ghcr.io
+  repository: zeta/apps/zeta-ai-agent
+  tag: "latest"
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+
+# Service account
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+
+# Pod security context
+podSecurityContext:
+  fsGroup: 1001
+  runAsNonRoot: true
+  runAsUser: 1001
+
+# Container security context
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  runAsUser: 1001
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+  annotations: {}
+  labels: {}
+
+# Ingress configuration
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+  hosts:
+    - host: zeta-ai.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: zeta-agent-tls
+      hosts:
+        - zeta-ai.example.com
+
+# Resource configuration
+resources:
+  limits:
+    cpu: 500m
+    memory: 1Gi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+# Autoscaling configuration
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+# Storage configuration
+persistence:
+  enabled: true
+  storageClass: "standard"
+  accessModes:
+    - ReadWriteOnce
+  size: 5Gi
+  annotations: {}
+
+# Application configuration
+config:
+  # Environment settings
+  nodeEnv: production
+  logLevel: info
+  
+  # Ollama configuration
+  ollama:
+    host: ollama-service
+    port: "11434"
+    apiKey: ""
+  
+  # Cache configuration
+  cache:
+    ttl: "3600"
+    path: "/data/cache"
+  
+  # AI configuration
+  ai:
+    maxContextSize: "4096"
+    vectorDbPath: "/data/vector"
+  
+  # Metrics configuration
+  metrics:
+    enabled: true
+    port: "9090"
+    path: "/metrics"
+
+# Secrets (will be created as Kubernetes secrets)
+secrets:
+  ollamaApiKey: ""
+  jwtSecret: ""
+  databasePassword: ""
+
+# Health checks
+healthcheck:
+  enabled: true
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 3000
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 3000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+# Node selection
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Affinity
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - zeta-agent
+        topologyKey: kubernetes.io/hostname
+
+# Pod annotations
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "9090"
+  prometheus.io/path: "/metrics"
+
+# Pod labels
+podLabels: {}
+
+# Deployment strategy
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 25%
+    maxUnavailable: 25%
+
+# Network policies
+networkPolicy:
+  enabled: false
+  ingress: []
+  egress: []
+
+# Monitoring configuration
+monitoring:
+  serviceMonitor:
+    enabled: false
+    namespace: ""
+    labels: {}
+    interval: 30s
+    scrapeTimeout: 10s
+    honorLabels: false
+  
+  prometheusRule:
+    enabled: false
+    namespace: ""
+    labels: {}
+    rules: []
+
+# Extra volumes
+extraVolumes: []
+
+# Extra volume mounts
+extraVolumeMounts: []
+
+# Extra environment variables
+extraEnvVars: []
+
+# Extra environment variables from secrets/configmaps
+extraEnvVarsSecret: ""
+extraEnvVarsCM: ""
+
+# Init containers
+initContainers: []
+
+# Sidecar containers
+sidecars: []
+
+# Pod disruption budget
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+  maxUnavailable: ""
+
+# Lifecycle hooks
+lifecycleHooks: {}
+
+# Extra labels
+extraLabels: {}
+
+# Common labels applied to all resources
+commonLabels:
+  app.kubernetes.io/name: zeta-agent
+  app.kubernetes.io/instance: "{{ .Release.Name }}"
+  app.kubernetes.io/version: "{{ .Chart.AppVersion }}"
+  app.kubernetes.io/component: ai-agent
+  app.kubernetes.io/part-of: zeta-ai-platform
+  app.kubernetes.io/managed-by: helm
+
+# Common annotations applied to all resources
+commonAnnotations: {}
+
+# Tests
+tests:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: busybox
+    tag: "1.35"
+    pullPolicy: IfNotPresent

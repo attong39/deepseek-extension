@@ -1,0 +1,71 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Zeta Ollama Performance",
+    "tags": ["zeta", "ollama", "performance"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Request Rate",
+        "type": "graph",
+        "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "rate(zeta_ollama_requests_total[1m])",
+            "legendFormat": "{{model}}",
+            "refId": "A"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "P95 Latency",
+        "type": "graph",
+        "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8},
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(zeta_ollama_request_duration_seconds_bucket[1m]))",
+            "legendFormat": "P95 Latency",
+            "refId": "A"
+          }
+        ]
+      }
+      ,
+      {
+        "id": 10,
+        "title": "Provisioning Status",
+        "type": "stat",
+        "gridPos": {"x": 0, "y": 16, "w": 6, "h": 4},
+        "targets": [
+          {"expr": "up{job=~\"zeta-.*\"}", "legendFormat": "{{job}}", "refId": "A"}
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds",
+              "thresholds": [
+                {"value": 0, "color": "red"},
+                {"value": 1, "color": "green"}
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "time": {"from": "now-6h", "to": "now"},
+    "timepicker": {},
+    "templating": {
+      "list": [
+        {
+          "name": "model",
+          "type": "query",
+          "query": "label_values(zeta_ollama_requests_total, model)",
+          "refresh": 1,
+          "includeAll": true
+        }
+      ]
+    },
+    "refresh": "10s"
+  }
+}

@@ -1,0 +1,43 @@
+ai:
+  model: "deepseek-coder"
+  fallback_model: "codellama"
+  temperature: 0.1
+  max_tokens: 2000
+  timeout: 30  # seconds
+
+monitoring:
+  enabled: true
+  debounce_ms: 2000
+  watch_patterns:
+    - "**/*.py"
+    - "**/*.ts"
+    - "**/*.tsx"
+    - "**/*.js"
+    - "**/*.jsx"
+  ignore_patterns:
+    - "**/node_modules/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/__pycache__/**"
+
+auto_fix:
+  enabled: true
+  min_confidence: 0.8
+  allowed_issue_types:
+    - "broken_reference"
+    - "missing_implementation"
+    - "naming_inconsistency"
+  backup_files: true  # Create backups before modifying
+
+knowledge_graph:
+  persist: true
+  storage_path: ".ai_knowledge_graph.json"
+  auto_update: true
+
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  file: "ai_intelligence.log"
+
+optimization:
+  auto_run_on_start: false   # If true, run optimizer once when monitor starts
+  auto_run_on_change: false  # If true, run optimizer after each change is processed

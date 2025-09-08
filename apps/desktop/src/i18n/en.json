@@ -1,0 +1,27 @@
+{
+  "title": "ZETA AI Desktop",
+  "login": {
+    "header": "Sign in",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Sign in"
+  },
+  "chat": {
+    "placeholder": "Type a message...",
+    "send": "Send"
+  },
+  "permission": {
+    "title": "Grant Permission",
+    "allow": "Allow access to {{capability}}?",
+    "remember": "Remember for this session",
+    "deny": "Deny",
+    "allow_btn": "Allow",
+    "desc": {
+      "screen": "Allow screen access to capture images for OCR/annotation.",
+      "keyboard": "Allow sending keystrokes to automate app actions.",
+      "mouse": "Allow mouse control for automation tasks.",
+      "audio": "Allow microphone access for speech-to-text.",
+      "camera": "Allow camera access for vision features."
+    }
+  }
+}

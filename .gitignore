@@ -1,0 +1,145 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.env.local
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# VS Code
+.vscode/settings.json
+.vscode/launch.json
+
+# Build outputs
+out/
+dist/
+*.vsix
+
+# Logs
+*.log
+.artifacts/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Cache
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# AI Codemod reports
+reports/ai-codemod/*.json
+reports/ai-codemod/*.md
+!reports/ai-codemod/latest.json
+!reports/ai-codemod/latest.md
+
+# Build Artifacts (Auto-cleanup)
+**/node_modules/
+**/.venv-*/
+*.log
+*.cache
+*.tmp
+*.temp
+*.bak
+.cleanup_backup/
+
+# Generated Reports (Keep only in git)
+ai_project_analysis.json
+benchmark_results.json
+duplicate_code_report_*.html
+duplicate_code_report_*.json
+
+# Python/Build caches
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.htmlcov/
+coverage.xml
+
+# Node/Frontend
+node_modules/
+apps/desktop/node_modules/
+dist/
+build/
+*.log
+*.cache
+
+# Local env / IDE
+.env
+.env.*
+.vscode/
+.idea/
+.DS_Store
+
+# Auto-fix cache
+.cache/
+
+# --- Internal / generated assets (đừng để auto-fix/cleanup xử lý)
+internal-scripts/
+data-raw/
+docs/generated/
+temp/
+tmp/
+*.tmp
+*.temp
+.backup/
+*.backup
+
+# Generated documentation
+docs/api/
+docs/build/
+*.pdf
+*.docx
+
+# Test artifacts
+test-results/
+test-coverage/
+.nyc_output/
+
+# CI/CD artifacts
+.github/artifacts/
+.github/cache/

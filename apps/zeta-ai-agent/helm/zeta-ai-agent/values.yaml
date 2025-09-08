@@ -1,0 +1,269 @@
+# Default values for apps/zeta-ai-agent
+# This is a YAML-formatted file.
+
+# Global settings
+global:
+  imageRegistry: "ghcr.io"
+  storageClass: ""
+
+# Image configuration
+image:
+  registry: ghcr.io
+  repository: your-org/apps/zeta-ai-agent
+  tag: "latest"
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+
+# Application configuration
+app:
+  name: apps/zeta-ai-agent
+  version: "1.0.0"
+
+# Deployment configuration
+replicaCount: 2
+
+# Environment variables
+env:
+  ALLOWED_ORIGINS: "https://zeta.yourcompany.com"
+  METRICS_HOST: "0.0.0.0"
+  METRICS_PORT: "9100"
+  LOG_LEVEL: "INFO"
+  PYTHONHASHSEED: "1"
+
+# Environment variables from secrets
+envFromSecret: {}
+  # SMTP_PASSWORD: smtp-secret
+  # SLACK_WEBHOOK_URL: slack-secret
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 9100
+  targetPort: 9100
+  annotations: {}
+  labels: {}
+
+# Ingress configuration
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  hosts:
+    - host: zeta.yourcompany.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: zeta-tls
+      hosts:
+        - zeta.yourcompany.com
+
+# Resource limits and requests
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+
+# Horizontal Pod Autoscaler
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+# Pod Disruption Budget
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+
+# Node selection
+nodeSelector: {}
+tolerations: []
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - apps/zeta-ai-agent
+          topologyKey: kubernetes.io/hostname
+
+# Security context
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+
+# Pod security context
+podSecurityContext:
+  seccompProfile:
+    type: RuntimeDefault
+
+# Health checks
+healthCheck:
+  enabled: true
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 9100
+      scheme: HTTP
+    initialDelaySeconds: 15
+    periodSeconds: 20
+    timeoutSeconds: 5
+    failureThreshold: 3
+    successThreshold: 1
+    
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 9100
+      scheme: HTTP
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+    successThreshold: 1
+
+# Persistence
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  annotations: {}
+  # existingClaim: ""
+
+# ConfigMap for application configuration
+configMap:
+  enabled: true
+  data: {}
+
+# Secret for sensitive data
+secret:
+  enabled: true
+  data: {}
+
+# Service Account
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# RBAC
+rbac:
+  create: true
+
+# Network Policy
+networkPolicy:
+  enabled: false
+  ingress: []
+  egress: []
+
+# Monitoring configuration
+monitoring:
+  enabled: true
+  
+  # ServiceMonitor for Prometheus
+  serviceMonitor:
+    enabled: true
+    namespace: ""
+    labels: {}
+    interval: 15s
+    scrapeTimeout: 10s
+    path: /metrics
+    
+  # PrometheusRule for alerting
+  prometheusRule:
+    enabled: true
+    namespace: ""
+    labels: {}
+    rules:
+      - alert: ZetaHighLatency
+        expr: rate(zeta_request_duration_seconds_sum[1m]) / rate(zeta_request_duration_seconds_count[1m]) > 2
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High latency detected"
+          description: "Request latency is {{ $value }}s"
+          
+      - alert: ZetaServiceDown
+        expr: up{job="apps/zeta-ai-agent"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service is down"
+          description: "Zeta AI Agent is not responding"
+
+# Grafana Dashboard
+grafana:
+  enabled: true
+  dashboard:
+    enabled: true
+    namespace: ""
+    labels:
+      grafana_dashboard: "1"
+
+# Pod annotations
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "9100"
+  prometheus.io/path: "/metrics"
+
+# Pod labels
+podLabels: {}
+
+# Additional volumes
+extraVolumes: []
+
+# Additional volume mounts
+extraVolumeMounts: []
+
+# Additional containers
+extraContainers: []
+
+# Init containers
+initContainers: []
+
+# Additional environment variables
+extraEnv: []
+
+# Lifecycle hooks
+lifecycle: {}
+
+# Pod priority
+priorityClassName: ""
+
+# DNS configuration
+dnsPolicy: ClusterFirst
+dnsConfig: {}
+
+# Restart policy
+restartPolicy: Always
+
+# Termination grace period
+terminationGracePeriodSeconds: 30
+
+# Test configuration
+tests:
+  enabled: true
+  image:
+    repository: busybox
+    tag: latest
+    pullPolicy: IfNotPresent

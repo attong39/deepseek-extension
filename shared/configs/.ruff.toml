@@ -1,0 +1,46 @@
+# Cấu hình Ruff cho dự án ZETA_VN - Version đơn giản
+line-length = 100
+target-version = "py311"
+
+exclude = [
+    ".git",
+    ".venv", 
+    "__pycache__",
+    "*.egg-info",
+    ".pytest_cache",
+    ".mypy_cache",
+    "build",
+    "dist",
+    "node_modules",
+]
+
+[lint]
+# Chỉ chọn các rules cơ bản
+select = ["E", "F", "W", "I"]
+
+# Ignore các lỗi không critical
+ignore = [
+    "E501",   # Line too long 
+    "E701",   # Multiple statements on one line
+    "E702",   # Multiple statements on one line (semicolon)
+    "E741",   # Ambiguous variable name
+    "F401",   # Unused import (nhiều trong tests)
+    "F811",   # Redefined function
+    "F405",   # Star imports
+    "W292",   # No newline at end of file
+    "W293",   # Blank line contains whitespace
+]
+
+[lint.per-file-ignores]
+"tests/**" = ["F401", "F811", "F405"]
+"tools/**" = ["E402", "F401"]
+"scripts/**" = ["E402", "F401"] 
+"demo_*.py" = ["F401", "E402"]
+
+[lint.isort]
+known-first-party = ["zeta_vn"]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"

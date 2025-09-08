@@ -1,0 +1,204 @@
+/* AutomationPage Styles */
+.automation-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--color-background, #ffffff);
+}
+
+.automation-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem 2rem;
+  background: var(--color-surface, #f8f9fa);
+  border-bottom: 1px solid var(--color-border, #e1e4e8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.automation-page__title-section {
+  flex: 1;
+}
+
+.automation-page__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #24292e);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.automation-page__subtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text-secondary, #586069);
+  line-height: 1.4;
+}
+
+.automation-page__actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.automation-page__workflow-selector {
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border, #e1e4e8);
+  border-radius: 6px;
+  background: var(--color-background, #ffffff);
+  color: var(--color-text-primary, #24292e);
+  font-size: 0.875rem;
+}
+
+.automation-page__content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.automation-page__editor {
+  flex: 1;
+}
+
+.automation-page__sidebar {
+  width: 280px;
+  background: var(--color-surface, #f8f9fa);
+  border-left: 1px solid var(--color-border, #e1e4e8);
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.automation-page__sidebar-title {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #24292e);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.automation-page__workflow-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.automation-page__workflow-item {
+  padding: 0.875rem;
+  background: var(--color-background, #ffffff);
+  border: 1px solid var(--color-border, #e1e4e8);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.automation-page__workflow-item:hover {
+  border-color: var(--color-primary, #0366d6);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.automation-page__workflow-item.active {
+  border-color: var(--color-primary, #0366d6);
+  background: rgba(3, 102, 214, 0.05);
+}
+
+.automation-page__workflow-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary, #24292e);
+  margin-bottom: 0.25rem;
+}
+
+.automation-page__workflow-meta {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary, #586069);
+  margin-bottom: 0.25rem;
+}
+
+.automation-page__workflow-updated {
+  font-size: 0.6875rem;
+  color: var(--color-text-tertiary, #8b949e);
+}
+
+/* Button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  background: transparent;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--color-primary, #0366d6);
+  color: white;
+  border-color: var(--color-primary, #0366d6);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--color-primary-dark, #0256c2);
+  border-color: var(--color-primary-dark, #0256c2);
+}
+
+.btn--secondary {
+  background: var(--color-background, #ffffff);
+  color: var(--color-text-primary, #24292e);
+  border-color: var(--color-border, #e1e4e8);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: var(--color-hover, #f1f3f4);
+  border-color: var(--color-border-hover, #d1d5da);
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .automation-page__sidebar {
+    width: 240px;
+  }
+  
+  .automation-page__header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .automation-page__actions {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .automation-page__header {
+    padding: 1rem;
+  }
+  
+  .automation-page__title {
+    font-size: 1.5rem;
+  }
+  
+  .automation-page__subtitle {
+    font-size: 0.875rem;
+  }
+  
+  .automation-page__sidebar {
+    display: none; /* Hide sidebar on mobile */
+  }
+}

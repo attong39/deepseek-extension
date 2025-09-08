@@ -1,0 +1,25 @@
+# Ruff configuration for the monorepo
+line-length = 120
+target-version = "py311"
+
+# Exclude transient and third-party folders
+exclude = [
+  "**/.venv/**", "**/node_modules/**", "**/dist/**", "**/build/**", "**/out/**", "**/__pycache__/**",
+  "**/reports/**", "**/.pytest_cache/**", "**/.mypy_cache/**", "**/.ruff_cache/**", "**/coverage/**",
+  "**/trainer/**", "**/training/**", "**/perf/**"
+]
+
+[lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = []
+
+[lint.isort]
+known-first-party = ["apps", "backend", "scripts"]
+force-wrap-aliases = true
+
+[lint.per-file-ignores]
+"**/tests/**" = [
+  "S101",  # asserts allowed
+  "SIM115",  # allow open without contextmanager in tests
+  "E402", "F401", "F811", "F821", "F841", "B008", "S105", "S106", "S311", "S324", "S110", "N802"
+]

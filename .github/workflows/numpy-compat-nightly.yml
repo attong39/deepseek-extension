@@ -1,0 +1,241 @@
+name: NumPy Compatibility Nightly
+
+on:
+  schedule:
+    - cron: "0 2 * * *"  # 2:00 UTC hàng ngày
+  workflow_dispatch:  # Cho phép chạy thủ công
+    inputs:
+      python_version:
+        description: 'Python version to test'
+        default: '3.11'
+        required: false
+      test_scope:
+        description: 'Test scope (basic|full)'
+        default: 'basic'
+        required: false
+
+env:
+  UV_CACHE_DIR: ~/.cache/uv
+
+jobs:
+  np1-baseline:
+    name: "NumPy 1.x Baseline (Production)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ github.event.inputs.python_version || '3.11' }}
+          
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          
+      - name: Install NumPy 1.x dependencies
+        working-directory: apps/backend
+        run: uv sync --extra dev --extra ocr
+        
+      - name: Run runtime validation (NP1)
+        working-directory: apps/backend
+        run: |
+          echo "=== NumPy 1.x Validation ==="
+          ZETA_NUMPY_PROFILE=np1 uv run python ../../scripts/assert_numpy_runtime.py
+          
+      - name: Quick functionality test
+        working-directory: apps/backend
+        run: |
+          echo "=== Quick Function Test ==="
+          uv run python -c "
+          import numpy as np
+          import torch
+          print(f'✅ NumPy {np.__version__} + PyTorch {torch.__version__}')
+          
+          # Test basic operations
+          arr = np.array([1, 2, 3])
+          tensor = torch.tensor([1, 2, 3])
+          print(f'✅ Basic ops OK: {arr.sum()}, {tensor.sum().item()}')
+          "
+
+  np2-nightly:
+    name: "NumPy 2.x Nightly (Future Testing)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ github.event.inputs.python_version || '3.11' }}
+          
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          
+      - name: Try install NumPy 2.x dependencies
+        working-directory: apps/backend
+        continue-on-error: true
+        id: np2_install
+        run: |
+          echo "=== Attempting NumPy 2.x Installation ==="
+          # Try to upgrade to np2 manually since we don't have np2 profile yet
+          uv sync --extra dev --extra ocr
+          uv add "numpy>=2.0,<3.0" || echo "NumPy 2.x install failed - expected for now"
+          
+      - name: Run runtime validation (NP2)
+        working-directory: apps/backend
+        continue-on-error: true
+        run: |
+          echo "=== NumPy 2.x Validation ==="
+          ZETA_NUMPY_PROFILE=np2 uv run python ../../scripts/assert_numpy_runtime.py || true
+          
+      - name: Test compatibility
+        working-directory: apps/backend
+        continue-on-error: true
+        run: |
+          echo "=== NumPy 2.x Compatibility Test ==="
+          uv run python -c "
+          try:
+              import numpy as np
+              print(f'NumPy: {np.__version__}')
+              
+              if int(np.__version__.split('.')[0]) >= 2:
+                  print('✅ Running NumPy 2.x')
+                  
+                  # Test basic operations
+                  arr = np.array([1, 2, 3])
+                  print(f'✅ Basic NumPy ops: {arr.sum()}')
+                  
+                  # Test with other libraries
+                  try:
+                      import torch
+                      tensor = torch.from_numpy(arr)
+                      print(f'✅ NumPy->Torch OK: {tensor.sum().item()}')
+                  except Exception as e:
+                      print(f'⚠️  NumPy->Torch issue: {e}')
+                      
+                  try:
+                      import faiss
+                      print(f'✅ FAISS import OK: {faiss.__version__}')
+                  except Exception as e:
+                      print(f'⚠️  FAISS issue: {e}')
+                      
+              else:
+                  print('ℹ️  Still running NumPy 1.x - upgrade not applied')
+                  
+          except Exception as e:
+              print(f'❌ NumPy 2.x test failed: {e}')
+              exit(1)
+          " || echo "NumPy 2.x tests completed with issues (expected)"
+          
+      - name: Generate compatibility report
+        if: always()
+        working-directory: apps/backend
+        run: |
+          echo "=== Compatibility Report ===" > np2_report.txt
+          echo "Date: $(date)" >> np2_report.txt
+          echo "Python: $(python --version)" >> np2_report.txt
+          uv run python -c "
+          import sys
+          try:
+              import numpy as np
+              print(f'NumPy: {np.__version__}')
+          except: print('NumPy: FAILED')
+          try:
+              import torch
+              print(f'PyTorch: {torch.__version__}')
+          except: print('PyTorch: FAILED')
+          try:
+              import faiss
+              print(f'FAISS: {faiss.__version__}')
+          except: print('FAISS: FAILED')
+          try:
+              import cv2
+              print(f'OpenCV: {cv2.__version__}')
+          except: print('OpenCV: FAILED')
+          " >> np2_report.txt 2>&1
+          
+          echo "Generated report:"
+          cat np2_report.txt
+          
+      - name: Upload compatibility report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: np2-nightly-report-${{ github.run_number }}
+          path: |
+            apps/backend/np2_report.txt
+          retention-days: 30
+
+  compatibility-matrix:
+    name: "Cross-Platform Matrix"
+    runs-on: ${{ matrix.os }}
+    if: github.event.inputs.test_scope == 'full'
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ['3.10', '3.11', '3.12']
+        
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          
+      - name: Install dependencies
+        working-directory: apps/backend
+        run: uv sync --extra dev --extra ocr
+        
+      - name: Runtime validation
+        working-directory: apps/backend
+        run: uv run python ../../scripts/assert_numpy_runtime.py
+
+  summary:
+    name: "Nightly Summary"
+    needs: [np1-baseline, np2-nightly]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Generate summary
+        run: |
+          echo "### NumPy Compatibility Nightly Summary" >> $GITHUB_STEP_SUMMARY
+          echo "**Date**: $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "**Run**: #${{ github.run_number }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # NP1 Status
+          if [ "${{ needs.np1-baseline.result }}" == "success" ]; then
+            echo "✅ **NumPy 1.x Baseline**: PASS" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **NumPy 1.x Baseline**: FAIL" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # NP2 Status (expected to have issues for now)
+          if [ "${{ needs.np2-nightly.result }}" == "success" ]; then
+            echo "🎉 **NumPy 2.x**: PASS (Ready for transition!)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ **NumPy 2.x**: EXPECTED ISSUES (ecosystem not ready)" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Next Steps**:" >> $GITHUB_STEP_SUMMARY
+          echo "- Monitor NumPy 2.x ecosystem progress" >> $GITHUB_STEP_SUMMARY
+          echo "- Check FAISS, PyTorch, OpenCV compatibility updates" >> $GITHUB_STEP_SUMMARY
+          echo "- Review compatibility reports in artifacts" >> $GITHUB_STEP_SUMMARY

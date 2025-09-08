@@ -1,0 +1,57 @@
+# Consolidation Audit - Python Imports
+
+- Issue count: 53
+
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\pip\_vendor\msgpack\__init__.py` | unresolved_local_import | `from ._cmsgpack import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\pip\_vendor\urllib3\connection.py` | unresolved_local_import | `from .packages.six.moves.http_client import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\pip\_vendor\urllib3\connection.py` | unresolved_local_import | `from .packages.six.moves.http_client import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\pip\_vendor\urllib3\connectionpool.py` | unresolved_local_import | `from .packages.six.moves import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\pip\_vendor\urllib3\exceptions.py` | unresolved_local_import | `from .packages.six.moves.http_client import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\pip\_vendor\urllib3\poolmanager.py` | unresolved_local_import | `from .packages.six.moves.urllib.parse import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\pip\_vendor\urllib3\request.py` | unresolved_local_import | `from .packages.six.moves.urllib.parse import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\pip\_vendor\urllib3\contrib\appengine.py` | unresolved_local_import | `from ..packages.six.moves.urllib.parse import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\pip\_vendor\urllib3\contrib\ntlmpool.py` | unresolved_local_import | `from ..packages.six.moves.http_client import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\pip\_vendor\urllib3\util\queue.py` | unresolved_local_import | `from ..packages.six.moves import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\pip\_vendor\urllib3\util\response.py` | unresolved_local_import | `from ..packages.six.moves import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\setuptools\_entry_points.py` | unresolved_local_import | `from .extern.jaraco.functools import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\setuptools\_entry_points.py` | unresolved_local_import | `from .extern.jaraco.text import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\setuptools\_entry_points.py` | unresolved_local_import | `from .extern.more_itertools import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\.venv-ollama\Lib\site-packages\setuptools\command\easy_install.py` | unresolved_local_import | `from ..extern.jaraco.text import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\app\api\v1\ws\progress_router.py` | unresolved_local_import | `from ....core.pipeline import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\app\middleware\security.py` | syntax_error | unexpected indent (<unknown>, line 9)
+- `E:\zeta-monorepo\apps\backend\core\domain\value_objects\__init__.py` | unresolved_local_import | `from .permissions import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\core\memory\backend_factory.py` | syntax_error | unexpected indent (<unknown>, line 9)
+- `E:\zeta-monorepo\apps\backend\core\memory\tests\test_memory_system.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\apps\backend\core\observability\enhanced_monitoring.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\apps\backend\core\observability\production_monitoring.py` | syntax_error | unexpected indent (<unknown>, line 11)
+- `E:\zeta-monorepo\apps\backend\core\optimization\memory_manager.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\apps\backend\core\services\__init__.py` | unresolved_local_import | `from .user_service import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\core\use_cases\ai_use_cases.py` | unresolved_local_import | `from ...infrastructure.vector_store.faiss_store import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\data\services\bulk_memory_adapter.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\apps\backend\infra\vector_backends\pgvector_pool_backend.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\apps\backend\infrastructure\_scaffold\repository_base.py` | syntax_error | invalid syntax (<unknown>, line 5)
+- `E:\zeta-monorepo\apps\backend\ollama\client.py` | syntax_error | invalid non-printable character U+FEFF (<unknown>, line 1)
+- `E:\zeta-monorepo\apps\backend\ollama\__init__.py` | syntax_error | invalid non-printable character U+FEFF (<unknown>, line 1)
+- `E:\zeta-monorepo\apps\backend\storage\document_storage.py` | unresolved_local_import | `from .file_manager import ...` | Local import target not found in repo
+- `E:\zeta-monorepo\apps\backend\tests\core\test_common_base_classes.py` | syntax_error | invalid syntax (<unknown>, line 10)
+- `E:\zeta-monorepo\apps\backend\tests\core\domain\aggregates\test_agent_aggregate.py` | syntax_error | invalid syntax (<unknown>, line 8)
+- `E:\zeta-monorepo\apps\backend\tests\core\services\test_caching_decorators.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\apps\backend\tests\core\services\test_cost_guard.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\apps\backend\tests\e2e\test_multi_user.py` | syntax_error | cannot assign to await expression (<unknown>, line 496)
+- `E:\zeta-monorepo\apps\backend\tests\infrastructure\_scaffold\test_repository_base.py` | syntax_error | invalid syntax (<unknown>, line 7)
+- `E:\zeta-monorepo\apps\backend\tests\infrastructure\_scaffold\test_unit_of_work.py` | syntax_error | invalid syntax (<unknown>, line 9)
+- `E:\zeta-monorepo\apps\backend\tests\unit\memory\test_delete_memory_enhanced.py` | syntax_error | unexpected indent (<unknown>, line 25)
+- `E:\zeta-monorepo\extension\deepseek-core\auto\vn_copilot_backup.py` | syntax_error | expected an indented block after 'if' statement on line 37 (<unknown>, line 37)
+- `E:\zeta-monorepo\tools\scripts\advanced_fix_undefined.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\tools\scripts\auto_fix_critical.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\tools\scripts\generate_8_layer_architecture.py` | syntax_error | invalid syntax (<unknown>, line 15)
+- `E:\zeta-monorepo\tools\scripts\generate_8_layer_full.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\tools\scripts\copilot\hotfix_pydantic.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\tools\scripts\copilot\hotfix_pydantic_v2.py` | syntax_error | unexpected indent (<unknown>, line 4)
+- `E:\zeta-monorepo\tools\scripts\copilot\ultimate_pydantic_fix.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\tools\scripts\fix\demo_fix_env.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\tools\scripts\fix\repair_env.py` | syntax_error | unexpected indent (<unknown>, line 9)
+- `E:\zeta-monorepo\tools\scripts\migration\migrate_graphql_structure.py` | syntax_error | unexpected indent (<unknown>, line 12)
+- `E:\zeta-monorepo\tools\scripts\perf\perf_gate.py` | syntax_error | unexpected indent (<unknown>, line 3)
+- `E:\zeta-monorepo\tools\scripts\repair\fix_import_conflicts.py` | syntax_error | unexpected indent (<unknown>, line 4)
+- `E:\zeta-monorepo\tools\scripts\upgrade\ensure_configs.py` | syntax_error | unexpected indent (<unknown>, line 3)

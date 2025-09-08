@@ -1,0 +1,60 @@
+groups:
+  - group: exact_duplicate_group_1
+    description: "File trống hoặc placeholder - nhóm 1"
+    canonical: zeta_vn/examples/demo_enhanced_rag_2025.py
+    duplicates:
+      - zeta_vn/app/authorization_guide.py
+      - zeta_vn/config/fix_pydantic_config.py
+      - zeta_vn/core/domain_summary.py
+      - zeta_vn/core/services/DOMAIN_IMPLEMENTATION_SUMMARY_service.py
+      - zeta_vn/core/services/optimization_service.py
+      - zeta_vn/examples/demo_complete_one_click.py
+      - zeta_vn/examples/demo_perf_optimization.py
+      - zeta_vn/examples/demo_simple_rag_2025.py
+    action: remove_if_empty_or_merge_logic
+
+  - group: exact_duplicate_group_2
+    description: "File trống hoặc placeholder - nhóm 2"
+    canonical: zeta_vn/app/api/v1/auth.py
+    duplicates:
+      - zeta_vn/app/dependencies/production_clean_fixed.py
+      - zeta_vn/app/infrastructure/cache.py
+      - zeta_vn/core/domain/events/rule_events_new.py
+      - zeta_vn/core/memory/advanced_manager.py
+      - zeta_vn/core/services/permission_service_new.py
+      - zeta_vn/tests/test_basic.py
+      - zeta_vn/tests/test_main.py
+      - zeta_vn/tests/standalone/test_standalone.py
+      - zeta_vn/tests/unit/test_security_system.py
+    action: remove_if_empty_or_merge_logic
+
+  - group: api_init_files
+    description: "File __init__.py trống gần giống nhau"
+    canonical: zeta_vn/app/api/v1/__init__.py
+    duplicates:
+      - zeta_vn/app/api/v1/agent/__init__.py
+      - zeta_vn/app/api/v1/auth/__init__.py
+      - zeta_vn/app/api/v1/chat/__init__.py
+      - zeta_vn/app/api/v1/memory/__init__.py
+      - zeta_vn/app/api/v1/status/__init__.py
+      - zeta_vn/app/api/v1/ws/__init__.py
+    action: standardize_init_files
+
+  - group: core_init_files
+    description: "File __init__.py trong core"
+    canonical: zeta_vn/core/__init__.py
+    duplicates:
+      - zeta_vn/core/async_templates/__init__.py
+      - zeta_vn/core/caching/__init__.py
+      - zeta_vn/core/common/__init__.py
+      - zeta_vn/core/cost/__init__.py
+      - zeta_vn/core/distillation/__init__.py
+      - zeta_vn/core/domain/entities/User/__init__.py
+      - zeta_vn/core/domain/services/__init__.py
+    action: standardize_init_files
+
+priority_order:
+  - exact_duplicate_group_1
+  - exact_duplicate_group_2
+  - api_init_files
+  - core_init_files

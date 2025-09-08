@@ -1,0 +1,18 @@
+structure_rules:
+  import_order: true
+
+# Optional scoping for optimizer file discovery
+include_dirs: []  # e.g., ["apps", "packages", "src"]
+exclude_dirs:
+  - node_modules
+  - dist
+  - build
+  - __pycache__
+  - .git
+  - .venv
+  - venv
+  - env
+  - site-packages
+  - .env
+# Limit number of files processed in one run (0 = no limit)
+max_files: 300

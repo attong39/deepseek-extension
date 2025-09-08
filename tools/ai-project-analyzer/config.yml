@@ -1,0 +1,22 @@
+analysis:
+  exclude_patterns:
+    - "**/node_modules/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/__pycache__/**"
+    - "**/.git/**"
+    - "**/.*/*"
+    - "**/venv/**"
+    - "**/.venv/**"
+    - "**/apps/backend/.venv-ollama/**"
+  include_extensions:
+    - ".py"
+    - ".ts"
+    - ".tsx"
+    - ".js"
+    - ".jsx"
+
+optimization:
+  min_priority: 5
+  auto_apply: false
+  ai_model: deepseek-coder

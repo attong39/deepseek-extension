@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json.schemastore.org/json",
+  "name": "zeta_ws_events",
+  "version": "1.0.0",
+  "description": "WebSocket event contract for Zeta Backend - Source of Truth",
+  "events": [
+    "team.started",
+    "agent.step",
+    "team.done", 
+    "ping",
+    "pong",
+    "error",
+    "status.update",
+    "progress.update",
+    "chat.message",
+    "notification"
+  ],
+  "schemas": {
+    "team.started": {
+      "team_id": "string",
+      "timestamp": "string",
+      "members": "array"
+    },
+    "agent.step": {
+      "agent_id": "string", 
+      "step_id": "string",
+      "status": "string",
+      "data": "object"
+    },
+    "team.done": {
+      "team_id": "string",
+      "result": {
+        "summary": "string",
+        "status": "string"
+      }
+    },
+    "ping": {
+      "timestamp": "string"
+    }
+  }
+}

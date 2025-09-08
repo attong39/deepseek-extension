@@ -1,0 +1,35 @@
+groups:
+- name: zeta_core_alerts
+  rules:
+  - alert: HighRiskScoreDetected
+    annotations:
+      description: 95th percentile of risk scores is above 0.8 for 2 minutes
+      summary: High risk scores detected
+    expr: histogram_quantile(0.95, rate(zeta_zt_risk_scores_bucket[5m])) > 0.8
+    for: 2m
+    labels:
+      severity: warning
+  - alert: AgentExecutionFailures
+    annotations:
+      description: Agent execution failure rate is above 10% for 1 minute
+      summary: High agent execution failure rate
+    expr: sum(rate(zeta_agent_executions_total{status="failed"}[5m])) > 0.1
+    for: 1m
+    labels:
+      severity: critical
+  - alert: ZeroTrustDenialSpike
+    annotations:
+      description: Zero-Trust is denying more than 50% of requests
+      summary: High Zero-Trust denial rate
+    expr: sum(rate(zeta_zt_decisions_total{allow="false"}[5m])) > 0.5
+    for: 30s
+    labels:
+      severity: warning
+  - alert: KnowledgeGraphQueryFailures
+    annotations:
+      description: Knowledge graph query failure rate is above 5%
+      summary: Knowledge graph query failures
+    expr: sum(rate(zeta_kg_queries_total{status="failed"}[5m])) > 0.05
+    for: 1m
+    labels:
+      severity: warning

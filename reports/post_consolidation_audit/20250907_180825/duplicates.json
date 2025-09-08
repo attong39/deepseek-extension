@@ -1,0 +1,984 @@
+{
+  "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a": [
+    "E:\\zeta-monorepo\\.mypy_cache\\3.11\\@plugins_snapshot.json",
+    "E:\\zeta-monorepo\\extension\\.vscode-test\\user-data\\languagepacks.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\@plugins_snapshot.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\.mypy_cache\\3.11\\@plugins_snapshot.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\reports\\consolidation_audit\\20250907_164143\\near_duplicates.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\.mypy_cache\\3.11\\@plugins_snapshot.json"
+  ],
+  "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\anyio\\streams\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\anyio\\_backends\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\anyio\\_core\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\httpcore\\_backends\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_internal\\operations\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_internal\\resolution\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_internal\\resolution\\legacy\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_internal\\resolution\\resolvelib\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_internal\\utils\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\_securetransport\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\backports\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\jaraco\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\prometheus_client\\bridge\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\prometheus_client\\openmetrics\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\jaraco\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\sniffio\\_tests\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\core\\memory\\advanced_manager.py",
+    "E:\\zeta-monorepo\\extension\\test-code.ts",
+    "E:\\zeta-monorepo\\extension\\test-live.js",
+    "E:\\zeta-monorepo\\extension\\USAGE_GUIDE.md",
+    "E:\\zeta-monorepo\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\github\\testWorkspace\\x.txt",
+    "E:\\zeta-monorepo\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\github\\testWorkspace\\docs\\PULL_REQUEST_TEMPLATE\\x.txt",
+    "E:\\zeta-monorepo\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\github\\testWorkspace\\PULL_REQUEST_TEMPLATE\\x.txt",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\app\\api\\graphql\\demo_performance.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\app\\infrastructure\\cache.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\core\\distillation\\tests\\test_teacher_labeling_service.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\tests\\test_basic.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\tests\\test_main.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\tests\\config\\test_advanced_settings.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\tests\\config\\settings\\test_loader.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\tests\\core\\test_base.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\tests\\core\\application\\test_event_bus.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\tests\\evaluators\\test_verifier_gpt5.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\tests\\standalone\\test_standalone.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\backend\\tests\\unit\\test_security_system.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\zeta-ai-agent\\metrics_server_fixed.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\docs\\PROJECT_OPTIMIZATION_SUMMARY.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\docs\\WORKFLOWS.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\demo.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\HYBRID_README.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\MASTER_CHECKLIST.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\package-commands.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\README_AI_AGENT.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\READY_TO_TEST.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\TERMINAL_RUNNER_README.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\test-final.js",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\test-ollama.js",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\validation.js",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\github\\testWorkspace\\PULL_REQUEST_TEMPLATE.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\github\\testWorkspace\\some-markdown.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\github\\testWorkspace\\docs\\PULL_REQUEST_TEMPLATE.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\github\\testWorkspace\\docs\\PULL_REQUEST_TEMPLATE\\a.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\github\\testWorkspace\\docs\\PULL_REQUEST_TEMPLATE\\b.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\github\\testWorkspace\\PULL_REQUEST_TEMPLATE\\a.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\github\\testWorkspace\\PULL_REQUEST_TEMPLATE\\b.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\deepseek-core\\core\\services\\ai_agent_service_clean.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\auto_optimizer.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\fix_imports_gradual.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\optimization_dashboard.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\optimize_project.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\project_analyzer.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\project_optimizer.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\quick_cleanup.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\remove_duplicates.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\ultimate_optimizer.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\validate_setup.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\workflow_optimizer.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\workflow_performance_analyzer.py"
+  ],
+  "3c47b0dc8b70ce35b887299b6ac9edcb6376397bcd7201c1f898eb06ec473d86": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\idna\\codec.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\idna\\codec.py"
+  ],
+  "4732f2e90402765f7bf3868585bd845fd10a1822638343f73e294675e5d7731f": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\idna\\compat.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\idna\\compat.py"
+  ],
+  "60963200c9f089010f8d50b8f85aaefe9e0227ac8a2ae0c69a9a41350350a45b": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\idna\\core.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\idna\\core.py"
+  ],
+  "5b7d067081afb4e598c008d98f8663ba8b94bad0ba7df80dbb28c9cbb7d9fa5a": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\idna\\idnadata.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\idna\\idnadata.py"
+  ],
+  "6a652d91d8587101bc66bf82a0c33f91545a731922bc2d568313756fadca29d5": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\idna\\intranges.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\idna\\intranges.py"
+  ],
+  "ab9f52dce5ec739548f23eaf483d2c18133293acd9e2f58544413cf3208960ab": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\idna\\package_data.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\idna\\package_data.py"
+  ],
+  "aedf742bd278d20512c29a433c2ae18e08b9000ea958ceb974419149feab2213": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\idna\\uts46data.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\idna\\uts46data.py"
+  ],
+  "30fa8d0cb65b5ea19a35d5f1005862a853ca1105e3bb68cd42109ecbafb97893": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\idna\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\idna\\__init__.py"
+  ],
+  "a59f0b0ef3635874109a4461ca44ff7a70d50696e814767bfaf721d4c9b0db0f": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\idna-3.10.dist-info\\LICENSE.md",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip-25.2.dist-info\\licenses\\src\\pip\\_vendor\\idna\\LICENSE.md"
+  ],
+  "ab77953666d62461bf4b40e2b7f4b7028f2a42acffe4f6135c500a0597b9cabe": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\packaging\\_structures.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_structures.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\packaging\\_structures.py"
+  ],
+  "f864c6d9552a929c7032ace654ee05ef26ca75d21b027b801d77e65907138b74": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pip\\_vendor\\tomli\\_types.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\tomli\\_types.py"
+  ],
+  "6a3ced387fbd23b280ff8c2a0d8ca0b476bac54055660169999f0513be071c72": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\zipp.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\zipp.py"
+  ],
+  "32f4c92576a36e5ef8b37e86c9e7ac7fbe9e82d6c59e1f9332dcd0315845597a": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\importlib_resources\\abc.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\importlib_resources\\abc.py"
+  ],
+  "ffd40b190e40ceb103dcf63c4b665ff15eb22d1d3e9eaa98aad4268257832736": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\importlib_resources\\readers.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\importlib_resources\\readers.py"
+  ],
+  "c6dd2a8576f0b776d9f3acee69a29b4e213d0349836f0bb4b1a46352afe9718d": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\importlib_resources\\simple.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\importlib_resources\\simple.py"
+  ],
+  "a39d6d3f686956da213f7de0498c809063692df60306ac7162c69dca24598b51": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\importlib_resources\\_adapters.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\importlib_resources\\_adapters.py"
+  ],
+  "888c40690868b5287a4cb2d411f2ffca75367f311ec87333f4970be3a99484b8": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\importlib_resources\\_common.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\importlib_resources\\_common.py"
+  ],
+  "9c504218cbc89a096baa06246fd68f80e8faf3e87ac5bc3e71af785cebf5fb3b": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\importlib_resources\\_compat.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\importlib_resources\\_compat.py"
+  ],
+  "582749d46b3f90d170284372206ed33b4638df82160aed338d5552b126d9c14f": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\importlib_resources\\_itertools.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\importlib_resources\\_itertools.py"
+  ],
+  "4cc2e4c7a68433a53cc484443d7a8666b31b5214e23d4b8f97a1120fb45d623e": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\importlib_resources\\_legacy.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\importlib_resources\\_legacy.py"
+  ],
+  "7af3e6d7690b818a939bea5bce6eb46cebae9ae993f08a41356169d2e332af31": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\importlib_resources\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\importlib_resources\\__init__.py"
+  ],
+  "ed7d6da422dce44378e62586cc672c1f4527c7ad9110892fb51be0963d128940": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\jaraco\\context.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\jaraco\\context.py"
+  ],
+  "2d1434905b07ae5e6a7dc14d10426b20562c9c81d05095d8f5f22c6a44ebaea1": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\packaging\\specifiers.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\packaging\\specifiers.py"
+  ],
+  "966b2718d889f02e03fcf7fd3db334aa06d9bc3f64981f65a590505196b747f6": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\packaging\\tags.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\packaging\\tags.py"
+  ],
+  "7498de6addc14be4d89f546b505570b9f50c6ac6edccb7d8468cbf1d710d7854": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\packaging\\utils.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\packaging\\utils.py"
+  ],
+  "fdf2d136b16bc5870755fca8f2f93d8fcb3a24cf0dff1b12c5516be91272728f": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\packaging\\version.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\packaging\\version.py"
+  ],
+  "5dc6e25c1faa723bf76dca21a7a37df1332938fe3f8f79be88e03ca6d2b61966": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_manylinux.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\packaging\\_manylinux.py"
+  ],
+  "fca1a063fa9ceef84c1a9a2ab2cdb99f68622c234a46dbf3f660ab4bb824ab27": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\packaging\\_musllinux.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\packaging\\_musllinux.py"
+  ],
+  "ba001220edb0d685321fcfc23aa4365ffb34ac38636e1402df2268703d378767": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\packaging\\__about__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\packaging\\__about__.py"
+  ],
+  "6fd2a4e4c17b2b18612e07039a2516ba437e2dab561713dd36e8348e83e11d29": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\packaging\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\packaging\\__init__.py"
+  ],
+  "c14f62df67b4cb5ca6c4a137394c121cef92148aedd61ff0bfa5acd06423a4d5": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\pyparsing\\actions.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\actions.py"
+  ],
+  "9452fdee8a08791ef90a65b986351166ac0309382bbaa96d713099fae94b3b64": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\pyparsing\\common.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\common.py"
+  ],
+  "bbc1a9b5013f1fac0c925f0e661c5e2b56803c80d75cd83075284e441c01552e": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\pyparsing\\core.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\core.py"
+  ],
+  "dcb6d269f0f7d8d61bd53cedf39187364844014d5e6644ed352936e1c3cc7a6a": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\pyparsing\\exceptions.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\exceptions.py"
+  ],
+  "42950e8d6d3ea6cbee78cc166fd6d0a54da7a2a282bfdf3fc27c35552cd2755a": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\pyparsing\\helpers.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\helpers.py"
+  ],
+  "1e036f5955c17503fe43a3ed25fa0211e3899369f012f1bed8a54a0b9b06037d": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\pyparsing\\results.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\results.py"
+  ],
+  "eedbb801ba78b9278957437fc843d19a6354869775f1940fdc2ad7e350ccf35e": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\pyparsing\\testing.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\testing.py"
+  ],
+  "7f0ba1323df4490d7ae42bfb1c9a6efab4b119b466f7790df4be048bb5467356": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\pyparsing\\unicode.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\unicode.py"
+  ],
+  "92aefbd8ee5849e5ce49d3fe337d445a96c7fdaca3ec1307226058a3dc4f0f93": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\pyparsing\\util.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\util.py"
+  ],
+  "e76407de580f6c985b6b47acb5c92818f1d11fc26f4124821a85a2127da6d1b5": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\pyparsing\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\__init__.py"
+  ],
+  "7ff11fc5a86aadd91155a8664f02c95e467d1040ca35df8eee505ba496251358": [
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\pkg_resources\\_vendor\\pyparsing\\diagram\\__init__.py",
+    "E:\\zeta-monorepo\\apps\\backend\\.venv-ollama\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\diagram\\__init__.py"
+  ],
+  "4a26da9aa07c8a5f7cc4d121fdb1b1221e1e9d93e98c693c09afde09176ef966": [
+    "E:\\zeta-monorepo\\apps\\backend\\config\\api.json",
+    "E:\\zeta-monorepo\\config\\api.json"
+  ],
+  "16bc8faf89e9c23da0c0099a548e853142b0be40d6bdc819e354c830083de5de": [
+    "E:\\zeta-monorepo\\apps\\backend\\config\\core.json",
+    "E:\\zeta-monorepo\\config\\core.json"
+  ],
+  "5b48eb87d00514f97ede0b5be97f577dacb2bae7c5b6f4d7ac0ebb8d696b95ef": [
+    "E:\\zeta-monorepo\\apps\\backend\\config\\database.json",
+    "E:\\zeta-monorepo\\config\\database.json"
+  ],
+  "2c6a97af59db9d09ba7e6893cba2c28704d42752818ced1208bd4084f328e487": [
+    "E:\\zeta-monorepo\\apps\\backend\\config\\observability.json",
+    "E:\\zeta-monorepo\\config\\observability.json"
+  ],
+  "6caef6b1916eaf7202f6aa4c172ad09d658ae9de5a7a2e672b29f90d0f3e9cf4": [
+    "E:\\zeta-monorepo\\apps\\backend\\config\\security.json",
+    "E:\\zeta-monorepo\\config\\security.json"
+  ],
+  "c3324cc014336f8a62a650866dcd02855711650fb2f69acc675c1d2f3487a632": [
+    "E:\\zeta-monorepo\\apps\\desktop\\src\\services\\robotFacade.ts",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\apps\\desktop\\src\\services\\inputController.ts"
+  ],
+  "6bc28ed66dbae69b5ec3b3df09efc0a5a3ffb3a0a4282972ccecce677acd6202": [
+    "E:\\zeta-monorepo\\backups\\attong39_zeta_config.txt",
+    "E:\\zeta-monorepo\\backups\\zeta_py_teacher_config.txt"
+  ],
+  "88e2f3f646c12b7c2c9d65eedca62b04867ddf5c8990932db3f8641756564d75": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\argparse.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\argparse.data.json"
+  ],
+  "92e9708dd0eec93e68e9a233e0c9d022fbd849eac85fd77daf654ca605290531": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\atexit.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\atexit.data.json"
+  ],
+  "fec873ded49dd825afaf231ebeaa196abfce8db132be6f48d4222f78664a03f8": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\base64.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\base64.data.json"
+  ],
+  "872795cbc0e310a2084ffa5441a9a30b3673f1e413a77b14c32f0f33ce4710ec": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\bisect.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\bisect.data.json"
+  ],
+  "7eda6b531f05e09758044fa4cca9982f805e38b5d15df62776a7521f1c046947": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\bz2.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\bz2.data.json"
+  ],
+  "44188cffc0d39bc6589eb955fe702bcac5d8b37197cda1518518fda825d2f612": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\colorsys.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\colorsys.data.json"
+  ],
+  "8241fc1f2a8ffe9a0be541645b7c2e40db48abdc4e2ab4248554e5850795d557": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\contextvars.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\contextvars.data.json"
+  ],
+  "9c162ea973ac9a75af503dba4ed5b4ec5f407003b9737439f365239e918f82be": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\copy.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\copy.data.json"
+  ],
+  "7c402f27d616bb8125f941462f58e6b942939185e5737d18386394113314c18b": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\copyreg.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\copyreg.data.json"
+  ],
+  "e1075dfe51de71808f8665f1d2f27519cf422d8b97068c67d72c75b153779375": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\datetime.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\datetime.data.json"
+  ],
+  "2d445d36e33f73202365db1fb619a3a7311e5cddc9bd36e9b33ce68444dc2940": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\decimal.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\decimal.data.json"
+  ],
+  "d45475fa7921e9a4cd7f92670281e775ccba22d62fa5216c559c6b8445271657": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\difflib.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\difflib.data.json"
+  ],
+  "6f78362de7551408de3a279b838ec9fad49d4f35f445ebc2439d8098819236a3": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\dis.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\dis.data.json"
+  ],
+  "a1f85b70d882c3d9608ba8bde80263374b3395d897767f565ce2f0f6bde540ab": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\errno.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\errno.data.json"
+  ],
+  "b5245d66f979a174ad68393af189857010f3a63df04308ff30f533a52a8c6fe1": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\fractions.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\fractions.data.json"
+  ],
+  "10efda33e80abddc5a4d6a8d34c8768c54567883be886b5b89e272ade44d8770": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\functools.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\functools.data.json"
+  ],
+  "bb08859fb095c4ce0b880c373b60d37035e0de151955ced67b322ba6a3045d02": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\gettext.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\gettext.data.json"
+  ],
+  "60e5ae1cbf71f47a36e725e608ca45887bb2dad72332db387dce5e11f284c0df": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\gzip.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\gzip.data.json"
+  ],
+  "7498c2e77b33b9c19e30a9671abb5e0d885213d18e561807e134c4cad0db0c66": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\hashlib.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\hashlib.data.json"
+  ],
+  "d3cfedec94368e18deac9aaf791e2d0cece88289cf409704726c6c31948ec0a1": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\inspect.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\inspect.data.json"
+  ],
+  "6172f8eacad6065a67306a6852dc025448d60f31f8848fb1391c2ef7203b2b9b": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\ipaddress.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\ipaddress.data.json"
+  ],
+  "f6b61f0bf54d8a6afa1f756746f17786f470618f389a9ae0de1da9e6c37b70da": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\itertools.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\itertools.data.json"
+  ],
+  "d22a6ded35077ee6bd3b19942a5c000d61a476e3a5af39ba01ea9eeb54d2f506": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\keyword.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\keyword.data.json"
+  ],
+  "29486a45d200d5248fb752185d8db159924f5344bc7251b142c73ee47f5e8696": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\math.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\math.data.json"
+  ],
+  "885fe0cfd34d2158792c39868dd8df4017b88ecb36855f417a3b67078afbfc32": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\mimetypes.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\mimetypes.data.json"
+  ],
+  "f2cc36943c012043e6833e76990acc312f30fb01dc8ba2237f70558596cbeea2": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\msvcrt.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\msvcrt.data.json"
+  ],
+  "2995e5f0c365bb525b3a9506d53a57aebe83c23ccceca08953d85bfeaef27067": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\netrc.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\netrc.data.json"
+  ],
+  "8221a6818d1672feddeed1f679b010aa20011a663a34ae616a10dac2a739d847": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\nturl2path.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\nturl2path.data.json"
+  ],
+  "2c81e4dea3641298c091da622dfc8b579faeecb419fc33c0ac856c93ed11ab52": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\numbers.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\numbers.data.json"
+  ],
+  "301425b85aceea0bcb682ea71771c079bcad2d2feab752dbcc1d69fbedbc714f": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\opcode.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\opcode.data.json"
+  ],
+  "fbf77abb3818773e2c34ed7022d584c1f0af82451850ec1ce47c7bb2dbf68b04": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\operator.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\operator.data.json"
+  ],
+  "9ccd3fbc1b9adde10c4c84d3d777e2a75c3733e47add9143737401220e09d128": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\pickle.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\pickle.data.json"
+  ],
+  "cb3f6fa778db3cf78d9cc9e6f66fa887ec8e9b3865de4828dc8e80fb0bf92a33": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\pydoc.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\pydoc.data.json"
+  ],
+  "170c6cfebb79ada8418594e73c46ec9d5bb54d925414dac09d1d5e6717d760a1": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\queue.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\queue.data.json"
+  ],
+  "bb6bec02e4e75ba64dd50e3b8ce38f6ce81b846529611b7e9d2f43ff99bbad49": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\select.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\select.data.json"
+  ],
+  "e104311618fef25066917d9029561ec9ff5f6e206dc41ae9ee52cf4a6d5037f3": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\selectors.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\selectors.data.json"
+  ],
+  "cb7a68f3ebf3f6f2e54c44175505cf6674de8b9eb26da0472ca287c63c6adafd": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\shlex.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\shlex.data.json"
+  ],
+  "ed0c51200de5c176742360765e37c9a3bd8eb617f595ceed1f6994e97305208f": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\shutil.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\shutil.data.json"
+  ],
+  "8892c2a6f08723795cc856dfebb3cce7f13d8c26d6b83db0a20ce9affdee3284": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\signal.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\signal.data.json"
+  ],
+  "7461f8904f2dbdf16ce79c6751f199ab034b151b849aca8ea7f3801f3e714ca2": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\socket.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\socket.data.json"
+  ],
+  "8312602d3d27720f14ff4b8d16cd3480c29aabd3c8acd011ed416160d2eba1b3": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\ssl.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\ssl.data.json"
+  ],
+  "af8ede0c51f265608f65d32b99de322d49dd414b3ad397c12a978d7a2fffce02": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\stat.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\stat.data.json"
+  ],
+  "2add042c300ee5e9b5f8ad8a985eb775ecbe792ac4a7040d5780b813e8aa6e92": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\string.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\string.data.json"
+  ],
+  "8c3d7695838d3c007f43f4cf2507159310c52934b1c151e659a0736c5af82416": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\tarfile.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\tarfile.data.json"
+  ],
+  "3f69584c3851166ce20ec9b46a48a546bbcbbfc44147b67c2f84a4a4949d0009": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\tempfile.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\tempfile.data.json"
+  ],
+  "b9e73f0c8a2d765ab1ed59ba190838d4eac3a7c5763073909f0b3e2c45cf613a": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\textwrap.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\textwrap.data.json"
+  ],
+  "b28cb560d28e9ee423e4aa6b4548f7fd860683a0663037f6cfd5c3437ce02a39": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\threading.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\threading.data.json"
+  ],
+  "25281f7b5d2dddd3d46b4d1bc1f7a4e00541ad150afefd6587fbc1fb4c4b8485": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\time.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\time.data.json"
+  ],
+  "bb6133adfd031edcf97875b15dc3f142999b429196d3a1270b03cc26dc7aff9f": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\unicodedata.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\unicodedata.data.json"
+  ],
+  "d84996937a6d509ef9a7f8b595247b55bd2ff11f3e5e1a1c8c57d63c873b6362": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\uuid.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\uuid.data.json"
+  ],
+  "a0a254bdde5f8c0df9824eb0d26c4a0a99be14ce6114ea1782d929089bdc4170": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\warnings.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\warnings.data.json"
+  ],
+  "fb4c5276f72ed025a09c430138822043155da8cf74d39ae0f344fb56e16c8b52": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\weakref.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\weakref.data.json"
+  ],
+  "504931ff1bb7b60735b5f1ce5ec674b986f1a1467d4146d95eff7276fd4e1625": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\winreg.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\winreg.data.json"
+  ],
+  "57f5b928ea8b0aa15fe0f3cc2b42eb5a8cda3fe4a3e5789ef4d267f94625f1c6": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\zlib.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\zlib.data.json"
+  ],
+  "dbca2effdc6c47d3fa39b966d8ef0470590d550ffd67686069466ddb0e1c79ee": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_asyncio.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_asyncio.data.json"
+  ],
+  "88ba02e078a6fa48d7b3c89e09ee8504e650100f25bc25f5f2bc2331ba8faae7": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_bisect.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_bisect.data.json"
+  ],
+  "65c43705fe564b58ca29571c47fce1493118a7c8443f0b7a75408660ee50f3af": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_blake2.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_blake2.data.json"
+  ],
+  "8e9ce19a5cb3b08533658e3e49b2659d346ef7a40d44451c1a21a5c95ed8a8b5": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_bz2.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_bz2.data.json"
+  ],
+  "75b23885b6bbab2a2c75d680454c8d33555b79adbcd25176b05feeef0783deda": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_compression.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_compression.data.json"
+  ],
+  "3d5c0b32db934e6b0475490b05c0e209dd53515727b8dc10b9632efae68dde8b": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_contextvars.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_contextvars.data.json"
+  ],
+  "3cdba4b11f34cb2ff3829a6d50c5b05d10d013faec33c08ba4a880c9a9cf7e01": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_ctypes.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_ctypes.data.json"
+  ],
+  "06d3e76321531b391963082472c6836854f4471e849ecc0ca346843fd71787d7": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_decimal.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_decimal.data.json"
+  ],
+  "ab93f9afe6a25825b71e951af82b6205cca8556c4a828ffc97ddcb0f097b184a": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_hashlib.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_hashlib.data.json"
+  ],
+  "853f664b6a572f1bf79947e3a0cf07afbb9dbb2191b3a84f066c79bddf1f9851": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_operator.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_operator.data.json"
+  ],
+  "5c22fd1a77385d6dacb2932a77232e0e59b797c5de15b48b34bf924d3d4dbb5f": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_pickle.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_pickle.data.json"
+  ],
+  "3fa58dd6601de3de07a8bd1718524ec2065edea69232c4527094794f09e0b7e2": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_queue.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_queue.data.json"
+  ],
+  "e2bf9448e6f964f28eea082e7348a6951c3ff987f20ed8ec43c07596040cae83": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_socket.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_socket.data.json"
+  ],
+  "2708c5fe1f30184c0e2c06763fd8bd2279bf7450a0eae6f9e2f3e0cacc5b2297": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_ssl.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_ssl.data.json"
+  ],
+  "53149f9b6cda467d292315e8cf6631e49e43edb1916d6f2abbb12e317ff82200": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_stat.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_stat.data.json"
+  ],
+  "f0c573c088f35b05f29f3c23fe46d0bd538737726fd31d146b8d99fd680326e6": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_thread.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_thread.data.json"
+  ],
+  "6fee31082edffcfba02bdcae58a19215139b59fb487d74b71ff78392df11ef9b": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_warnings.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_warnings.data.json"
+  ],
+  "e77cf5aa5feae305a7d0ebbc2eb5800e2bdb9dbaeb0f5cb581ae48e0393801da": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_weakref.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_weakref.data.json"
+  ],
+  "10a4c816f8ab3392857177fca9bec2ba08610e8bfa9c707b0425f5c95380955e": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_weakrefset.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_weakrefset.data.json"
+  ],
+  "b32914041ee3a53ba04688ee64fe990f535ed6e0522b46f9a57c2d2344dbaa91": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\__future__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\__future__.data.json"
+  ],
+  "8596352ae2dd7b9f790bc1bc4ef78ec6c0b454935376b1af3d10e79fbdab6b7c": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\base_events.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\base_events.data.json"
+  ],
+  "1b34978242a9c46f97c58b533c1fb4d429d20c7ad84be7272726095697b3d8dd": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\constants.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\constants.data.json"
+  ],
+  "e291ef8dabc18d9bfa4de705be284359ab782abe5f26338c1ec53cc0ce20e263": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\coroutines.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\coroutines.data.json"
+  ],
+  "8a50761eb56889b066e592f8a650b71f53b06e02179469f45792dc82c4d182a2": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\events.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\events.data.json"
+  ],
+  "1f750ff44dc088a1a8f752df2f7a33e9446fd00c9926d113901b091ec858db71": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\exceptions.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\exceptions.data.json"
+  ],
+  "e61fe5d0c293d35f7323f9da9f15d90e9f1cde7d5cc3634dc5443265d738ef56": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\futures.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\futures.data.json"
+  ],
+  "3f3e3b54ff463cce2c7e7dcd048a05b618ee8314a686ff551100902bf6c4a4aa": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\locks.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\locks.data.json"
+  ],
+  "909df152b4e1efa1005002c7cbaf11f5d00348261c3e1716a28aa4b6ec9322f7": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\mixins.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\mixins.data.json"
+  ],
+  "51791d5d8686305cd81aa7fdb9fbf371312154d3a7dd5bc5280ed38582a03a82": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\proactor_events.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\proactor_events.data.json"
+  ],
+  "ec7f76d394e7696936f0dc0694f255a5ada09b7daa0c025b4426be4e8db4095e": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\protocols.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\protocols.data.json"
+  ],
+  "a2195fc33697906b2f84d70ba1545a6684ae4d3507c6d96226dde53a800c37eb": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\queues.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\queues.data.json"
+  ],
+  "d10eb3e7ae94bb33b3bc8f7387846f2007e596edaf6e51f928688b52049c10fe": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\runners.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\runners.data.json"
+  ],
+  "f5fb403eb0c911359d157ca55c815140799ebfcd0351cd0b7586707d43950f17": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\selector_events.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\selector_events.data.json"
+  ],
+  "748b2bbec8b3e8b7f18f5926db8571ab7d29a0f55c31da0c6341f96b351bc7b9": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\streams.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\streams.data.json"
+  ],
+  "478c983cf84763e1b0afbc7c16ca50338b4867fa2adf3a8fccd501b20500b069": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\subprocess.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\subprocess.data.json"
+  ],
+  "aaa9d10d4cf0090a18bca78d0e581f52445ec7a6602d8a1bea2fca30c81c9a6c": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\taskgroups.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\taskgroups.data.json"
+  ],
+  "ac7bf8c3dcf092aa66f53520d787057a2dcc74ad536b7e8364c259c8a4f4a291": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\tasks.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\tasks.data.json"
+  ],
+  "3ea16fb10c706dc53ceffe21df2019e5e190f5202dc6dd8574d432f9fd621c57": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\threads.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\threads.data.json"
+  ],
+  "d5f2beec1f610569b890a013b082e65ad0662b202eb694ab0285dac714fa4781": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\timeouts.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\timeouts.data.json"
+  ],
+  "671749c8686e8999c7a1813559ef5c2edec2152b7201174c8613767c68101fe0": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\transports.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\transports.data.json"
+  ],
+  "6d2dc65c6721c5d494348683148e572f6fb43ffabdbbb5b777516611f3e40852": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\unix_events.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\unix_events.data.json"
+  ],
+  "471147a211817877c8f58677aa751bd7f3bd592abb99873d66b28507f3d870dc": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\windows_events.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\windows_events.data.json"
+  ],
+  "c737c602fb443526cb62f2a9dc2988834336afb4a945a70ea7703995937fef80": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\windows_utils.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\windows_utils.data.json"
+  ],
+  "30570c25289ffc3a2e5cc437f0e70f3bb2a5cc1c6c98572a6c8d95dd473e7647": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\asyncio\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\asyncio\\__init__.data.json"
+  ],
+  "938265d494ca6041fae8ab91926b6de0764244f8ca36417e7795f49b000443de": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\concurrent\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\concurrent\\__init__.data.json"
+  ],
+  "ece21d85f3f716c8da66f2dd9e880ebfbb0740717da61cebdb39e75763897726": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\concurrent\\futures\\process.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\concurrent\\futures\\process.data.json"
+  ],
+  "acf7893c54b4a574efbdaa3cf3399395ec516383cd877d29da961380a3cccb2a": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\concurrent\\futures\\thread.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\concurrent\\futures\\thread.data.json"
+  ],
+  "5889b59b31a3139da688f581dbde1db528cb7b3f1caf5ae48a8b0f3156a146ea": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\concurrent\\futures\\_base.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\concurrent\\futures\\_base.data.json"
+  ],
+  "9a794a2ec76b777483291fbb0cc8c47cbdc58d0a05f0c12e0489376d32d98378": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\concurrent\\futures\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\concurrent\\futures\\__init__.data.json"
+  ],
+  "13aeb9f97027fe8ab0c797e9c90a4df05978c0cd5b3fc82124fe9b2185f6a970": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\ctypes\\wintypes.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\ctypes\\wintypes.data.json"
+  ],
+  "b5ec9d0b2338b2a28f80b861659b4eabfac64f2ade39311cdd503f5636b4cb26": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\ctypes\\_endian.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\ctypes\\_endian.data.json"
+  ],
+  "4a3cb8beee29dc8c00763d14c98d052bee157007c6e54035e4b4be9aeae56a9c": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\ctypes\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\ctypes\\__init__.data.json"
+  ],
+  "b1040696d3df398b39e7bff8e16a4d2a0f83bf9db046d82466637413c1238496": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\dns\\serial.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\dns\\serial.data.json"
+  ],
+  "2c15a4767d72319e62e8568ba124c80644b259c8ae5cd56eaeb46ec70aa9fa91": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\dns\\version.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\dns\\version.data.json"
+  ],
+  "9baa7c9b0cecdf7f4bc8f039aa72080166a28e2ac01f58b33799e88fd6fefaed": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\dns\\_asyncbackend.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\dns\\_asyncbackend.data.json"
+  ],
+  "b00c207ce0e2e00b7fa7d3be98d50ebda64be6644d39f1a99bb0a99d82585298": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\dns\\rdtypes\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\dns\\rdtypes\\__init__.data.json"
+  ],
+  "ab7d90cc9ffdad47cc5acf0ac55399b9f2c5480c086834c54d0c58ae83a243a4": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\dns\\rdtypes\\ANY\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\dns\\rdtypes\\ANY\\__init__.data.json"
+  ],
+  "36cec751afcc2fbf499ec9f8a2b4e5cc02ba099248c6083d17505045420aa7e0": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\email_validator\\version.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\email_validator\\version.data.json"
+  ],
+  "49adb5cf68146ee47160cde5785534bb85d5bf05076444bd435a2280e8d4d6b4": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\encodings\\idna.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\encodings\\idna.data.json"
+  ],
+  "82de62fb5d9a32027bc7dfc83d99441aef4a5b164ded5ac3623be26486c69fcb": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\encodings\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\encodings\\__init__.data.json"
+  ],
+  "d4b19d0932c48588f887ed03e8449407c6e6a2dd68ee363adaa23e4dec4759d6": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\html\\entities.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\html\\entities.data.json"
+  ],
+  "a190df8a0d738e8c570d628600619b0060c15eb96c1b495ee3da1839a8d76c86": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\http\\client.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\http\\client.data.json"
+  ],
+  "f4d100a850eb31c046fce1db46ed1f55d4b65c3267edad46e4515ae1587a063a": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\http\\cookiejar.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\http\\cookiejar.data.json"
+  ],
+  "37d57a47b8acd71cb57f7c50aab6796e1921079e81ba6d571e3bbfe83464c178": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\http\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\http\\__init__.data.json"
+  ],
+  "311c4b02564d7005077667281dfeb8bcf12575596e19571068eed8be51983018": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\json\\decoder.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\json\\decoder.data.json"
+  ],
+  "4f046179652c91af9097ad782fd5581de05e1cb2838288c016f234d6d0580551": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\json\\encoder.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\json\\encoder.data.json"
+  ],
+  "25897b33ea5379047934e92fc5779760ab417f67f0b8b3ac573310f6d19707b3": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\json\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\json\\__init__.data.json"
+  ],
+  "09cd64c5ae655a4695e1120ff866c184d046dadf1f651ceb42127eb89fd6a7ec": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\logging\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\logging\\__init__.data.json"
+  ],
+  "540fe7bce985b700db17c9f34e86fa294584b6422e5dbcd1d6f204b9e9087061": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\markdown_it\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\markdown_it\\__init__.data.json"
+  ],
+  "d62bdb1dad882a7ac03f57ef9f756d0c032f659304cfecd07c8b657e5be6c366": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\markdown_it\\common\\html_blocks.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\markdown_it\\common\\html_blocks.data.json"
+  ],
+  "8f9ec818feffd3bd32e4c8abeeb48e4ecd5b5c5e8f11229d4ea52e4bae62ea67": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\markdown_it\\common\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\markdown_it\\common\\__init__.data.json"
+  ],
+  "d16b16f3dc2d680f97c70700011bcc8b67d4ce90820d157598a03ce5c962eb0c": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\markdown_it\\helpers\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\markdown_it\\helpers\\__init__.data.json"
+  ],
+  "084405725a28563953e719d8e001123c25b5074572291df285961cad228d7025": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\markdown_it\\rules_block\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\markdown_it\\rules_block\\__init__.data.json"
+  ],
+  "342cdf68884455fdb0cc2dfb969e5a9edd16c2e121357d5ef0b57835a0b24b25": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\markdown_it\\rules_core\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\markdown_it\\rules_core\\__init__.data.json"
+  ],
+  "d30e7505313997d0cb96c96b1c3b87a92ada5fb0c361efcb4f4ef2df8ceec512": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\markdown_it\\rules_inline\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\markdown_it\\rules_inline\\__init__.data.json"
+  ],
+  "3a355a6e945a56b84c4d833bae6586eddb787f7aaa6099e177231ff1364fe9f9": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\mdurl\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\mdurl\\__init__.data.json"
+  ],
+  "59c26408cde9154fc1436b0c46d8f1add58b5b4e2aecab08e3e0df09174dc50f": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\connection.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\connection.data.json"
+  ],
+  "a32da2950b42c8223062a40e73bb51f82285bd46a9f7bd6fbcf8ebbd59ffa29f": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\context.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\context.data.json"
+  ],
+  "4ffced0d6e74fbeba9a04c7cf4f9d609ba4e9ce9418ed931df2dac43048adda1": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\managers.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\managers.data.json"
+  ],
+  "a27a82dab377512cb42516bd764cf2b92ea0a4ba1767b2cab5be7b58f7c40b33": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\pool.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\pool.data.json"
+  ],
+  "cfc2c4894598a64df8cb0bacdf5e88100827f405f15690aefa076de721c46de6": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\popen_fork.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\popen_fork.data.json"
+  ],
+  "e2f5170da52adaa1b7e0505187ca657341183302bc7a4d56d20122c0169803d1": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\popen_forkserver.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\popen_forkserver.data.json"
+  ],
+  "ec1c470aed9eeefbbabe38d6a0fa43ed90b0f096155e2347effbed06afcb7710": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\popen_spawn_posix.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\popen_spawn_posix.data.json"
+  ],
+  "aee20a0a7f194034f3f4726de7cc8f340c8c8748e8c23301c9d75b4ccdbb88bc": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\popen_spawn_win32.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\popen_spawn_win32.data.json"
+  ],
+  "a1cd109b00200b59ac23fcfa2f88452016d199a24e4d1490b8402c2e32d4768f": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\process.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\process.data.json"
+  ],
+  "043e64323cab6a31b7697f7dba375416c6c9e7180c2dfd3d05714a3e96e96a29": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\queues.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\queues.data.json"
+  ],
+  "16dff859686b7ca98ac7fa3b1fb6183463bef09f61fa488be2a1c2c421180882": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\reduction.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\reduction.data.json"
+  ],
+  "98a00ef44386609f22b1eeff83897486ec842f3f5e1ea0dfdb96d3a0e410bba7": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\sharedctypes.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\sharedctypes.data.json"
+  ],
+  "01f9d4c74808a5a79cafff5dd3545e2ec1043f1d506088608d7b01a98010cfe3": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\shared_memory.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\shared_memory.data.json"
+  ],
+  "361464c883f2f00f603657e7b49630267db6821c6824965095038cc88253a08a": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\spawn.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\spawn.data.json"
+  ],
+  "c6b5b2b983ed3948be969f7a3ebc002f0d5c1451e076c6eacabebaec8aca8104": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\synchronize.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\synchronize.data.json"
+  ],
+  "d25bd7cfeaa9c3ee18809935102f941268ad79405b40048c5fa6da05f12a100d": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\multiprocessing\\util.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\multiprocessing\\util.data.json"
+  ],
+  "e1c1e005d7cb6d8d71eddf5d892f6ff15d86d8ee0dfae316b37ef25e22d88cc4": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\rich\\errors.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\rich\\errors.data.json"
+  ],
+  "536bd58211e3296df0e338758fc47e9c7d368ee0cb995d1c745a0d456331a954": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\rich\\_cell_widths.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\rich\\_cell_widths.data.json"
+  ],
+  "241954747758097fd6337adbf8c7106758fae3ed742c317df3efc41cab8b66ae": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\rich\\_emoji_codes.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\rich\\_emoji_codes.data.json"
+  ],
+  "0b3853d1cae449a4453d75ccd7d7a53bbab5b004845516c43b79865fadf029d2": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\rich\\_export_format.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\rich\\_export_format.data.json"
+  ],
+  "776f841297e9d1df453c267655cf443f8a2045e662d78f3c2be1941a9234023d": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\rich\\_spinners.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\rich\\_spinners.data.json"
+  ],
+  "16f8f4cabbe13db6923555ddf3c02f08304141144e25d524cd6c6055b34cb9a0": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\urllib\\error.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\urllib\\error.data.json"
+  ],
+  "68b48ed4566c151f5036d953250f60cbab9593729b34523ee9b757b46e5561ac": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\urllib\\parse.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\urllib\\parse.data.json"
+  ],
+  "d6f76cb22443f727ac2aab0354d7806f9b1aee66ce50bb0cb4f0d02df7f72fa9": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\urllib\\request.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\urllib\\request.data.json"
+  ],
+  "c5aff431a2c8a906a5f9edb7d500853c34a6b8cd3a282adf574b6874f3c17aa1": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\urllib\\response.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\urllib\\response.data.json"
+  ],
+  "b8efd7d0f1547d181c22020b9c252471c306353c7a8f5284f6e76ed88b7b4de7": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\urllib\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\urllib\\__init__.data.json"
+  ],
+  "75a7b4569b6ab4174b5766897f141fbe5004eff66df722f1e8cfe4cd0ec00cde": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\wsgiref\\types.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\wsgiref\\types.data.json"
+  ],
+  "997dab6dfc0e5dc297f0bd71761b41e3067495b875a9563a5124d58417706861": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\wsgiref\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\wsgiref\\__init__.data.json"
+  ],
+  "04dfc272e34584326650ecd7080a592603b8ed3101d9a67227fa3a87460836e3": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\zoneinfo\\_common.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\zoneinfo\\_common.data.json"
+  ],
+  "7ea90bfca8528afdb5a59e655a3822e988af91f59314ea9bd1c13e3b80f599ac": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\zoneinfo\\_tzpath.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\zoneinfo\\_tzpath.data.json"
+  ],
+  "543cea65d2f0d332da13d05f5eda5eb8db9c3dbd6cbfd7411edd068ca44c55e9": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\zoneinfo\\__init__.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\zoneinfo\\__init__.data.json"
+  ],
+  "0f82499b19550cbd99221934e6d1f6e4597ac1c650a91a5a693d23e42f0082d1": [
+    "E:\\zeta-monorepo\\extension\\.mypy_cache\\3.11\\_typeshed\\wsgi.data.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\.mypy_cache\\3.11\\_typeshed\\wsgi.data.json"
+  ],
+  "ef25f4bffc35dde7e4b48c9eb24f0791d9a1731409fb97e52810dc798bffda6e": [
+    "E:\\zeta-monorepo\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\git-base\\languages\\git-commit.language-configuration.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\git-base\\languages\\git-rebase.language-configuration.json"
+  ],
+  "23212ccbde466d4f016738ca5b0face1fad052730d238173bbf4f7ca8118d4a5": [
+    "E:\\zeta-monorepo\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\groovy\\language-configuration.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\objective-c\\language-configuration.json"
+  ],
+  "9c5e97d575a631f61a6dd97ce42e4020d0e45a40173bc5c486f669375468b2e5": [
+    "E:\\zeta-monorepo\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\prompt-basics\\language-configuration.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\.vscode-test\\vscode-win32-x64-archive-1.103.2\\resources\\app\\extensions\\markdown-basics\\language-configuration.json"
+  ],
+  "9275634520385cbcd50c754309a719755c1adb4f61a1dbe45f9dc09381753250": [
+    "E:\\zeta-monorepo\\extension\\coverage\\block-navigation.js",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\coverage\\lcov-report\\block-navigation.js"
+  ],
+  "fa1b1e1b906ddcfa08b46f161c0f924f506e1a31b4f3e09b8caaa2463ef52c18": [
+    "E:\\zeta-monorepo\\extension\\coverage\\prettify.js",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\coverage\\lcov-report\\prettify.js"
+  ],
+  "bf39f120c5542c3a6e2c5ae8473bbb5083abf97fecb4edbab94b56abc2fd04eb": [
+    "E:\\zeta-monorepo\\extension\\coverage\\sorter.js",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\coverage\\lcov-report\\sorter.js"
+  ],
+  "2d09a7b95612c5b414d9e25e47ca9fde28ed14d82e37c56e7fe0637ef8d7780e": [
+    "E:\\zeta-monorepo\\extension\\deepseek-core\\auto\\AI_SELF_MANAGEMENT_COMPLETE.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\docs\\AI_SELF_MANAGEMENT_COMPLETE.md"
+  ],
+  "01804d4c0bb108cf7b104241a7b2b7b5c9ef268191f899df08781dea38a15e1e": [
+    "E:\\zeta-monorepo\\extension\\deepseek-core\\auto\\AI_SELF_MANAGEMENT_SETUP.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\docs\\AI_SELF_MANAGEMENT_SETUP.md"
+  ],
+  "ec36a740a3a833df19243124906429f448bd92a09881e6d1709eb6ce23a5fcf7": [
+    "E:\\zeta-monorepo\\extension\\deepseek-core\\auto\\AUTOMATION_IMPLEMENTATION_ROADMAP.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\docs\\AUTOMATION_IMPLEMENTATION_ROADMAP.md"
+  ],
+  "f4aef418a1ce6b94f88fbf6ef902976a10e09618e4bc7b70d304bfb4e6c276cf": [
+    "E:\\zeta-monorepo\\extension\\deepseek-core\\guardian\\.artifacts\\patches\\last_patches.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\deepseek-core\\guardian\\.artifacts\\patches\\analysis_20250901_214133.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\deepseek-core\\guardian\\.artifacts\\patches\\last_auto_patches.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\extension\\deepseek-core\\guardian\\.artifacts\\patches\\patch_20250901_214137.json"
+  ],
+  "88888150b75bbf1a02dd21c53fe03a1f6b959365ff35753dcbf9408f2bbb4fed": [
+    "E:\\zeta-monorepo\\reports\\consolidation_audit\\20250907_164143\\python_import_issues.json",
+    "E:\\zeta-monorepo\\reports\\consolidation_audit\\20250907_164613\\python_import_issues.json"
+  ],
+  "aeb5032feafacbe1c90adc959b58ec7924ae663fe7e712d938290f4807bcd7d3": [
+    "E:\\zeta-monorepo\\reports\\consolidation_audit\\20250907_164143\\python_import_issues.md",
+    "E:\\zeta-monorepo\\reports\\consolidation_audit\\20250907_164613\\python_import_issues.md"
+  ],
+  "2fce5f1c8de6418e843041d679975805d9b6870eb282bb757e609bd6ece2b1e5": [
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_all_init_files.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_entity_imports.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_final_modules.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_goal_constructors.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_model_imports.py",
+    "E:\\zeta-monorepo\\reports\\consolidation_trash\\20250907_175850\\tools\\scripts\\maintenance\\fix_pydantic_validators.py",
+    "E:\\zeta-monorepo\\tools\\scripts\\maintenance\\fix_test_imports.py"
+  ]
+}

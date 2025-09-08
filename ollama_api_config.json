@@ -1,0 +1,26 @@
+{
+  "api_settings": {
+    "turbo_api_key": "5358cc7f4f8f4162b0836a41f9f50d29.fpjkoY9kodkgdElqampPgxMP",
+    "primary_endpoint": "https://api.turbo.ai/v1",
+    "fallback_endpoint": "http://127.0.0.1:11434",
+    "timeout": 30,
+    "max_retries": 3
+  },
+  "optimization": {
+    "cache_enabled": true,
+    "cache_ttl_seconds": 600,
+    "rate_limit_requests_per_minute": 60,
+    "max_tokens_per_request": 1000,
+    "batch_size": 5
+  },
+  "cost_control": {
+    "daily_budget_usd": 5.0,
+    "max_cost_per_request": 0.1,
+    "alert_threshold": 0.8
+  },
+  "fallback_strategy": {
+    "use_local_ollama_for_dev": true,
+    "fallback_on_error": true,
+    "fallback_on_rate_limit": true
+  }
+}

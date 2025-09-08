@@ -1,0 +1,25 @@
+# Author: Duy BG VN
+# ZETA AI - Processed Files Storage
+
+# This directory stores successfully processed files
+# Files are organized by user, date, and processing type
+
+# Structure:
+# processed/
+# ├── documents/        # Processed documents (PDF, DOC, etc.)
+# ├── images/          # Processed images (resized, optimized)
+# ├── audio/           # Processed audio files (converted, enhanced)
+# ├── videos/          # Processed video files (compressed, thumbnails)
+# └── models/          # Processed AI model files
+
+# Retention Policy:
+# - Files are kept for 30 days by default
+# - Premium users: 1 year retention
+# - Enterprise users: Custom retention policy
+
+# Backup:
+# - Files are automatically backed up to cloud storage
+# - Local backup retention: 7 days
+# - Disaster recovery: 24 hour RPO
+
+# Keep this directory in git but exclude actual files
