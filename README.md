@@ -93,6 +93,45 @@ code --install-extension aryansrao.deekseek-extension
 
 visit https://marketplace.visualstudio.com/items?itemName=aryansrao.deekseek-extension
 
+## 🚀 Advanced Setup with API Key
+
+For advanced users who want to use Ollama API Turbo with API key authentication, we provide a comprehensive setup guide:
+
+### 📓 Interactive Setup Guide
+
+```bash
+jupyter notebook ollama_api_turbo_setup_guide.ipynb
+```
+
+**Features:**
+- ✅ Cross-platform automated setup (Windows/macOS/Linux)
+- ✅ Secure API key management with environment variables  
+- ✅ Complete VS Code integration with Continue extension
+- ✅ SSH key management for model pushing
+- ✅ Comprehensive testing and troubleshooting
+- ✅ Backup and restore functionality
+- ✅ Enterprise-grade security practices
+
+### ⚡ Quick Setup (One Command)
+
+For experienced users:
+
+```bash
+python setup_scripts/quick_setup.py --api-key YOUR_API_KEY
+```
+
+### 🧪 Test Your Setup
+
+```bash
+python setup_scripts/test_api.py
+```
+
+### 📚 Setup Documentation
+
+- **Main Guide**: `ollama_api_turbo_setup_guide.ipynb` - Complete interactive setup
+- **Quick Scripts**: `setup_scripts/` - Automated setup utilities  
+- **Templates**: Configuration templates for different setups
+
   
 
 ## What It Does
