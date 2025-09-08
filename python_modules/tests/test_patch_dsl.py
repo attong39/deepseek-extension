@@ -316,6 +316,17 @@ malicious content
         # Should convert absolute path to just the filename
         self.assertEqual(result[0], Path("passwd"))
     
+    def test_path_traversal_security(self):
+        """Test that path traversal attempts are blocked."""
+        text = """```python ../../../etc/passwd append
+malicious content
+```"""
+        
+        with self.assertRaises(ValueError) as context:
+            apply_fenced_patches(text, apply=False)
+        
+        self.assertIn("Path traversal detected", str(context.exception))
+    
     def test_no_fenced_blocks(self):
         """Test text with no fenced blocks."""
         text = "This is just regular text with no code blocks."
