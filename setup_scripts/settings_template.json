@@ -1,0 +1,26 @@
+{
+  "ollama.host": "http://127.0.0.1:11434",
+  "ollama.apiKey": "${OLLAMA_API_KEY}",
+  "ollama.model": "deepseek-r1:latest",
+  "continue.telemetryEnabled": false,
+  "continue.enableTabAutocomplete": true,
+  "continue.continueProvider": "ollama",
+  "continue.models": [
+    {
+      "title": "DeepSeek R1",
+      "provider": "ollama", 
+      "model": "deepseek-r1:latest",
+      "apiKey": "${OLLAMA_API_KEY}"
+    },
+    {
+      "title": "DeepSeek Coder",
+      "provider": "ollama",
+      "model": "deepseek-coder:6.7b", 
+      "apiKey": "${OLLAMA_API_KEY}"
+    }
+  ],
+  "editor.tabCompletion": "on",
+  "editor.inlineSuggest.enabled": true,
+  "editor.wordBasedSuggestions": false,
+  "editor.suggest.localityBonus": true
+}

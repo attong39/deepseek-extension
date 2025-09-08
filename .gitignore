@@ -15,3 +15,28 @@ python_modules/**/*.pyo
 python_modules/**/*.pyd
 python_modules/.pytest_cache/
 python_modules/**/.pytest_cache/
+
+# Ollama Setup Security
+*.env
+.env.*
+api_keys.txt
+secrets.json
+*.key
+*.pem
+~/.ollama
+.ollama/
+
+# Backup Files
+settings_backup_*.json
+config_backup_*/
+ollama_backup_*/
+ollama_api_turbo_setup_guide.ipynb.backup
+
+# Logs
+ollama_setup.log
+*.log
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
