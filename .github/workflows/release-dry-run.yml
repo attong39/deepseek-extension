@@ -1,0 +1,101 @@
+name: Release Dry-Run
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g., v1.0.0)'
+        required: true
+        type: string
+      environment:
+        description: 'Target environment'
+        required: false
+        default: 'staging'
+        type: choice
+        options:
+        - staging
+        - production
+
+jobs:
+  release-dry-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        python -m pytest --cov=. --cov-report=xml --cov-report=term-missing
+
+    - name: Coverage gate
+      run: |
+        python tools/ci/coverage_gate.py --min 0.85 coverage.xml
+
+    - name: Build Docker image (dry-run)
+      run: |
+        docker build --no-cache --progress=plain --tag zeta-app:${{ github.event.inputs.tag }} .
+        docker images zeta-app:${{ github.event.inputs.tag }}
+
+    - name: Security scan (dry-run)
+      run: |
+        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+          aquasecurity/trivy:latest image --exit-code 0 --no-progress \
+          zeta-app:${{ github.event.inputs.tag }}
+
+    - name: Generate SBOM
+      run: |
+        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+          aquasecurity/trivy:latest image --format spdx-json \
+          zeta-app:${{ github.event.inputs.tag }} > sbom.json
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-artifacts-${{ github.event.inputs.tag }}
+        path: |
+          coverage.xml
+          sbom.json
+          test-results.xml
+
+    - name: Helm lint (if chart exists)
+      run: |
+        if [ -d "chart" ]; then
+          helm lint chart/
+        else
+          echo "No Helm chart found, skipping helm lint"
+        fi
+
+    - name: Release notes preview
+      run: |
+        echo "## Release ${{ github.event.inputs.tag }}" > release-notes.md
+        echo "" >> release-notes.md
+        echo "### Changes" >> release-notes.md
+        git log --oneline --pretty=format:"- %s" $(git describe --tags --abbrev=0)..HEAD >> release-notes.md
+        echo "" >> release-notes.md
+        echo "### Coverage: $(python -c "import xml.etree.ElementTree as ET; print(f'{float(ET.parse(\"coverage.xml\").getroot().get(\"line-rate\", \"0\")):.1%}')")" >> release-notes.md
+        cat release-notes.md
+
+    - name: Upload release notes
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-notes-${{ github.event.inputs.tag }}
+        path: release-notes.md

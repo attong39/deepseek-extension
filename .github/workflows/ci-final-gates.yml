@@ -1,0 +1,278 @@
+name: CI Final Gates
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci-doctor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      status: ${{ steps.doctor.outputs.status }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Run CI Doctor
+      id: doctor
+      run: |
+        python tools/ci/doctor.py > doctor-report.json
+        if [ $? -eq 0 ]; then
+          echo "status=pass" >> $GITHUB_OUTPUT
+        else
+          echo "status=fail" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+    - name: Upload doctor report
+      uses: actions/upload-artifact@v3
+      with:
+        name: ci-doctor-report
+        path: doctor-report.json
+
+  consistency-guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check consistency
+      run: |
+        python -c "
+        import json
+        with open('FINAL_PROJECT_STATUS.json') as f:
+            status = json.load(f)
+        if status.get('consistency_check', {}).get('passed', False):
+            print('Consistency check passed')
+        else:
+            print('Consistency check failed')
+            exit(1)
+        "
+
+  auto-fix-dry-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install ruff black isort mypy
+    - name: Auto-fix dry run
+      run: |
+        ruff check --diff .
+        black --check --diff .
+        isort --check-only --diff .
+
+  qa-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install ruff mypy bandit pip-audit pytest pytest-cov
+    - name: Ruff lint
+      run: ruff check .
+    - name: Black format check
+      run: black --check .
+    - name: isort import check
+      run: isort --check-only .
+    - name: MyPy type check
+      run: mypy . --ignore-missing-imports
+    - name: Bandit security scan
+      run: bandit -r . -f json -o bandit-report.json
+    - name: Pip audit
+      run: pip-audit --format json > pip-audit-report.json
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-reports
+        path: |
+          bandit-report.json
+          pip-audit-report.json
+
+  test-coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov
+    - name: Run tests with coverage
+      run: |
+        python -m pytest --cov=. --cov-report=xml --cov-report=term-missing --junitxml=test-results.xml
+    - name: Coverage gate
+      run: |
+        python tools/ci/coverage_gate.py --min 0.85 coverage.xml
+    - name: Upload coverage reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-reports
+        path: |
+          coverage.xml
+          test-results.xml
+
+  build-security-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Docker Buildx
+      uses: actions/setup-buildx-action@v3
+    - name: Build Docker image
+      uses: actions/docker/build-push-action@v5
+      with:
+        context: .
+        push: false
+        tags: zeta-app:ci-${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    - name: Trivy vulnerability scan
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'image'
+        scan-ref: 'zeta-app:ci-${{ github.sha }}'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+    - name: Upload Trivy scan results
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  e2e-smoke-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+        - 6379:6379
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run E2E smoke tests
+      run: |
+        python e2e_smoke_test.py
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: e2e-test-results
+        path: e2e-results.json
+
+  contract-snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+    - uses: actions/checkout@v4
+    - name: Generate contract snapshot
+      run: |
+        python -c "
+        import json
+        import hashlib
+        import os
+        
+        def hash_file(filepath):
+            if os.path.exists(filepath):
+                with open(filepath, 'rb') as f:
+                    return hashlib.sha256(f.read()).hexdigest()
+            return None
+        
+        snapshot = {
+            'timestamp': '$(date -u +%Y%m%d_%H%M%S)',
+            'commit': '${{ github.sha }}',
+            'files': {
+                'requirements.txt': hash_file('requirements.txt'),
+                'pyproject.toml': hash_file('pyproject.toml'),
+                'Makefile': hash_file('Makefile'),
+                'docker-compose.yml': hash_file('docker-compose.yml'),
+            }
+        }
+        
+        with open('contract-snapshot.json', 'w') as f:
+            json.dump(snapshot, f, indent=2)
+        "
+    - name: Upload contract snapshot
+      uses: actions/upload-artifact@v3
+      with:
+        name: contract-snapshot
+        path: contract-snapshot.json
+
+  final-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [ci-doctor, consistency-guard, auto-fix-dry-run, qa-gates, test-coverage, build-security-scan, e2e-smoke-test, contract-snapshot]
+    if: always()
+    steps:
+    - name: Final gate check
+      run: |
+        if [ "${{ needs.ci-doctor.result }}" != "success" ]; then
+          echo "CI Doctor failed"
+          exit 1
+        fi
+        if [ "${{ needs.consistency-guard.result }}" != "success" ]; then
+          echo "Consistency guard failed"
+          exit 1
+        fi
+        if [ "${{ needs.qa-gates.result }}" != "success" ]; then
+          echo "QA gates failed"
+          exit 1
+        fi
+        if [ "${{ needs.test-coverage.result }}" != "success" ]; then
+          echo "Test coverage failed"
+          exit 1
+        fi
+        if [ "${{ needs.build-security-scan.result }}" != "success" ]; then
+          echo "Build security scan failed"
+          exit 1
+        fi
+        if [ "${{ needs.e2e-smoke-test.result }}" != "success" ]; then
+          echo "E2E smoke test failed"
+          exit 1
+        fi
+        echo "All gates passed! ✅"
