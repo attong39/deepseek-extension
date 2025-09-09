@@ -12,15 +12,12 @@ Usage:
   uv run python tools/consistency/openapi_hash.py --write
 """
 from __future__ import annotations
-import argparse, hashlib, json, os, sys
+
+import argparse
+import hashlib
+import json
+import sys
 from pathlib import Path
-import SystemExit
-import dict
-import doc
-import int
-import path
-import print
-import str
 
 # Add project root to Python path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))

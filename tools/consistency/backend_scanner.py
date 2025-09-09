@@ -6,30 +6,17 @@ import hashlib
 import os
 import re
 from pathlib import Path
-from typing import Set, Dict, Any
+from typing import Any
+
 from pydantic import BaseModel
-import Exception
-import dict
-import doc
-import e
-import f
-import len
-import list
-import openapi_doc
-import path
-import pattern
-import print
-import py_file
-import set
-import str
 
 
 class BackendScan(BaseModel):
     """Backend scan results."""
-    routes: Set[str]
-    ws_routes: Set[str] 
-    flags: Set[str]
-    ws_events_spec: Set[str]
+    routes: set[str]
+    ws_routes: set[str] 
+    flags: set[str]
+    ws_events_spec: set[str]
     openapi_hash: str
 
 
@@ -47,7 +34,7 @@ def _hash_openapi(doc: dict) -> str:
     return hashlib.sha256(normalized).hexdigest()[:12]
 
 
-def scan_backend(openapi_doc: Dict[str, Any], repo_root: str | Path = ".") -> BackendScan:
+def scan_backend(openapi_doc: dict[str, Any], repo_root: str | Path = ".") -> BackendScan:
     """
     Scan backend for API routes, WebSocket contracts, and feature flags.
     

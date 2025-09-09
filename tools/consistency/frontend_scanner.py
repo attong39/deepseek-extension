@@ -2,18 +2,11 @@
 Frontend Scanner - Extract contract usage from TypeScript/TSX files
 Uses regex patterns for fast scanning without AST parsing
 """
+from __future__ import annotations
+
 import re
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Set, Dict, Iterable
-import Exception
-import e
-import ext
-import filepath
-import len
-import m
-import print
-import set
-import str
 
 
 # Regex patterns for contract extraction
@@ -50,7 +43,7 @@ def _iter_typescript_files(root: Path) -> Iterable[Path]:
         yield from root.rglob(ext)
 
 
-def scan_frontend(root: str | Path) -> Dict[str, Set[str]]:
+def scan_frontend(root: str | Path) -> dict[str, set[str]]:
     """
     Scan frontend files for API usage, WebSocket endpoints, events, and flags.
     

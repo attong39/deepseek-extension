@@ -1,32 +1,44 @@
-# Zeta-VN Core Readiness Checklist (Agents + Memory)
+# Readiness Checklist
 
-Production readiness checklist for Multi-Agent Orchestration and Advanced Memory systems. This checklist ensures the core platform is secure, observable, reliable, and performant for staging/production deployment.
+## CI/CD Infrastructure
+- CI workflows: ci-final-gates.yml, consistency-guard.yml ✅
+- Auto-Fix docs: docs/AUTO_FIX.md ✅  
+- Consistency Guard docs: docs/CONSISTENCY_GUARD.md ✅
+- Branch protection: main (required checks: ci-final-gates, consistency-guard) ✅
 
-## 🔒 Security & Identity
+## Code Quality Gates
+- CI Doctor: Repository validation and sanity checks ✅
+- Consistency Guard: Contract synchronization between Desktop and AI Server ✅
+- Auto-Fix dry-run: Automated code fixes without modification ✅
+- QA Gates: ruff, mypy, bandit, pip-audit ✅
+- Coverage Gate: ≥85% test coverage requirement ✅
+- Security Scan: Docker build + Trivy vulnerability scanning ✅
+- E2E Testing: WebSocket/API smoke tests ✅
+- Contract Snapshot: API contract validation ✅
 
-### Zero-Trust Authentication
-- [ ] **Zero-Trust middleware enabled** in staging/production environments
-- [ ] **JWT RS256 validation** configured with `JWT_PUBLIC_KEY_PEM` environment variable
-- [ ] **Public key rotation** process documented and tested
-- [ ] **Role-based access control** implemented for agent team operations
-- [ ] **MFA enforcement** for high-privilege operations (team creation, admin functions)
-- [ ] **Device trust verification** for sensitive workflows
+## Repository Standards
+- PR Template: .github/PULL_REQUEST_TEMPLATE.md ✅
+- Issue Templates: .github/ISSUE_TEMPLATE/bug_report.md ✅
+- Code Owners: .github/CODEOWNERS ✅
+- Documentation: README.md, API docs ✅
 
-### Data Protection  
-- [ ] **No PII logging** - audit logs contain only metadata and identifiers
-- [ ] **Sensitive data masking** in application logs and metrics
-- [ ] **API payload size limits** enforced (≤64KB per request)
-- [ ] **Rate limiting** configured for REST endpoints and WebSocket connections
-- [ ] **Input validation** on all agent team parameters and workflow specifications
-- [ ] **Security headers** configured (CORS, CSP, HSTS)
+## Branch Protection Rules
+- Required status checks: ci-final-gates, consistency-guard ✅
+- Dismiss stale reviews: enabled ✅
+- Required approving review count: 1 ✅
+- Enforce for administrators: enabled ✅
 
-### Audit & Compliance
-- [ ] **Authentication events** logged with timestamp, user ID, IP, outcome
-- [ ] **Authorization decisions** tracked with resource, action, allow/deny result  
-- [ ] **Admin operations** logged (team creation, workflow modification, system config)
-- [ ] **Failed access attempts** monitored with alerting thresholds
-- [ ] **Session management** with idle timeout and concurrent session limits
-- [ ] **Security incident response** procedures documented
+## Tools and Scripts
+- Branch protection setup: tools/ci/set_branch_protection.sh ✅
+- PR creation automation: tools/ci/create_pr.sh ✅
+- Makefile targets: ci-push, ci-pr, ci-protect ✅
+
+## Next Steps
+1. Push ci/gates-v2 branch to GitHub
+2. Create PR using `make ci-pr`
+3. Set branch protection using `make ci-protect`
+4. Monitor CI pipeline execution
+5. Review and merge PR when all gates pass
 
 ## 📊 Observability
 

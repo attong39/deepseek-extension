@@ -1,27 +1,15 @@
 """
 Report Generator - Create JSON and Markdown reports
 """
+from __future__ import annotations
+
 import json
-from pathlib import Path
-from typing import Any, Dict
 from datetime import datetime
-import ImportError
-import event
-import issue
-import len
-import print
-import reason
-import result
-import route
-import str
-
-try:
-    from .utils import mask
-except ImportError:
-    from utils import mask
+from pathlib import Path
+from typing import Any
 
 
-def write_reports(result: Dict[str, Any], out_dir: str | Path = "reports/consistency") -> None:
+def write_reports(result: dict[str, Any], out_dir: str | Path = "reports/consistency") -> None:
     """
     Write consistency check results to JSON and Markdown files.
     
@@ -53,11 +41,12 @@ def write_reports(result: Dict[str, Any], out_dir: str | Path = "reports/consist
     print(f"   - Markdown: {md_file}")
 
 
-def _generate_markdown_report(result: Dict[str, Any]) -> str:
+def _generate_markdown_report(result: dict[str, Any]) -> str:
     """Generate human-readable Markdown report."""
     
-    severity = result["severity"]
-    reasons = result.get("reasons", [])
+    compare_result = result.get("compare", {})
+    severity = compare_result.get("severity", "unknown")
+    reasons = compare_result.get("reasons", [])
     
     # Status emoji
     status_emoji = {
@@ -73,7 +62,7 @@ def _generate_markdown_report(result: Dict[str, Any]) -> str:
         "",
         f"**Status**: {emoji} {severity.upper()}",
         f"**Timestamp**: {result.get('timestamp', 'unknown')}",
-        f"**OpenAPI Hash**: `{result['openapi_hash']}`",
+        f"**OpenAPI Hash**: `{result.get('openapi_hash', 'unknown')}`",
         ""
     ]
     
@@ -88,7 +77,7 @@ def _generate_markdown_report(result: Dict[str, Any]) -> str:
         md_lines.append("")
     
     # Critical issues (if any)
-    critical_issues = result.get("critical_issues", [])
+    critical_issues = compare_result.get("critical_issues", [])
     if critical_issues:
         md_lines.extend([
             "## ❌ Critical Issues (Will Fail CI)",
@@ -99,7 +88,7 @@ def _generate_markdown_report(result: Dict[str, Any]) -> str:
         md_lines.append("")
     
     # Warning issues (if any)
-    warning_issues = result.get("warning_issues", [])
+    warning_issues = compare_result.get("warning_issues", [])
     if warning_issues:
         md_lines.extend([
             "## ⚠️ Warning Issues (Non-blocking)",
@@ -110,7 +99,7 @@ def _generate_markdown_report(result: Dict[str, Any]) -> str:
         md_lines.append("")
     
     # Statistics
-    stats = result.get("stats", {})
+    stats = compare_result.get("stats", {})
     if stats:
         md_lines.extend([
             "## 📈 Statistics",
@@ -131,7 +120,7 @@ def _generate_markdown_report(result: Dict[str, Any]) -> str:
     ])
     
     # API Routes
-    api_diff = result.get("api", {})
+    api_diff = compare_result.get("api", {})
     md_lines.extend([
         "### API Routes",
         f"- **Missing in Frontend**: {len(api_diff.get('missing_in_frontend', []))} routes",
@@ -158,7 +147,7 @@ def _generate_markdown_report(result: Dict[str, Any]) -> str:
         md_lines.extend(["```", ""])
     
     # WebSocket Routes
-    ws_diff = result.get("ws_routes", {})
+    ws_diff = compare_result.get("ws_routes", {})
     md_lines.extend([
         "### WebSocket Routes", 
         f"- **Missing in Frontend**: {len(ws_diff.get('missing_in_frontend', []))} routes",
@@ -167,7 +156,7 @@ def _generate_markdown_report(result: Dict[str, Any]) -> str:
     ])
     
     # WebSocket Events
-    events_diff = result.get("ws_events", {})
+    events_diff = compare_result.get("ws_events", {})
     md_lines.extend([
         "### WebSocket Events",
         f"- **Missing in Frontend**: {len(events_diff.get('missing_in_frontend', []))} events", 
@@ -185,7 +174,7 @@ def _generate_markdown_report(result: Dict[str, Any]) -> str:
         md_lines.extend(["```", ""])
     
     # Feature Flags
-    flags_diff = result.get("feature_flags", {})
+    flags_diff = compare_result.get("feature_flags", {})
     md_lines.extend([
         "### Feature Flags",
         f"- **Backend flags not used in Frontend**: {len(flags_diff.get('missing_in_frontend', []))}",

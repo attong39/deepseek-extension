@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from git_changed import staged_or_diff
 from python.analyzer import PyImportAnalyzer
 from python.injector import insert_imports as py_insert
-from python.requirements_updater import ensure_requirements as py_require
+from python.requirements_updater_clean import ensure_requirements as py_require
 try:
     from python.pyproject_updater import ensure_pyproject_deps
 except ImportError:
@@ -69,9 +69,14 @@ def main() -> int:
             except SyntaxError:
                 mark_fresh(f, cache); continue
             miss = an.missing_symbols()
-            if miss and not args.dry_run:
-                added = py_insert(f, sorted(miss))
-                if added: py_imports.append(f"{f}: {', '.join(added)}")
+            if miss:
+                if args.dry_run:
+                    # In dry-run, show what would be added
+                    py_imports.append(f"{f}: {', '.join(sorted(miss))}")
+                else:
+                    # In real mode, actually add imports
+                    added = py_insert(f, sorted(miss))
+                    if added: py_imports.append(f"{f}: {', '.join(added)}")
             if miss: miss_all.update(miss)
             mark_fresh(f, cache)
         if miss_all:
@@ -105,7 +110,7 @@ def main() -> int:
             for sym in sorted(candidates):
                 alias = ts_paths.resolve(sym)
                 if alias:
-                    plan.append((sym, alias)); continue
+                    plan.append((sym, to_import_path(f, alias))); continue
                 src = find_component_source(sym, f)
                 if src:
                     plan.append((sym, to_import_path(f, src)))

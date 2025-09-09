@@ -2,28 +2,18 @@
 Contract Comparison - Analyze differences and determine severity
 """
 from __future__ import annotations
+
 import json
-from pathlib import Path
-from typing import Dict, Any, List
 from dataclasses import dataclass
-import Exception
-import backend_scan
-import dict
-import f
-import frontend_scan
-import issue
-import len
-import print
-import set
-import sorted
-import str
+from pathlib import Path
+from typing import Any
 
 
 @dataclass
 class Diff:
     """Contract difference representation."""
-    missing_in_frontend: List[str]
-    extra_in_frontend: List[str]
+    missing_in_frontend: list[str]
+    extra_in_frontend: list[str]
 
 
 def _load_flags_map() -> dict[str, str]:
@@ -37,7 +27,7 @@ def _load_flags_map() -> dict[str, str]:
     return {}
 
 
-def compare(frontend_scan: Dict[str, set], backend_scan) -> Dict[str, Any]:
+def compare(frontend_scan: dict[str, set], backend_scan) -> dict[str, Any]:
     """
     Compare frontend and backend contracts to detect mismatches.
     

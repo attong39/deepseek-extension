@@ -4,13 +4,10 @@ Consistency Guard - Entry Point
 Run full Desktop ↔ AI Server contract synchronization check.
 Exit code: 0 (ok/warn) or 1 (fail)
 """
+import json
 import sys
+import traceback
 from pathlib import Path
-import Exception
-import e
-import int
-import print
-import str
 
 # Add current directory and parent to Python path for imports
 current_dir = Path(__file__).parent
@@ -18,13 +15,13 @@ root_dir = current_dir.parent.parent
 sys.path.insert(0, str(root_dir))
 sys.path.insert(0, str(current_dir))
 
-from openapi_loader import load_openapi
-from frontend_scanner import scan_frontend
 from backend_scanner import scan_backend
 from compare_contracts import compare
-from report import write_reports
-from openapi_hash import calc_hash
 from fe_hash import read_fe_hash
+from frontend_scanner import scan_frontend
+from openapi_hash import calc_hash
+from openapi_loader import load_openapi
+from report import write_reports
 
 
 def main() -> int:
@@ -87,11 +84,10 @@ def main() -> int:
         
         # Step 8: Output result for CI consumption
         print("\n7️⃣ Final result:")
-        import json
         print(json.dumps(enhanced_result, ensure_ascii=False, indent=2))
         
         # Determine exit code
-        severity = enhanced_result["severity"]
+        severity = comparison_result["severity"]
         if severity == "fail":
             print("\n❌ Consistency Guard FAILED - Critical mismatches detected")
             print("   CI will be blocked until issues are resolved")
@@ -106,7 +102,6 @@ def main() -> int:
             
     except Exception as e:
         print(f"\n💥 Consistency Guard ERROR: {e}")
-        import traceback
         traceback.print_exc()
         return 1
 

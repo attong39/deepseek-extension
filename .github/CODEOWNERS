@@ -1,4 +1,4 @@
-# Default owners
+# Yêu cầu 1 review của team core cho mọi thay đổi
 * @attong39
 
 # Folders
@@ -7,3 +7,5 @@
 /extension/ @attong39
 /zeta-ai-agent/ @attong39
 /packages/ @attong39
+/tools/ @attong39
+/.github/ @attong39

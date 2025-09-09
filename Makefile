@@ -159,3 +159,19 @@ lint-fix:
 cleanup:
 	@echo "🗂️ Run repository cleanup..."
 	uv run python tools/repo_maintenance/cleanup.py
+
+# ==================== CI/CD V2 Targets ====================
+
+.PHONY: ci-push ci-pr ci-protect
+ci-push:
+	@git rev-parse --is-inside-work-tree >nul 2>&1
+	@git remote | findstr /x "origin" >nul 2>&1 || (echo "⚠️  Chưa có remote origin. Chạy: git remote add origin <URL>" && exit 1)
+	git push -u origin ci/gates-v2
+
+ci-pr:
+	@where gh >nul 2>&1 || (echo "Cài GitHub CLI: https://cli.github.com/" && exit 1)
+	bash tools/ci/create_pr.sh
+
+ci-protect:
+	@where gh >nul 2>&1 || (echo "Cài GitHub CLI: https://cli.github.com/" && exit 1)
+	@for /f "tokens=1" %%i in ('git config --get remote.origin.url ^| powershell -Command "$input | ForEach-Object { $_ -replace '.*github.com[:/]', '' -replace '\.git$', '' }"') do set GH_REPO=%%i && bash tools/ci/set_branch_protection.sh main

@@ -1,16 +1,6 @@
 from __future__ import annotations
 from pathlib import Path
 from typing import Iterable
-import file_path
-import int
-import l
-import len
-import list
-import range
-import s
-import set
-import str
-import symbols
 
 def _find_insert_idx(lines: list[str]) -> int:
     i = 0

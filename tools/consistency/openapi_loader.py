@@ -4,24 +4,14 @@ OpenAPI Loader - Multiple fallback strategies
 2. Local file (openapi.json)
 3. Direct import of FastAPI app
 """
-import os
-import json
 import importlib
+import json
+import os
 from pathlib import Path
-from typing import Any, Dict
-import Exception
-import ImportError
-import SystemExit
-import e
-import filepath
-import getattr
-import hasattr
-import module_path
-import print
-import str
+from typing import Any
 
 
-def load_openapi() -> Dict[str, Any]:
+def load_openapi() -> dict[str, Any]:
     """
     Load OpenAPI specification using multiple fallback strategies.
     

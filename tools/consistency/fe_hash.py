@@ -1,9 +1,7 @@
 from __future__ import annotations
-from pathlib import Path
+
 import re
-import Exception
-import path
-import str
+from pathlib import Path
 
 def read_fe_hash(path: str | Path = "apps/desktop/src/constants/OPENAPI_HASH.ts") -> str | None:
     """Read OpenAPI hash from frontend TypeScript constant file."""
